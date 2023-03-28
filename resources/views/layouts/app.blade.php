@@ -16,7 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Styles -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     @livewireStyles
 
     <style>
@@ -57,7 +60,7 @@
     </div>
 
 
-    @yield('javascript')
+    @stack('scripts')
     
 
 

@@ -1,6 +1,6 @@
 import './bootstrap';
 
-import Splide from '@splidejs/splide';
+//import Swiper from 'swiper';
 
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
@@ -14,9 +14,3 @@ Alpine.plugin(NotificationsAlpinePlugin)
 Alpine.plugin(focus);
 
 Alpine.start();
-
-
-new Splide( '.splide', { 
-    perPage: 1,
-  focus  : 'center',
-} ).mount();

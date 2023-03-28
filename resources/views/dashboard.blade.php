@@ -2,36 +2,19 @@
 
 @section('content')
 <div>
-    <div class="px-8 py-12 bg-gray-100 lg:px-16">
-        <section class="splide" aria-label="Splide Basic HTML Example">
-            <div class="splide__track">
-                  <div class="splide__list">
-                      @foreach($scripts as $index => $script)
-                      <div class="mx-16 splide__slide">
-                        <div >
-                            <div class="flex-shrink-0 bg-white border rounded-md lg:p-6">
+    <div class="px-4 py-12 bg-gray-100 lg:px-16">
+        <section class="hidden lg:block">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    @foreach($scripts as $index => $script)
+                    <div class="swiper-slide">
+                        <div  id="script{{ $index }}">
+                            <div class="flex-shrink-0 lg:w-[64rem] bg-white border rounded-md lg:p-6">
                                 <header>
                                     <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
                                     <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->id }} {{ $script->title }}</h3>
                                 </header>
-                                <div class="block lg:hidden">
-                                    <div class="group h-96 w-80 [perspective:1000px]">
-                                        <div class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                                          <div class="absolute inset-0">
-                                            <img class="object-cover w-full h-full shadow-xl rounded-xl shadow-black/40" src="https://images.unsplash.com/photo-1562583489-bf23ec64651d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')" alt="" />
-                                          </div>
-                                          <div class="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                                            <div class="flex flex-col items-center justify-center min-h-full">
-                                              <h1 class="text-3xl font-bold">Jane Doe</h1>
-                                              <p class="text-lg">Photographer & Art</p>
-                                              <p class="text-base">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-                                              <button class="px-2 py-1 mt-2 text-sm rounded-md bg-neutral-800 hover:bg-neutral-900">Read More</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                </div>
-                                <div class="hidden gap-6 lg:grid lg:grid-cols-2">
+                                <div class="gap-6 lg:grid lg:grid-cols-2">
                                     <div class="p-3 py-4 space-y-3 lg:p-4">
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Path</div>
@@ -90,18 +73,86 @@
                                 </div>
                             </div>
                         </div>
-                      </div>
-                      @endforeach
-                  </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-          </section>
+        </section>
+
+        <section class="lg:hidden">
+            <div class="p-3 bg-white border rounded-md">
+                <h3>Continue Studying</h3>
+
+                <div class="mt-8 swiper mobileSwiper">
+                    <div class="mb-16 swiper-wrapper">
+                        @foreach($scripts as $script)
+                        <div class="px-2 py-3 rounded-md shadow-md swiper-slide">
+                            <div class="flex flex-col justify-between h-full">
+                                <p class="text-gray-900">{{ $script->title }}</p>
+                                <p class="text-xs text-gray-700 ">{{ $script->category?->name }}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                
+            </div>
+
+            <section class="mt-8">
+                <h3>Categories</h3>
+
+
+                <div class="space-y-4">
+                    @foreach($categories as $category)
+                    <div class="p-3 mt-4 bg-white border rounded-md">
+                        <div class="flex items-center gap-4">
+                            @if(null)
+                            <img src="{{ $category->image_url }}" class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md" alt="">
+                            @endif
+                            <x-heroicon-s-lightning-bolt class="w-8 h-8 text-gray-900"/>
+                            <div>
+                                <h4>{{ $category->name }}</h4>
+                                <p class="mt-1 text-xs text-gray-600">{{ $category->scripts_count }} cards</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </section>
+
+        </section>
     </div>
     
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
-@endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "auto",
+            pagination: {
+              el: ".swiper-pagination",
+            },
+            mousewheel: {
+                forceToAxis: true,
+                sensitivity: 1,
+            },
+          });
+
+        var mobileSwiper = new Swiper(".mobileSwiper", {
+            slidesPerView: 2,
+            pagination: {
+              el: ".swiper-pagination",
+            },
+          });
+    });
+    
+  </script>
+@endpush
 
 
