@@ -21,4 +21,9 @@ class Script extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
