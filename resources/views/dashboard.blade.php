@@ -106,18 +106,15 @@
 
                 <div class="space-y-4">
                     @foreach($categories as $category)
-                    <div class="p-3 mt-4 bg-white border rounded-md">
+                    <a href="{{ route('category.show', $category->id) }}" class="block p-3 mt-4 bg-white border rounded-md">
                         <div class="flex items-center gap-4">
-                            @if(null)
-                            <img src="{{ $category->image_url }}" class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md" alt="">
-                            @endif
-                            <x-heroicon-s-lightning-bolt class="w-8 h-8 text-gray-900"/>
+                            <img src="{{ asset('storage/' . $category->image) }}" class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md">
                             <div>
                                 <h4>{{ $category->name }}</h4>
                                 <p class="mt-1 text-xs text-gray-600">{{ $category->scripts_count }} cards</p>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     @endforeach
                 </div>
             </section>

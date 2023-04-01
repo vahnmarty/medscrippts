@@ -12,10 +12,6 @@
             
             <div class="flex items-center justify-end gap-6">
 
-                
-                <a href="{{ route('courses.index') }}" class="hidden text-sm text-darkgreen md:block">
-                    My Courses
-                </a>
 
                 <a href="{{ route('support') }}" class="hidden text-sm text-darkgreen md:block">
                     Support
