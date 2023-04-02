@@ -17,9 +17,9 @@
                     </x-slot>
                 </x-sidebar-item>
 
-                <x-sidebar-menu label="Script" link="{{ url('script') }}" :active="request()->is('script*') ">
+                <x-sidebar-menu label="Script" link="{{ url('script') }}" :active="false">
                     <x-slot name="icon">
-                        <x-heroicon-s-academic-cap class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                        <x-heroicon-s-cog class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
                     </x-slot>
                     <div>
                         @livewire('script-settings')

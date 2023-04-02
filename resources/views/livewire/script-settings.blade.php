@@ -24,7 +24,7 @@
             <select wire:model="category_id" class="w-full text-sm text-gray-600 border border-transparent cursor-pointer">
                 <option value="">Select Category</option>
                 @foreach($categories as $categoryItem)
-                <option>{{ $categoryItem->name }}</option>
+                <option value="{{ $categoryItem->id }}">{{ $categoryItem->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -32,7 +32,7 @@
             <select wire:model="script_id" class="w-full text-sm text-gray-600 border border-transparent cursor-pointer">
                 <option value="">Select Script</option>
                 @foreach($scripts as $scriptItem)
-                <option>{{ $scriptItem->title }}</option>
+                <option value="{{ $scriptItem->id }}">{{ $scriptItem->title }}</option>
                 @endforeach
             </select>
         </div>

@@ -51,4 +51,14 @@ class ScriptSettings extends Component
 
         $this->emit('refreshScripts');
     }
+
+    public function updatedCategoryId()
+    {
+        $this->emit('setCategory', $this->category_id);
+    }
+
+    public function updatedScriptId()
+    {
+        $this->emit('setScript', $this->script_id);
+    }
 }
