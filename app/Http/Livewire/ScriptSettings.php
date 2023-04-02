@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use Sesssion;
 use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
-use Sesssion;
+use App\Enums\BlurSetting;
 
 class ScriptSettings extends Component
 {
@@ -29,15 +30,16 @@ class ScriptSettings extends Component
 
     public function getSettings()
     {
-        $data = [
-            'Pathophysiology', 'Signs and Symptoms', 'Diagnosis', 'Treatments', 'Epidemiology',
-        ];
-
+        $data = BlurSetting::asArray();
         $settings = [];
 
-        foreach($data as $config)
+        foreach($data as $name =>  $config)
         {
-            $settings[$config] = session('study-' . $config) ?? true;
+            $settings[] = [
+                'name' => $name,
+                'key' => $config,
+                'value' => session('study.' . $config) ?? true
+            ];
         }
 
         $this->study_settings = $settings;
@@ -45,6 +47,8 @@ class ScriptSettings extends Component
 
     public function blur($setting, $value)
     {
-        session()->put('study-' . $setting, $value);
+        session()->put('study.' . $setting, $value);
+
+        $this->emit('refreshScripts');
     }
 }

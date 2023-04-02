@@ -9,6 +9,10 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
+    safelist:[
+        'line-through',
+        'blur-sm'
+    ],
 
     theme: {
         extend: {

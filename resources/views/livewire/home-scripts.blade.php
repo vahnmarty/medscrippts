@@ -15,24 +15,24 @@
                                 <div class="gap-6 lg:grid lg:grid-cols-2">
                                     <div class="p-3 py-4 space-y-3 lg:p-4">
                                         <div class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">Path</div>
-                                            <p class="text-sm text-gray-600">{{ $script->pathophysiology }}</p>
+                                            <div class="flex-shrink-0 w-10 text-darkgreen">Path {{ session('study-Pathophysiology') }}</div>
+                                            <p class="text-sm text-gray-600 {{ session('study.Path') == false ? 'blur-sm' : '' }}">{{ $script->pathophysiology }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Epi</div>
-                                            <p class="text-sm text-gray-600">{{ $script->epidemiology }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Epi')  == false ? 'blur-sm' : '' }}">{{ $script->epidemiology }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">S/S</div>
-                                            <p class="text-sm text-gray-600">{{ $script->signs }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.SS')  == false ? 'blur-sm' : '' }}">{{ $script->signs }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Dx</div>
-                                            <p class="text-sm text-gray-600">{{ $script->diagnostics }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Dx')  == false ? 'blur-sm' : '' }}">{{ $script->diagnostics }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Tx</div>
-                                            <p class="text-sm text-gray-600">{{ $script->treatments }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Tx')  == false ? 'blur-sm' : '' }}">{{ $script->treatments }}</p>
                                         </div>
                                     </div>
                                     <div class="hidden mx-auto lg:block">

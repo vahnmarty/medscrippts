@@ -8,6 +8,8 @@ use App\Models\Category;
 
 class HomeScripts extends Component
 {
+    protected $listeners = [ 'refreshScripts' => '$refresh' ];
+
     public function render()
     {
 

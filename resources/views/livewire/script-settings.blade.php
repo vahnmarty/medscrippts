@@ -50,12 +50,12 @@
         </div>
 
         <div class="mt-8 space-y-3">
-            @foreach($study_settings as $setting => $value )
-            <div x-data="{ enable: `{{ $value }}` }" 
+            @foreach($study_settings as $i => $setting )
+            <div x-data="{ enable: `{{ $setting['value'] }}` }" 
                 class="flex items-center justify-between">
-                <p class="text-sm text-gray-500">{{ $setting }}</p>
+                <p class="text-sm text-gray-500">{{ $setting['name'] }}</p>
                 <button type="button" 
-                    x-on:click="enable = !enable; $wire.blur('{{ $setting }}', enable)"
+                    x-on:click="enable = !enable; $wire.blur('{{ $setting['key'] }}', enable)"
                     :class="enable ? 'bg-indigo-600' : 'bg-gray-200' "
                     class="relative inline-flex flex-shrink-0 h-6 transition-colors duration-200 ease-in-out border-2 border-transparent rounded-full cursor-pointer w-11 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
                   <span aria-hidden="true" 
