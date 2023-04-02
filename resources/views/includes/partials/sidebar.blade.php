@@ -1,24 +1,4 @@
-<div x-data="{ 
-        isMobile: false,
-        expand: false,
-        grow(){
-            if(!this.isMobile){
-                this.expand = true;
-            }
-        },
-        shrink(){
-            this.expand = false;
-        },
-        checkMobileScreen(){
-            this.isMobile = window.innerWidth <= 1024;
-        }
-     }" 
-    x-on:mouseenter="grow()"
-    x-on:mouseleave="shrink()"
-    x-init="checkMobileScreen()"
-    x-on:resize.window="checkMobileScreen()"
-    :class="expand ? 'w-64' : 'w-14'"
-    class="block min-h-screen transition-all duration-300 ease-in-out bg-white border-r md:overflow-hidden ">
+<div class="block min-h-screen transition-all duration-300 ease-in-out bg-white border-r md:overflow-hidden ">
     <div class="flex flex-col flex-grow min-h-screen py-5 overflow-y-auto">
         <div class="flex justify-center">
             <div class="flex items-center bg-transparent rounded-md">
@@ -36,6 +16,15 @@
                         <x-heroicon-s-home class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
                     </x-slot>
                 </x-sidebar-item>
+
+                <x-sidebar-menu label="Script" link="{{ url('script') }}" :active="request()->is('script*') ">
+                    <x-slot name="icon">
+                        <x-heroicon-s-academic-cap class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                    </x-slot>
+                    <div>
+                        @livewire('script-settings')
+                    </div>
+                </x-sidebar-menu>
 
 
             </div>

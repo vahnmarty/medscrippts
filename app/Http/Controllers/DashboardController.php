@@ -11,6 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        return redirect('scripts');
+        
         $scripts = Script::with('images')->has('images')->limit(6)->get();
         $categories = Category::withCount('scripts')->orderBy('name')->get();
         return view('dashboard', compact('scripts', 'categories'));
