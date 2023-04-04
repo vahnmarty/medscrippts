@@ -5,8 +5,13 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     @foreach($scripts as $index => $script)
-                    <div class="bg-white swiper-slide">
+                    <div class="relative bg-white swiper-slide">
                         <div  id="script{{ $index }}">
+                            <div class="absolute top-5 right-5">
+                                <button type="button">
+                                    <x-heroicon-s-pencil class="text-gray-400 w-7 h-7 hover:text-yellow-500"/>
+                                </button>
+                            </div>
                             <div class="flex-shrink-0 lg:w-[64rem]  p-6 lg:p-6">
                                 <header>
                                     <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
