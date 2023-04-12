@@ -2,11 +2,12 @@
 <div>
     <div class="px-4 py-12 bg-gray-100 lg:px-16">
 
-        <section class="">
+        <section>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     @foreach($scripts as $index => $script)
-                    <div class="relative bg-white swiper-slide">
+                    <div wire:key="script-{{ $index . '-'  . time() }}" 
+                        class="relative bg-white swiper-slide">
                         <div class="hidden lg:block">
                             <div class="absolute top-5 right-5">
                                 <button type="button">
@@ -22,23 +23,23 @@
                                     <div class="p-3 py-4 space-y-3 lg:p-4">
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Path {{ session('study-Pathophysiology') }}</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Path') == false ? 'blur-sm' : '' }}">{{ $script->pathophysiology }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Path') ? 'blur-sm' : '' }}">{{ $script->pathophysiology }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Epi</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Epi')  == false ? 'blur-sm' : '' }}">{{ $script->epidemiology }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Epi')  ? 'blur-sm' : '' }}">{{ $script->epidemiology }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">S/S</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.SS')  == false ? 'blur-sm' : '' }}">{{ $script->signs }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.SS')  ? 'blur-sm' : '' }}">{{ $script->signs }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Dx</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Dx')  == false ? 'blur-sm' : '' }}">{{ $script->diagnostics }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Dx')  ? 'blur-sm' : '' }}">{{ $script->diagnostics }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Tx</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Tx')  == false ? 'blur-sm' : '' }}">{{ $script->treatments }}</p>
+                                            <p class="text-sm text-gray-600 {{ session('study.Tx')  ? 'blur-sm' : '' }}">{{ $script->treatments }}</p>
                                         </div>
                                     </div>
                                     <div class="hidden mx-auto lg:block">

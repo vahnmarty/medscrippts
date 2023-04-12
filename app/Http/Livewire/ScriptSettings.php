@@ -13,7 +13,7 @@ class ScriptSettings extends Component
     public $study_settings = [];
     public $categories = [];
     public $scripts = [];
-
+    public $blurAll = true;
     public $category_id, $script_id;
 
     public function render()
@@ -25,7 +25,30 @@ class ScriptSettings extends Component
     {
         $this->categories = Category::get();
         $this->scripts = Script::get();
+
+        if(session('blurAll')){
+            $this->blurAll = session('blurAll');
+        }
+
         $this->getSettings();
+
+        //dd($this->blurAll);
+    }
+
+    public function setBlurAll($enable)
+    {
+        $this->blurAll = $enable;
+
+        session()->put('blurAll', $enable);
+        
+        foreach($this->study_settings as $index => $setting)
+        {
+            $this->study_settings[$index]['value'] = $enable;
+
+            session()->put('study.' . $setting['key'], $enable);
+        }
+
+        $this->emit('refreshScripts');
     }
 
     public function getSettings()
@@ -35,11 +58,18 @@ class ScriptSettings extends Component
 
         foreach($data as $name =>  $config)
         {
+            $enable = session('study.' . $config) ?? true;
             $settings[] = [
                 'name' => $name,
                 'key' => $config,
-                'value' => session('study.' . $config) ?? true
+                'value' => $enable
             ];
+
+            if(!$enable){
+                $this->blurAll = false;
+                session()->put('blurAll', false);
+            }
+            
         }
 
         $this->study_settings = $settings;

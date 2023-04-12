@@ -40,18 +40,30 @@
 
     <div>
         <div class="py-2 border-t border-b border-gray-300">
-            <div class="flex gap-3">
-                <x-heroicon-s-book-open class="text-gray-500 w-7 h-7"/>
-                <div>
-                    <h3>Study Mode</h3>
-                    <p class="text-sm text-gray-600">Selectively blur</p>
+            <div class="flex justify-between gap-3">
+                <div class="flex">
+                    <x-heroicon-s-book-open class="w-6 h-6 text-gray-500"/>
+                    <div class="ml-2">
+                        <h3>Study Mode</h3>
+                        <p class="text-sm text-gray-600">Selectively blur</p>
+                    </div>
+                </div>
+                <div x-data="{ enable: @entangle('blurAll') }" class="self-center">
+                    <button type="button" 
+                        x-on:click="enable = !enable; $wire.setBlurAll(enable)"
+                        :class="enable ? 'bg-indigo-600' : 'bg-gray-200' "
+                        class="relative inline-flex flex-shrink-0 h-6 transition-colors duration-200 ease-in-out border-2 border-transparent rounded-full cursor-pointer w-11 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
+                    <span aria-hidden="true" 
+                    :class="{'translate-x-5': enable, 'translate-x-0': !enable }"
+                        class="inline-block w-5 h-5 transition duration-200 ease-in-out transform translate-x-0 bg-white rounded-full shadow pointer-events-none ring-0"></span>
+                    </button>
                 </div>
             </div>
         </div>
 
         <div class="mt-8 space-y-3">
             @foreach($study_settings as $i => $setting )
-            <div x-data="{ enable: `{{ $setting['value'] }}` }" 
+            <div x-data="{ enable: $wire.entangle('study_settings.{{ $i }}.value') }" 
                 class="flex items-center justify-between">
                 <p class="text-sm text-gray-500">{{ $setting['name'] }}</p>
                 <button type="button" 

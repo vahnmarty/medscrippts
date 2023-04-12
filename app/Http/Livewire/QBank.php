@@ -29,6 +29,11 @@ class QBank extends Component
         $this->index++;
     }
 
+    public function exit()
+    {
+        return redirect('dashboard');
+    }
+
 
     
 }
