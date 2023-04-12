@@ -7,13 +7,6 @@
     </button>
 
     <div class="px-8 pb-32 mx-auto max-w-7xl">
-        <section class="flex mt-8 divide-x-2 lg:mt-10 justify-evenly">
-            <div class="w-full h-2 bg-orange-400 rounded-l-md "></div>
-            @foreach(range(1,10) as $r)
-            <div class="w-full h-2 bg-gray-300"></div>
-            @endforeach
-            <div class="w-full h-2 bg-gray-300 rounded-r-md"></div>
-        </section>
         <div class="mt-16">
             <div>
                 <section class="max-w-3xl px-4 mx-auto">
