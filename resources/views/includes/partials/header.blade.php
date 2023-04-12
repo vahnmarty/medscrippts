@@ -1,23 +1,11 @@
 <header class="px-6 py-4 bg-white md:py-8 md:px-16">
     <div class="flex items-center justify-between">
         <section>
-            <form>
-                <div class="relative hidden md:w-96 md:block">
-                    <input type="search"  class="pl-4 border-gray-300 rounded-md w-96" placeholder="Search">
-                </div>
-                <x-heroicon-s-search class="w-5 h-5 text-gray-500 md:hidden"/>
-            </form>
+            @livewire('search-bar')
         </section>
         <section>
             
             <div class="flex items-center justify-end gap-6">
-
-
-                <a href="{{ route('support') }}" class="hidden text-sm text-darkgreen md:block">
-                    Support
-                </a>
-
-
                 <x-dropdown>
                     <x-slot name="button">
                         <button type="button" class="">
@@ -45,7 +33,7 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile Settings') }}
                             </x-dropdown-link>
-                            
+                            @if(null)
                              <!-- Team Management -->
                              <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Team') }}
@@ -74,6 +62,7 @@
                             @foreach (Auth::user()->allTeams() as $team)
                                 <x-switchable-team :team="$team" />
                             @endforeach
+                            @endif
                         </section>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
