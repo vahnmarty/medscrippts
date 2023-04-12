@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Livewire\QBank;
 use App\Http\Livewire\FlipCard;
 use App\Http\Livewire\HomeScript;
-use App\Http\Livewire\HomeScripts;
 
+use App\Http\Livewire\HomeScripts;
 use App\Http\Livewire\Invitations;
 use App\Http\Livewire\ManageTeams;
 use App\Http\Livewire\SupportPage;
@@ -68,5 +69,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
 
     Route::get('support', SupportPage::class)->name('support');
+    Route::get('qbank/{flashCardId}', QBank::class)->name('qbank');
 });
 

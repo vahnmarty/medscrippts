@@ -26,6 +26,19 @@
                     </div>
                 </x-sidebar-menu>
 
+                <button x-data
+                    x-on:click="$dispatch('openmodal-qbank')"
+                    class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden"
+                    aria-current="page">
+                    <x-heroicon-s-question-mark-circle class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                </button>
+
+                <x-modal-sm ref="qbank">
+                    <div class="py-4">
+                        @livewire('question-generator')
+                    </div>
+                </x-modal-sm>
+
 
             </div>
 
