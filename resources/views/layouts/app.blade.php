@@ -40,6 +40,8 @@
 
         @include('includes.partials.sidebar')
 
+        @livewire('script-settings')
+
         <div class="flex-1 max-h-screen overflow-auto">
             @include('includes.partials.header')
             <div class="bg-white md:px-8">

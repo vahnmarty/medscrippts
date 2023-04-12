@@ -17,14 +17,13 @@
                     </x-slot>
                 </x-sidebar-item>
 
-                <x-sidebar-menu label="Script" link="{{ url('script') }}" :active="false">
-                    <x-slot name="icon">
-                        <x-heroicon-s-cog class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
-                    </x-slot>
-                    <div>
-                        @livewire('script-settings')
-                    </div>
-                </x-sidebar-menu>
+                <a x-data
+                    x-on:click.prevent="$dispatch('toggle-settings')"
+                    href="#"
+                    class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden">
+                    <x-heroicon-s-cog class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                </a>
+
 
                 <button x-data
                     x-on:click="$dispatch('openmodal-qbank')"
