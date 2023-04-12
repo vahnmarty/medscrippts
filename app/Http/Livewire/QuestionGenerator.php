@@ -32,7 +32,7 @@ class QuestionGenerator extends Component
 
         $data = $this->createPrompt();
         
-        $prompt = 'Write me a 20 questionnaires from this Array: "' . json_encode($data). '". Then Display the result as JSON Format, group them to "questions" then give each item  with keys "question" and "answer" ';
+        $prompt = 'Write me a 20 questionnaires from this Array: "' . json_encode($data). '". Then Display the result as JSON Format, group them to "questions" then give each item  with keys "question" and "answer" . Make sure the answer is brief and straightforward, just a phrase or maybe a single word. You can also make the question as fill in the blanks.';
 
         $messages[] = [
             'role' => 'user', 
