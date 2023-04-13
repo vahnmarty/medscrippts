@@ -2,6 +2,7 @@
     x-transition
     x-on:toggle-settings.window="open = !open"
     :class="open ? 'w-72' : 'w-0'"
+    x-cloak
     class="overflow-hidden transition-all duration-300 ease-in-out bg-white border-r ">
         
     <div class="flex flex-col justify-between flex-shrink-0 min-h-screen p-6">
@@ -68,9 +69,9 @@
     
             <div class="mt-8 space-y-3">
                 @foreach($study_settings as $i => $setting )
-                <div x-data="{ enable: $wire.entangle('study_settings.{{ $i }}.value') }" 
+                <div x-data="{ enable: $wire.entangle('study_settings.{{ $i }}.blur') }" 
                     class="flex items-center justify-between">
-                    <p class="text-sm text-gray-500">{{ $setting['name'] }}</p>
+                    <p class="flex-shrink-0 text-sm text-gray-500">{{ $setting['description'] }}</p>
                     <button type="button" 
                         x-on:click="enable = !enable; $wire.blur('{{ $setting['key'] }}', enable)"
                         :class="enable ? 'bg-indigo-600' : 'bg-gray-200' "

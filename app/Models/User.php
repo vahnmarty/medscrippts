@@ -69,6 +69,20 @@ class User extends Authenticatable
         return $this->hasRole('admin');
     }
 
+    public function study_settings()
+    {
+        return $this->hasOne(StudySetting::class);
+    }
+
+    public function getStudySettings()
+    {
+        if(!$this->study_settings){
+            return $this->study_settings()->create();
+        }
+
+        return $this->study_settings;
+    }
+
 
     public function assignments()
     {

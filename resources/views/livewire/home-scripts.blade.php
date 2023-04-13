@@ -6,9 +6,9 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     @foreach($scripts as $index => $script)
-                    <div wire:key="script-{{ $index . '-'  . time() }}" 
+                    <div wire:key="script-{{ $index }}" 
                         class="relative bg-white swiper-slide">
-                        <div class="hidden lg:block">
+                        <div class="hidden md:block">
                             <div class="absolute top-5 right-5">
                                 <button type="button">
                                     <x-heroicon-s-pencil class="text-gray-400 w-7 h-7 hover:text-yellow-500"/>
@@ -21,26 +21,13 @@
                                 </header>
                                 <div class="gap-6 lg:grid lg:grid-cols-2">
                                     <div class="p-3 py-4 space-y-3 lg:p-4">
+                                        @foreach($settings as $setting)
+                                        @php  $var = $setting['key']; @endphp
                                         <div class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">Path {{ session('study-Pathophysiology') }}</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Path') ? 'blur-sm' : '' }}">{{ $script->pathophysiology }}</p>
+                                            <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
+                                            <button wire:click="blur(`{{ $setting['key'] }}`)" class="cursor-pointer text-sm text-gray-600 {{ $setting['blur'] ? 'blur-sm' : '' }}">{{ $script->$var }}</button>
                                         </div>
-                                        <div class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">Epi</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Epi')  ? 'blur-sm' : '' }}">{{ $script->epidemiology }}</p>
-                                        </div>
-                                        <div class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">S/S</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.SS')  ? 'blur-sm' : '' }}">{{ $script->signs }}</p>
-                                        </div>
-                                        <div class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">Dx</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Dx')  ? 'blur-sm' : '' }}">{{ $script->diagnostics }}</p>
-                                        </div>
-                                        <div class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">Tx</div>
-                                            <p class="text-sm text-gray-600 {{ session('study.Tx')  ? 'blur-sm' : '' }}">{{ $script->treatments }}</p>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <div class="hidden mx-auto lg:block">
                                         @foreach($script->images as $image)
@@ -51,7 +38,7 @@
                             </div>
             
                         </div>
-                        <div class="lg:hidden">
+                        <div class="md:hidden">
                             <div x-data="{ flip: false }" class="group w-full h-[34rem] [perspective:1000px]">
                                 <div
                                     x-on:click="flip = !flip"
@@ -115,6 +102,7 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+@if(true)
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var swiper = new Swiper(".mySwiper", {
@@ -137,6 +125,7 @@
     });
     
   </script>
+@endif
 @endpush
 
 

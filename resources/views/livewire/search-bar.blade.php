@@ -6,7 +6,7 @@
         class="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 w-96 h-10" 
         :class="search ? 'rounded-b-none' : ''"
         placeholder="Search">
-        <div x-show="search" x-cloak class="absolute left-0 right-0 min-h-[16rem] max-h-[16rem] overflow-auto bg-white top-10 border z-20 rounded-md rounded-l-none rounded-r-none">
+        <div x-show="search" x-cloak class="absolute left-0 right-0 min-h-[1rem] max-h-[16rem] overflow-auto bg-white top-10 border z-20 rounded-md rounded-l-none rounded-r-none">
             <template x-for="item in list" :key="item">
                 <div>
                     <div

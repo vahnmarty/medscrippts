@@ -7,6 +7,7 @@ use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
 use App\Enums\BlurSetting;
+use Auth;
 
 class ScriptSettings extends Component
 {
@@ -54,18 +55,23 @@ class ScriptSettings extends Component
     public function getSettings()
     {
         $data = BlurSetting::asArray();
+        $user_setting = Auth::user()->getStudySettings();
         $settings = [];
 
-        foreach($data as $name =>  $config)
+        foreach($data as $key =>  $value)
         {
-            $enable = session('study.' . $config) ?? true;
+            $enum = BlurSetting::fromKey($key);
+            $var = 'blur_' . $key;
+            $blur = $user_setting->$var;
+
             $settings[] = [
-                'name' => $name,
-                'key' => $config,
-                'value' => $enable
+                'description' => $enum->description,
+                'key' => $enum->key,
+                'value' => $enum->value,
+                'blur' => $blur
             ];
 
-            if(!$enable){
+            if(!$blur){
                 $this->blurAll = false;
                 session()->put('blurAll', false);
             }
@@ -75,12 +81,16 @@ class ScriptSettings extends Component
         $this->study_settings = $settings;
     }
 
-    public function blur($setting, $value)
+    public function blur($key, $value)
     {
-        session()->put('study.' . $setting, $value);
+        $var = 'blur_' . $key;
+        $settings = Auth::user()->getStudySettings();
+        $settings->$var = !$settings->$var;
+        $settings->save();
 
         $this->emit('refreshScripts');
     }
+
 
     public function updatedCategoryId()
     {

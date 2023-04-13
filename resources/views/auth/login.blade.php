@@ -14,7 +14,7 @@
 
         <div class="text-center">
             <h1 class="text-3xl font-bold text-primary">Welcome Back!</h1>
-            <p class="mt-2 text-gray-600">Let's build something great</p>
+            <p class="mt-2 text-gray-600">Work hard, play hard.</p>
         </div>
 
         <form method="POST" action="{{ route('login') }}" class="mt-8">
