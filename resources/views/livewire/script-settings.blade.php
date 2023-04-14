@@ -43,9 +43,15 @@
             </div>
             <div>
                 <select wire:model="script_id" class="w-full text-sm text-gray-600 border border-transparent cursor-pointer hover:bg-gray-100">
-                    <option value="">Select Script</option>
+                    <option value="">Select Script </option>
                     @foreach($scripts as $scriptItem)
-                    <option value="{{ $scriptItem->id }}">{{ $scriptItem->title }}</option>
+                    @if($category_id)
+                        @if($category_id == $scriptItem->category_id)
+                        <option value="{{ $scriptItem->id }}">{{ $scriptItem->title }}</option>
+                        @endif
+                    @else
+                    <option value="{{ $scriptItem->id }}">Else {{ $scriptItem->title }}</option>
+                    @endif
                     @endforeach
                 </select>
             </div>
