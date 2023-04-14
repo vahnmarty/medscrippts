@@ -1,6 +1,6 @@
 
 <div>
-    <div class="px-4 py-12 bg-gray-100 lg:px-16">
+    <div class="px-8 py-12 bg-gray-100 lg:px-16">
         <section>
             <div x-data="{ }">
                 <div id="slider">
@@ -89,11 +89,21 @@
                                     </div>
                                     <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
                                         id="back">
-                                        <div class="flex flex-col items-center justify-center h-full">
-                                            <div class="my-auto">
-                                                @foreach($script->images as $image)
-                                                <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">
-                                                @endforeach
+                                        <div class="py-8">
+                                            <header class="text-left">
+                                                <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
+                                                <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
+                                            </header>
+                                            <div class="flex flex-col items-center justify-center h-full gap-8 mt-8 space-x-8">
+                                                <div>
+                                                    @if(count($script->images))
+                                                    @foreach($script->images as $image)
+                                                    <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">
+                                                    @endforeach
+                                                    @else
+                                                    <img src="{{ asset('img/question.jpg') }}" class="max-h-[12rem] " alt="">
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

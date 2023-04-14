@@ -45,12 +45,11 @@
             <div class="flex flex-shrink-0 pt-6 pb-5 mt-6">
                 <div class="flex-shrink-0 w-full space-y-1">
 
-                    
-                    <x-sidebar-item label="Support" link="{{ route('support') }}" :active="request()->is('support*') ">
-                        <x-slot name="icon">
-                            <x-heroicon-s-chat-alt-2 class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
-                        </x-slot>
-                    </x-sidebar-item>
+                    <a href="https://docs.medscrippts.com"
+                        target="_blank"
+                        class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden">
+                        <x-heroicon-s-chat-alt-2 class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                    </a>
 
                 </div>
             </div>
