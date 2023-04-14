@@ -3,7 +3,7 @@
     <div class="px-4 py-12 bg-gray-100 lg:px-16">
 
         <section>
-            <div class="swiper mySwiper">
+            <div class="swiper mySwiper" wire:ignore>
                 <div class="swiper-wrapper">
                     @foreach($scripts as $index => $script)
                     <div wire:key="script-{{ $index }}" 
@@ -23,9 +23,20 @@
                                     <div class="p-3 py-4 space-y-3 lg:p-4">
                                         @foreach($settings as $setting)
                                         @php  $var = $setting['key']; @endphp
-                                        <div class="flex gap-4">
+                                        <div x-data="{ 
+                                                blur: {{ $setting['blur'] }}, 
+                                                toggle(){
+                                                    this.blur = !this.blur;
+                                                }
+                                            }"
+                                            x-on:blur-{{ $setting['key'] }}.window="toggle()"
+                                            x-on:blur-all.window="blur = $event.detail.enable;"
+                                            class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
-                                            <button wire:click="blur(`{{ $setting['key'] }}`)" class="cursor-pointer text-sm text-gray-600 {{ $setting['blur'] ? 'blur-sm' : '' }}">{{ $script->$var }}</button>
+                                            <button type="button"
+                                                x-on:click="toggle()"
+                                                :class="blur ? 'blur-sm'  : ''"
+                                                class="text-sm text-gray-600 cursor-pointer">{{ $script->$var }}</button>
                                         </div>
                                         @endforeach
                                     </div>
@@ -51,26 +62,24 @@
                                         </header>
                                         <div class="gap-6 lg:grid lg:grid-cols-2">
                                             <div class="p-3 py-4 space-y-3 lg:p-4">
-                                                <div class="flex gap-4">
-                                                    <div class="flex-shrink-0 w-10 text-darkgreen">Path {{ session('study-Pathophysiology') }}</div>
-                                                    <p class="text-sm text-gray-600 {{ session('study.Path') == false ? 'blur-sm' : '' }}">{{ $script->pathophysiology }}</p>
+                                                @foreach($settings as $setting)
+                                                @php  $var = $setting['key']; @endphp
+                                                <div x-data="{ 
+                                                        blur: {{ $setting['blur'] }}, 
+                                                        toggle(){
+                                                            this.blur = !this.blur;
+                                                        }
+                                                    }"
+                                                    x-on:blur-{{ $setting['key'] }}.window="toggle()"
+                                                    x-on:blur-all.window="blur = $event.detail.enable;"
+                                                    class="flex gap-4">
+                                                    <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
+                                                    <button type="button"
+                                                        x-on:click="toggle()"
+                                                        :class="blur ? 'blur-sm'  : ''"
+                                                        class="text-sm text-gray-600 cursor-pointer">{{ $script->$var }}</button>
                                                 </div>
-                                                <div class="flex gap-4">
-                                                    <div class="flex-shrink-0 w-10 text-darkgreen">Epi</div>
-                                                    <p class="text-sm text-gray-600 {{ session('study.Epi')  == false ? 'blur-sm' : '' }}">{{ $script->epidemiology }}</p>
-                                                </div>
-                                                <div class="flex gap-4">
-                                                    <div class="flex-shrink-0 w-10 text-darkgreen">S/S</div>
-                                                    <p class="text-sm text-gray-600 {{ session('study.SS')  == false ? 'blur-sm' : '' }}">{{ $script->signs }}</p>
-                                                </div>
-                                                <div class="flex gap-4">
-                                                    <div class="flex-shrink-0 w-10 text-darkgreen">Dx</div>
-                                                    <p class="text-sm text-gray-600 {{ session('study.Dx')  == false ? 'blur-sm' : '' }}">{{ $script->diagnostics }}</p>
-                                                </div>
-                                                <div class="flex gap-4">
-                                                    <div class="flex-shrink-0 w-10 text-darkgreen">Tx</div>
-                                                    <p class="text-sm text-gray-600 {{ session('study.Tx')  == false ? 'blur-sm' : '' }}">{{ $script->treatments }}</p>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

@@ -1,9 +1,16 @@
-<div x-data="{ open: false }"
-    x-transition
+<div x-data="{ 
+        open: false, 
+        isDesktop: false,
+        screenResponsive(){
+            this.isDesktop = window.innerWidth > 720;
+        }
+     }"
+    x-init="screenResponsive(); open = isDesktop"
+    x-on:resize.window="screenResponsive()"
     x-on:toggle-settings.window="open = !open"
     :class="open ? 'w-72' : 'w-0'"
     x-cloak
-    class="overflow-hidden transition-all duration-300 ease-in-out bg-white border-r ">
+    class="overflow-hidden transition-all duration-300 ease-in-out bg-white border-r">
         
     <div class="flex flex-col justify-between flex-shrink-0 min-h-screen p-6">
         <div>
@@ -54,9 +61,18 @@
                             <p class="text-sm text-gray-600">Selectively blur</p>
                         </div>
                     </div>
-                    <div x-data="{ enable: @entangle('blurAll') }" class="self-center">
+                    <div x-data="{ 
+                            enable: @entangle('blurAll'),
+                            toggle(){
+                                this.enable = !this.enable;
+                                @this.setBlurAll(this.enable);
+
+                                this.$dispatch('blur-all', { enable: this.enable });
+                            }
+                         }" 
+                         class="self-center">
                         <button type="button" 
-                            x-on:click="enable = !enable; $wire.setBlurAll(enable)"
+                            x-on:click="toggle()"
                             :class="enable ? 'bg-indigo-600' : 'bg-gray-200' "
                             class="relative inline-flex flex-shrink-0 h-6 transition-colors duration-200 ease-in-out border-2 border-transparent rounded-full cursor-pointer w-11 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
                         <span aria-hidden="true" 
@@ -69,11 +85,19 @@
     
             <div class="mt-8 space-y-3">
                 @foreach($study_settings as $i => $setting )
-                <div x-data="{ enable: $wire.entangle('study_settings.{{ $i }}.blur') }" 
+                <div x-data="{ 
+                        enable: $wire.entangle('study_settings.{{ $i }}.blur'),
+                        key: $wire.entangle('study_settings.{{ $i }}.key'),
+                        blur(){
+                            this.enable = !this.enable;
+                            @this.blur(this.key, this.enable);
+                            this.$dispatch('blur-' + this.key);
+                        }
+                    }" 
                     class="flex items-center justify-between">
                     <p class="flex-shrink-0 text-sm text-gray-500">{{ $setting['description'] }}</p>
                     <button type="button" 
-                        x-on:click="enable = !enable; $wire.blur('{{ $setting['key'] }}', enable)"
+                        x-on:click="blur()"
                         :class="enable ? 'bg-indigo-600' : 'bg-gray-200' "
                         class="relative inline-flex flex-shrink-0 h-6 transition-colors duration-200 ease-in-out border-2 border-transparent rounded-full cursor-pointer w-11 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
                       <span aria-hidden="true" 

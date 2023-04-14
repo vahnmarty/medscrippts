@@ -11,9 +11,11 @@ use Auth;
 
 class HomeScripts extends Component
 {
+    public $reactive = false;
+
     public $category_id, $script_id;
 
-    public $scripts = [], $categories = [];
+    public $categories = [];
 
     public $settings = [];
 
@@ -21,13 +23,19 @@ class HomeScripts extends Component
 
     public function render()
     {
-        return view('livewire.home-scripts');
+        $scripts = $this->getScripts();
+        return view('livewire.home-scripts', compact('scripts'));
+    }
+
+    public function dehydrate()
+    {
+        $this->dispatchBrowserEvent('destroySwiper');
+        $this->dispatchBrowserEvent('enableSwiper');
     }
 
     public function mount()
     {   
         $this->settings = $this->getSettings();
-        $this->scripts = $this->getScripts();
         $this->categories = $this->getCategories();
     }
 
@@ -77,7 +85,6 @@ class HomeScripts extends Component
     public function refreshScripts()
     {
         $this->refreshSettings();
-        $this->scripts = $this->getScripts();
     }
 
     public function refreshSettings()

@@ -39,17 +39,20 @@ class ScriptSettings extends Component
     public function setBlurAll($enable)
     {
         $this->blurAll = $enable;
+        $user_setting = Auth::user()->getStudySettings();
 
         session()->put('blurAll', $enable);
+
         
         foreach($this->study_settings as $index => $setting)
         {
-            $this->study_settings[$index]['value'] = $enable;
+            $this->study_settings[$index]['blur'] = $enable;
 
-            session()->put('study.' . $setting['key'], $enable);
+            // Persist
+            $var = 'blur_' . $setting['key'];
+            $user_setting->$var = $enable;
+            $user_setting->save();
         }
-
-        $this->emit('refreshScripts');
     }
 
     public function getSettings()
@@ -88,7 +91,7 @@ class ScriptSettings extends Component
         $settings->$var = !$settings->$var;
         $settings->save();
 
-        $this->emit('refreshScripts');
+        //$this->emit('refreshScripts');
     }
 
 
