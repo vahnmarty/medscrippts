@@ -19,6 +19,8 @@ class HomeScripts extends Component
 
     public $settings = [];
 
+    //protected $queryString = ['category_id', 'script_id'];
+
     protected $listeners = [ 'refreshScripts', 'setCategory', 'setScript' ];
 
     public function render()
@@ -29,8 +31,12 @@ class HomeScripts extends Component
 
     public function dehydrate()
     {
-        $this->dispatchBrowserEvent('destroySwiper');
-        $this->dispatchBrowserEvent('enableSwiper');
+        $this->slide();
+    }
+
+    public  function slide()
+    {
+        $this->dispatchBrowserEvent('reboot-slider');
     }
 
     public function mount()

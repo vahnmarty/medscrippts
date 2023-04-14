@@ -1,13 +1,14 @@
 
 <div>
     <div class="px-4 py-12 bg-gray-100 lg:px-16">
+
         <section>
-            <div x-data="{ }">
-                <div id="slider">
+            <div class="swiper mySwiper" wire:ignore>
+                <div class="swiper-wrapper">
                     @foreach($scripts as $index => $script)
                     <div wire:key="script-{{ $index }}" 
-                            x-data="{ open: false }"
-                            class="relative bg-white">
+                        x-data="{ open: false }"
+                        class="relative bg-white swiper-slide">
                         <div class="hidden md:block">
                             <div class="absolute top-5 right-5">
                                 <button type="button">
@@ -16,7 +17,7 @@
                             </div>
                             <div class="flex-shrink-0 lg:w-[64rem]  p-6 lg:p-6">
                                 <header>
-                                    <p class="text-orange-500">{{ $index+1 }} - {{ $script->category->name ?? 'Uncategorized' }}</p>
+                                    <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
                                     <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
                                 </header>
                                 <div class="gap-6 lg:grid lg:grid-cols-2">
@@ -41,13 +42,9 @@
                                         @endforeach
                                     </div>
                                     <div class="hidden mx-auto lg:block">
-                                        @if(count($script->images))
                                         @foreach($script->images as $image)
                                         <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">
                                         @endforeach
-                                        @else
-                                        <img src="{{ asset('img/question.jpg') }}" class="max-h-[12rem] " alt="">
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -101,8 +98,11 @@
                             </div>
                         </div>
                     </div>
+
+                    
                     @endforeach
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
         </section>
     </div>
@@ -110,32 +110,32 @@
 </div>
 
 @push('scripts')
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+@if(true)
 <script>
-
-    window.addEventListener('reboot-slider', event=>{
-        $('#slider').slick('unslick');
-        slider();
-    });
-
-    slider();
-    
-    function slider(){
-        $('#slider').slick({
-            dots: true,
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slidesToScroll: 1,
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "auto",
+            pagination: {
+              el: ".swiper-pagination",
+            },
+            mousewheel: {
+                forceToAxis: true,
+                sensitivity: 1,
+            },
           });
 
-        console.log('init slider');
-    }
+        var mobileSwiper = new Swiper(".mobileSwiper", {
+            slidesPerView: 2,
+            pagination: {
+              el: ".swiper-pagination",
+            },
+          });
+    });
     
-</script>
+  </script>
+@endif
 @endpush
 
 

@@ -116,3 +116,12 @@ trix-editor#content{
   .swiper-slide {
     @apply lg:w-[64rem] mx-2 lg:mx-8 h-auto;
 }
+
+
+.slick-prev:before{
+    @apply text-yellow-900;
+}
+
+.slick-next:before{
+    @apply text-yellow-900;
+}
