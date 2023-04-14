@@ -85,8 +85,8 @@
                                     </div>
                                     <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
                                         id="back">
-                                        <div>
-                                            <div class="">
+                                        <div class="flex flex-col items-center justify-center h-full">
+                                            <div class="my-auto">
                                                 @foreach($script->images as $image)
                                                 <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">
                                                 @endforeach
