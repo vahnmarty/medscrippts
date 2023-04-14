@@ -29,7 +29,7 @@ class ImportScriptsTableSeeder extends Seeder
             $path = $data[3] ?? '' ;
             $epi = $data[4] ?? '' ;
             $signs = $data[5] ?? '' ;
-            $diagnostics = $data[6] ?? '';
+            $diagnosis = $data[6] ?? '';
             $treatments = $data[7] ?? '';
             $link = $data[8] ?? '';
             $image_url = $data[9] ?? null;
@@ -43,7 +43,7 @@ class ImportScriptsTableSeeder extends Seeder
                     'pathophysiology' => $path,
                     'epidemiology' => $epi,
                     'signs' => $signs,
-                    'diagnostics' => $diagnostics,
+                    'diagnosis' => $diagnosis,
                     'treatments' => $treatments,
                     'notes' => ''
                 ]

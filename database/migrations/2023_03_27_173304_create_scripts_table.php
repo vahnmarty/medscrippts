@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longtext('pathophysiology')->nullable();
             $table->longtext('epidemiology')->nullable();
             $table->longtext('signs')->nullable();
-            $table->longtext('diagnostics')->nullable();
+            $table->longtext('diagnosis')->nullable();
             $table->longtext('treatments')->nullable();
             $table->longtext('notes')->nullable();
             $table->timestamps();

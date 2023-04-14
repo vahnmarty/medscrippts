@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Dx</div>
-                                            <p class="text-sm text-gray-600">{{ $script->diagnostics }}</p>
+                                            <p class="text-sm text-gray-600">{{ $script->diagnosis }}</p>
                                         </div>
                                         <div class="flex gap-4">
                                             <div class="flex-shrink-0 w-10 text-darkgreen">Tx</div>

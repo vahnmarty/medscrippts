@@ -7,9 +7,15 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\FlashCard;
 use OpenAI\Laravel\Facades\OpenAI;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Concerns\InteractsWithForms;
 
-class QuestionGenerator extends Component
+class QuestionGenerator extends Component implements HasForms
 {
+    use InteractsWithForms;
+    
     public $categories = [];
 
     public $category, $n = 20;
@@ -23,11 +29,27 @@ class QuestionGenerator extends Component
 
     public function mount()
     {
-        $this->categories = Category::get();
+        
+    }
+
+    protected function getFormSchema()
+    {
+        return [
+            Select::make('category')
+                ->multiple()
+                ->label('Select Category(s)')
+                ->options(Category::get()->pluck('name', 'id')),
+            TextInput::make('n')
+                ->label('Max')
+                ->disabled()
+                ->numeric()
+        ];
     }
 
     public function generate()
     {
+        $this->validate();
+        
         $startTime = microtime(true);
 
         $data = $this->createPrompt();
@@ -39,7 +61,7 @@ class QuestionGenerator extends Component
             'content' =>  $prompt
         ];
 
-        Log::channel('openai')->info(json_encode($messages));
+        //Log::channel('openai')->info(json_encode($messages));
 
         $response = OpenAI::chat()->create([
             'model' => 'gpt-3.5-turbo',
@@ -80,15 +102,21 @@ class QuestionGenerator extends Component
 
     public function createPrompt()
     {
+
+        $form = $this->form->getState();
         $data = [];
-        $category = Category::with('scripts')->findOrFail($this->category);
+        $categories = Category::whereIn('id', $form['category'])->with('scripts')->get();
 
-        $scripts = $category->scripts()->select('title', 'pathophysiology')->limit(3)->get()->toArray();
+        foreach($categories as $category)
+        {
+            $scripts = $category->scripts()->select('title', 'pathophysiology')->get()->toArray();
+            $data[] = [
+                'category' => $category->name,
+                'scripts' => $scripts
+            ];
+        }
 
-        return [
-            'category' => $category->name,
-            'scripts' => $scripts
-        ];
+        return $data;
     }
 
     public function parseResult($content)

@@ -23,7 +23,7 @@ class ScriptsTableSeeder extends Seeder
                 'pathophysiology' => 'Transmural Inflamatory disorder of the tract',
                 'epidemiology' => 'Epi',
                 'signs' => 'Signs',
-                'diagnostics' => 'Testing & Diagnostics',
+                'diagnosis' => 'Testing & Diagnostics',
                 'notes' => ''
             ]
         );

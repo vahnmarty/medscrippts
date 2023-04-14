@@ -4,10 +4,11 @@
         <p class="mt-2 text-gray-700">Our app uses NLP pathways to autogenerate flash cards based on your content. Most of the time this works great, but questions are not reviewed, so our apologies if our AI gets confused.</p>
         <form wire:submit.prevent="generate" class="mt-8">
 
-            <div class="grid grid-cols-4 col-span-3 gap-6">
+            {{ $this->form }}
+            <!-- <div class="grid grid-cols-4 col-span-3 gap-6">
                 <fieldset class="col-span-2">
                     <legend>Category</legend>
-                    <select wire:model.defer="category" class="w-full mt-2 border-gray-300 rounded-md">
+                    <select wire:model.defer="category" class="w-full mt-2 border-gray-300 rounded-md" multiple>
                         <option value="">-- Select --</option>
                         @foreach($categories as $categoryItem)
                         <option value="{{ $categoryItem->id }}">{{ $categoryItem->name }}</option>
@@ -18,7 +19,7 @@
                     <legend>No.:</legend>
                     <input wire:model.defer="n" type="number"  class="mt-2 border-gray-300 rounded-md">
                 </fieldset>
-            </div>
+            </div> -->
 
             <div class="mt-4">
                 <button type="submit" class="btn-primary">Generate QBank</button>
