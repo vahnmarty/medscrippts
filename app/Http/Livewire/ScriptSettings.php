@@ -16,6 +16,7 @@ class ScriptSettings extends Component
     public $scripts = [];
     public $blurAll = true;
     public $category_id, $script_id;
+    public $n = 0;
 
     public function render()
     {
@@ -26,6 +27,7 @@ class ScriptSettings extends Component
     {
         $this->categories = Category::orderBy('name')->get();
         $this->scripts = Script::orderBy('title')->get();
+        $this->n = Script::where('user_id', auth()->id())->count();
 
         if(session('blurAll')){
             $this->blurAll = session('blurAll');

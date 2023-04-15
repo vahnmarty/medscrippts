@@ -15,6 +15,7 @@ use App\Http\Livewire\ManageBilling;
 use App\Http\Livewire\ManageSettings;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AiController;
+use App\Http\Livewire\Auth\Onboarding;
 use App\Http\Livewire\TeamInvitations;
 use App\Http\Livewire\TemplateLibrary;
 use App\Http\Controllers\PageController;
@@ -64,6 +65,7 @@ Route::middleware([
 
 
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('onboard', Onboarding::class);
     Route::get('flip', FlipCard::class);
     Route::get('scripts', HomeScripts::class);
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');

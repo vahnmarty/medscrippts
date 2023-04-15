@@ -53,8 +53,10 @@ class QuestionGenerator extends Component implements HasForms
         $startTime = microtime(true);
 
         $data = $this->createPrompt();
+
+        //$prompt = 'Write me a 20 questionnaires from the article below.  \n\n. ' . $data;
         
-        $prompt = 'Write me a 20 questionnaires from this Array: "' . json_encode($data). '". Then Display the result as JSON Format, group them to "questions" then give each item  with keys "question" and "answer" . Make sure the answer is brief and straightforward, just a phrase or maybe a single word. You can also make the question as fill in the blanks.';
+        // $prompt = 'Write me a 20 questionnaires from this Array: "' . json_encode($data). '". Then Display the result as JSON Format, group them to "questions" then give each item  with keys "question" and "answer" . Make sure the answer is brief and straightforward, just a phrase or maybe a single word. You can also make the question as fill in the blanks.';
 
         $messages[] = [
             'role' => 'user', 
@@ -104,19 +106,25 @@ class QuestionGenerator extends Component implements HasForms
     {
 
         $form = $this->form->getState();
-        $data = [];
         $categories = Category::whereIn('id', $form['category'])->with('scripts')->get();
+        $string = '';
+        //$string = 'So each item will have the a medical condition, each will have their pathophysiology, epidemiology, signs and symptoms, diagnosis, and treatments. ';
 
         foreach($categories as $category)
         {
-            $scripts = $category->scripts()->select('title', 'pathophysiology')->get()->toArray();
-            $data[] = [
-                'category' => $category->name,
-                'scripts' => $scripts
-            ];
+            $string .= 'From category "' . $category->name . '". ';
+
+            foreach($category->scripts as $script)
+            {
+                $string .= "{$script->title}: pathophysiology: {$script->pathophysiology}; epidemiology: {$script->epidemiology}; signs and symptoms: {$script->signs}; diagnosis: {$script->diagnosis}; treatments: {$script->treatments}. ";
+            }
+
+            $string . "\n";
+
         }
 
-        return $data;
+        dd($string);
+        return $string;
     }
 
     public function parseResult($content)

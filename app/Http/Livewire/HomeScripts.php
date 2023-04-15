@@ -47,7 +47,7 @@ class HomeScripts extends Component
 
     public function getScripts()
     {
-        $scriptQuery = Script::with('images')->limit(6);
+        $scriptQuery = Script::where('user_id', auth()->id())->with('images')->limit(6);
         
 
         if($this->category_id){
