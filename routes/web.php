@@ -1,6 +1,6 @@
 <?php
-
 use App\Http\Livewire\QBank;
+use Illuminate\Http\Request;
 use App\Http\Livewire\FlipCard;
 use App\Http\Livewire\HomeScript;
 
@@ -33,6 +33,7 @@ use App\Http\Livewire\Pathway\PathwayBuilder;
 use App\Http\Controllers\InvitationController;
 use App\Http\Livewire\Pathway\PathwayContents;
 use App\Http\Controllers\EnvironmentController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Livewire\Courses\ModuleItemPreview;
 use App\Http\Controllers\SocialiteLoginController;
 
@@ -60,6 +61,16 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+    
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription.index');
+    Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.create');
+    Route::get('subscription/intent', [SubscriptionController::class, 'intent'])->name('subscription.intent');
+    Route::post('subscription/payment', [SubscriptionController::class, 'payment'])->name('subscription.payment');
 });
 
 
@@ -67,10 +78,21 @@ Route::middleware([
 Route::group(['middleware' => ['auth']], function(){
     Route::get('onboard', Onboarding::class);
     Route::get('flip', FlipCard::class);
-    Route::get('scripts', HomeScripts::class);
+    Route::get('scripts', HomeScripts::class)->name('home');
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
 
     Route::get('support', SupportPage::class)->name('support');
     Route::get('qbank/{flashCardId}', QBank::class)->name('qbank');
+
+    Route::get('/billing-portal', function (Request $request) {
+        return $request->user()->redirectToBillingPortal();
+    });
+
+    Route::post('/user/subscribe', function (Request $request) {
+        $request->user()->newSubscription(
+            'default', 'price_monthly'
+        )->create($request->paymentMethodId);
+    });
 });
+
 

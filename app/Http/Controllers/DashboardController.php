@@ -11,6 +11,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        if(Auth::user()->subscribed())
+        {
+
+        }else{
+            return redirect('billing-portal');
+        }
+
         return redirect('scripts');
         
         $scripts = Script::with('images')->has('images')->limit(6)->get();

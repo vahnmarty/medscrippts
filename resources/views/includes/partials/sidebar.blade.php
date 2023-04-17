@@ -39,6 +39,8 @@
                 </x-modal-sm>
 
 
+
+
             </div>
 
 
@@ -49,6 +51,12 @@
                         target="_blank"
                         class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden">
                         <x-heroicon-s-chat-alt-2 class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                    </a>
+
+                    <a href="{{ url('billing-portal') }}"
+                        target="_blank"
+                        class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden">
+                        <x-heroicon-s-cash class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
                     </a>
 
                 </div>
