@@ -6,6 +6,13 @@
         <section>
             
             <div class="flex items-center justify-end gap-6">
+                @if(Auth::user()->subscribed('default'))
+                <div>
+                    <p class="px-3 py-1 text-xs text-indigo-600 rounded-full bg-indigo-600/10">
+                        Standard
+                    </p>
+                </div>
+                @endif
                 <x-dropdown>
                     <x-slot name="button">
                         <button type="button" class="">

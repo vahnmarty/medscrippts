@@ -11,17 +11,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->subscribed())
+        if(Auth::user()->subscribed('default'))
         {
-
+            return redirect('scripts');
         }else{
             return redirect('billing-portal');
         }
-
-        return redirect('scripts');
-        
-        $scripts = Script::with('images')->has('images')->limit(6)->get();
-        $categories = Category::withCount('scripts')->orderBy('name')->get();
-        return view('dashboard', compact('scripts', 'categories'));
     }
 }
