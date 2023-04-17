@@ -1,6 +1,7 @@
 
 <div>
 
+    @if(count($scripts))
     @foreach($scripts as $index => $script)
     <div wire:key="modal-{{ $index }}">
         <x-modal-xl ref="edit-{{ $index }}">
@@ -8,6 +9,7 @@
         </x-modal-xl>
     </div>
     @endforeach
+    @endif
         
     <div class="px-8 py-12 bg-gray-100 lg:px-16">
         
@@ -160,6 +162,7 @@
         </x-modal-sm>
         @endif
     </div>
+    
     
 </div>
 
