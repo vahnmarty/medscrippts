@@ -1,7 +1,6 @@
 <div>
     <div class="relative">
         <h3 class="text-lg font-bold text-darkgreen">Create Script</h3>
-        <p class="mt-2 text-gray-700">Enter your notes here.</p>
         <form wire:submit.prevent="save" class="mt-8">
 
             {{ $this->form }}

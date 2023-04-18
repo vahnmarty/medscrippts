@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('slug');
             $table->string('stripe_plan');
             $table->float('price');
+            $table->string('per')->comment('monthly|one-time')->nullable();
             $table->string('description')->nullable();
             $table->boolean('active')->default(false);
+            $table->boolean('prod')->default(false)->nullable();
             $table->timestamps();
         });
     }

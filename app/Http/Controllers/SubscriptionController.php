@@ -2,16 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Plan;
 use Illuminate\Http\Request;
-use Auth;
+use Laravel\Cashier\Cashier;
 
 class SubscriptionController extends Controller
 {
+    public function selectPlan()
+    {
+        $user = Auth::user();
+
+        $plans = Plan::get();
+
+        return view('subscription.index', compact('plans'));
+    }
+
     public function index()
     {
-        $plan = Plan::whereActive(true)->first();
-        return view('subscription.index', compact('plan'));
+        $user = Auth::user();
+
+        if (!$user->hasDefaultPaymentMethod()) {
+            return redirect()->route('subscription.create');
+        }
+
+        # The stripe way in getting the plans
+        // $stripe = Cashier::stripe();
+        // $plans = $stripe->products->all();
+
+        $plans = Plan::get();
+
+        return view('subscription.index', compact('plans'));
     }
 
     public function subscribe(Request $request)
@@ -29,7 +50,7 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function intent(Request $request)
+    public function create(Request $request)
     {
         return view('subscription.intent', [
             'intent' => Auth::user()->createSetupIntent()

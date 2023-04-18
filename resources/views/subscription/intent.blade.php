@@ -4,32 +4,6 @@
             <x-authentication-card-logo />
         </x-slot>
 
-        <x-slot name="extraTop">
-            <div class="max-w-lg mt-8 overflow-hidden">
-                <nav aria-label="Progress">
-                    <ol role="list" class="flex space-x-8 space-y-0 gap-7 justify-evenly">
-                      <li class="md:flex-1">
-                        <!-- Completed Step -->
-                        <a href="#" class="flex flex-col py-2 pl-4 border-l-4 border-indigo-600 group hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
-                          <span class="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step 1</span>
-                          <div class="text-sm font-medium">Payment</div>
-                        </a>
-                      </li>
-                  
-                  
-                      <li class="md:flex-1">
-                        <!-- Upcoming Step -->
-                        <a href="#" class="flex flex-col py-2 pl-4 border-l-4 border-gray-200 group hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
-                          <span class="text-sm font-medium text-gray-500 group-hover:text-gray-700">Step 2</span>
-                          <span class="text-sm font-medium">Confirmation</span>
-                        </a>
-                      </li>
-                    </ol>
-                  </nav>
-            </div>
-              
-        </x-slot>
-
         <x-validation-errors class="mb-4" />
 
         @if (session('status'))
@@ -38,8 +12,14 @@
             </div>
         @endif
 
-        <div class="text-left">
+        <div class="flex justify-between">
             <h1 class="text-xl font-bold text-primary">Setup Payment</h1>
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 underline group hover:bg-gray-200">
+                  <span>Logout</span>
+              </button>
+          </form>
         </div>
 
         <div class="p-6 mt-8 bg-gray-100 border rounded-md">
@@ -47,7 +27,7 @@
                 @csrf
                 <div>
                     <label>Card Name</label>
-                    <input id="card-holder-name" type="text" class="w-full mt-2 border border-gray-300 rounded-md" autofocus placeholder="e.g. default" >
+                    <input id="card-holder-name" value="My Card" type="text" class="w-full mt-2 border border-gray-300 rounded-md" placeholder="e.g. default" >
                 </div>
      
                 <!-- Stripe Elements Placeholder -->

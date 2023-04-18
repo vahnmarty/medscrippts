@@ -29,14 +29,14 @@ class CreateScript extends Component implements HasForms
                     ->required(),
                 Select::make('category_id')
                     ->label('Category')
-                    ->options(Category::get()->pluck('name', 'id'))
+                    ->options(Category::orderBy('name')->get()->pluck('name', 'id'))
                     ->required(),
             ]),
-            Textarea::make('pathophysiology')->label('Pathophysiology (Path)')->inlineLabel(),
-            Textarea::make('epidemiology')->label('Epidemiology (Epi)')->inlineLabel(),
-            Textarea::make('signs')->label('Signs and Symptoms (S/S)')->inlineLabel(),
-            Textarea::make('diagnosis')->label('Diagnosis (Dx)')->inlineLabel(),
-            Textarea::make('treatments')->label('Treatments (Tx)')->inlineLabel(),
+            Textarea::make('pathophysiology')->label('Pathophysiology (Path)')->inlineLabel()->rows(2),
+            Textarea::make('epidemiology')->label('Epidemiology (Epi)')->inlineLabel()->rows(2),
+            Textarea::make('signs')->label('Signs and Symptoms (S/S)')->inlineLabel()->rows(2),
+            Textarea::make('diagnosis')->label('Diagnosis (Dx)')->inlineLabel()->rows(2),
+            Textarea::make('treatments')->label('Treatments (Tx)')->inlineLabel()->rows(2),
         ];
     }
 }

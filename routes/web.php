@@ -25,6 +25,7 @@ use App\Http\Livewire\Courses\ShowCourse;
 use App\Http\Livewire\Pathway\ShowPathway;
 use App\Http\Livewire\Courses\CoursePlayer;
 use App\Http\Livewire\Courses\CreateCourse;
+use App\Http\Livewire\SubscriptionCheckout;
 use App\Http\Livewire\Courses\ManageCourses;
 use App\Http\Controllers\DashboardController;
 use App\Http\Livewire\Courses\CourseContents;
@@ -64,8 +65,11 @@ Route::middleware([
 });
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription.index');
-    Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.create');
+    Route::get('subscription', SubscriptionCheckout::class);
+    
+    //Route::get('subscription', [SubscriptionController::class, 'selectPlan'])->name('subscription.select-plan');
+    Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.store');
+    Route::get('subscription/index', [SubscriptionController::class, 'index'])->name('subscription.index');
     Route::get('subscription/intent', [SubscriptionController::class, 'intent'])->name('subscription.intent');
     Route::post('subscription/payment', [SubscriptionController::class, 'payment'])->name('subscription.payment');
 

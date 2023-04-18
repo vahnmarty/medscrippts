@@ -15,7 +15,7 @@ class DashboardController extends Controller
         {
             return redirect('scripts');
         }else{
-            return redirect('billing-portal');
+            return redirect('subscription');
         }
     }
 }
