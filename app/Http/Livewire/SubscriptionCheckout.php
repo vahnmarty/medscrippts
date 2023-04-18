@@ -28,18 +28,23 @@ class SubscriptionCheckout extends Component
         $plan = Plan::find($this->plan);
 
         $user = Auth::user();
-        $user->addPaymentMethod($intent['payment_method']);
 
-        if (!$user->hasDefaultPaymentMethod()) {
-            $user->updateDefaultPaymentMethod($intent['payment_method']);
+        if($plan && $user)
+        {
+            $user->addPaymentMethod($intent['payment_method']);
+
+            if (!$user->hasDefaultPaymentMethod()) {
+                $user->updateDefaultPaymentMethod($intent['payment_method']);
+            }
+
+            
+            $subscribed = $user->newSubscription('default', $plan->stripe_plan)
+                ->create($intent['payment_method'],[
+                    'email' => $user->email
+                ]);
+
+            return redirect('scripts');
         }
-
         
-        $subscribed = $user->newSubscription('default', $plan->stripe_plan)
-            ->create($intent['payment_method'],[
-                'email' => $user->email
-            ]);
-
-        return redirect('scripts');
     }
 }
