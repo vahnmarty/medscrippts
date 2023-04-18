@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flash_card_items', function (Blueprint $table) {
+        Schema::create('flash_card_categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('flash_card_id');
-            $table->unsignedBigInteger('script_id')->nullable();
-            $table->string('question');
-            $table->string('answer');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flash_card_items');
+        Schema::dropIfExists('flash_card_categories');
     }
 };

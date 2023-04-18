@@ -26,4 +26,15 @@ class Script extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function getNotes()
+    {
+        $string = '';
+
+        $string.= "{$this->title} from category {$this->category->name}";
+
+        $string.= ". pathophysiology: {$this->pathophysiology}; epidemiology: {$this->epidemiology}; signs and symptoms: {$this->signs}; diagnosis: {$this->diagnosis}; treatments: {$this->treatments}.";
+
+        return $string;
+    }
 }
