@@ -69,4 +69,10 @@ return [
         'secret' => env('STRIPE_SECRET')
     ],
 
+    'airtable' => [
+        'token' => env('AIRTABLE_TOKEN'),
+        'baseId' => env('AIRTABLE_BASE_ID'),
+        'tableId' => env('AIRTABLE_TABLE_ID')
+    ]
+
 ];

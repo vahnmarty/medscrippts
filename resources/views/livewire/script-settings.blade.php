@@ -1,11 +1,12 @@
 <div x-data="{ 
         open: false, 
+        count: $wire.entangle('n'),
         isDesktop: false,
         screenResponsive(){
             this.isDesktop = window.innerWidth > 720;
         }
      }"
-    x-init="screenResponsive(); open = isDesktop || {{ $n > 0 }}"
+    x-init="screenResponsive(); open = isDesktop && count"
     x-on:resize.window="screenResponsive()"
     x-on:toggle-settings.window="open = !open"
     :class="open ? 'w-72' : 'w-0'"
