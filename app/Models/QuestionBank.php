@@ -13,7 +13,7 @@ class QuestionBank extends Model
 
     public function items()
     {
-        return $this->hasMany(QuestionbankItem::class);
+        return $this->hasMany(QuestionBankItem::class);
     }
 
     public function categories()
