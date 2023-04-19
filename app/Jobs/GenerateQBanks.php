@@ -6,6 +6,7 @@ use Log;
 use Auth;
 use App\Models\Script;
 use App\Models\FlashCard;
+use App\Models\QuestionBank;
 use Illuminate\Bus\Queueable;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Queue\SerializesModels;
@@ -35,15 +36,15 @@ class GenerateQBanks implements ShouldQueue
     {
         Log::channel('openai')->info('Queue ChatGPT');
 
-        $this->createFlashCards($this->script);
+        $this->generate($this->script);
     }
 
-    private function createFlashCards(Script $script)
+    private function generate(Script $script)
     {
         $max = 5;
-        $prompt = "Write me {$max} items questionnaire in a JSON format,  group them into 'questions' then give each item with keys 'question' and 'answer', and based the questions from the article below. \n\nArticle: " . $script->getNotes();
+        $prompt = "Write me {$max} items questionnaire in a JSON format,  Use key 'questions' as the parent then for the children keys: 'question', 'option1', 'option2', 'option3', 'option4' then 'option_answer' with the value of the correct option and 'answer' with the value of the correct answer, and based the questions from the article below. \n\nArticle: " . $script->getNotes();
 
-        Log::channel('openai')->info('Prompt:');
+        Log::channel('openai')->info('QBank Prompt:');
         Log::channel('openai')->info($prompt);
 
         $messages[] = [
@@ -58,23 +59,32 @@ class GenerateQBanks implements ShouldQueue
 
         $content = $response['choices'][0]['message']['content'];
 
-        Log::channel('openai')->info('FlashCard CHATGPT Result');
+        Log::channel('openai')->info('QBank CHATGPT Result');
         Log::channel('openai')->info($content);
 
-        $data = $this->parseResult($content);
+        try {
+            $data = $this->parseResult($content);
 
-        $questions = $data['questions'];
-
-        $flashCard = FlashCard::create(['user_id' => $script->user_id]);
-        $flashCard->categories()->attach($script->category_id);
-
-        foreach($questions as $item)
-        {
-            $flashCard->cards()->create([
-                'script_id' => $script->id,
-                'question' => $item['question'],
-                'answer' => $item['answer'],
-            ]);
+            $questions = $data['questions'];
+    
+            $qbank = QuestionBank::create(['user_id' => $script->user_id]);
+            $qbank->categories()->attach($script->category_id);
+    
+            foreach($questions as $item)
+            {
+                $qbank->items()->create([
+                    'script_id' => $script->id,
+                    'question' => $item['question'],
+                    'option1' => $item['option1'],
+                    'option2' => $item['option2'],
+                    'option3' => $item['option3'],
+                    'option4' => $item['option4'],
+                    'option_answer' => $item['option_answer'],
+                    'answer' => $item['answer'],
+                ]);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
 
     }

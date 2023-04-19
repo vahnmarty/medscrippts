@@ -8,6 +8,7 @@ use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\FlashCard;
+use App\Jobs\GenerateQBanks;
 use App\Jobs\GenerateFlashCards;
 use OpenAI\Laravel\Facades\OpenAI;
 use Filament\Forms\Components\Grid;
@@ -61,6 +62,7 @@ class CreateScript extends Component implements HasForms
 
         # Job/Queue
         GenerateFlashCards::dispatch($script);
+        GenerateQBanks::dispatch($script);
 
         $this->emitUp('refreshScripts');
 

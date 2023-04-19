@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionBank extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function items()
+    {
+        return $this->hasMany(QuestionbankItem::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'question_bank_categories');
+    }
 }
