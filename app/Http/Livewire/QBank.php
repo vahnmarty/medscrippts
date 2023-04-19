@@ -27,6 +27,10 @@ class QBank extends Component
     public function next()
     {
         $this->index++;
+
+        if(empty($this->results[$this->index])){
+            dd('end!');
+        }
     }
 
     public function exit()

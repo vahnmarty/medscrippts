@@ -42,7 +42,9 @@
 
         @include('includes.partials.sidebar')
 
+        @if(request()->is('scripts'))
         @livewire('script-settings')
+        @endif
 
         <div class="flex-1 max-h-screen overflow-auto">
             @include('includes.partials.header')

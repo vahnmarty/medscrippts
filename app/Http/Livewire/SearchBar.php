@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Script;
 use Livewire\Component;
+use Auth;
 
 class SearchBar extends Component
 {
@@ -23,7 +24,8 @@ class SearchBar extends Component
 
     public function search()
     {
-        $this->lists = Script::orderBy('title')->get()->pluck('title')->toArray();
+        $this->lists = Script::where('user_id', Auth::id())->orderBy('title')->get()->pluck('title')->toArray();
+        
     }
 
     public function select($keyword)

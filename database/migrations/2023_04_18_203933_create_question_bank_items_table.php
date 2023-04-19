@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('option3');
             $table->string('option4');
             $table->string('answer');
-            $table->integer('option_answer')->comment('Option 1 - 4');
+            $table->string('option_answer')->comment('Option 1 - 4');
             $table->timestamps();
         });
     }

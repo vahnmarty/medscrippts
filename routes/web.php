@@ -33,10 +33,12 @@ use App\Http\Livewire\Courses\CourseContents;
 use App\Http\Livewire\Pathway\ManagePathways;
 use App\Http\Livewire\Pathway\PathwayBuilder;
 use App\Http\Controllers\InvitationController;
+use App\Http\Livewire\FlashCard\PlayFlashCard;
 use App\Http\Livewire\Pathway\PathwayContents;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Livewire\Courses\ModuleItemPreview;
+use App\Http\Livewire\FlashCard\ManageFlashCards;
 use App\Http\Controllers\SocialiteLoginController;
 
 /*
@@ -88,6 +90,9 @@ Route::group(['middleware' => ['auth', 'subscribed']], function(){
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
     Route::get('support', SupportPage::class)->name('support');
     Route::get('qbank/{flashCardId}', QBank::class)->name('qbank');
+
+    Route::get('flashcards', ManageFlashCards::class)->name('flashcard.index');
+    Route::get('flashcards/{id}/play', PlayFlashCard::class)->name('flashcard.play');
 
 });
 
