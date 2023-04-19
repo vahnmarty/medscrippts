@@ -41,8 +41,14 @@ class GenerateQBanks implements ShouldQueue
 
     private function generate(Script $script)
     {
-        $max = 5;
-        $prompt = "Write me {$max} items questionnaire in a JSON format,  Use key 'questions' as the parent then for the children keys: 'question', 'option1', 'option2', 'option3', 'option4' then 'option_answer' with the value of the correct option and 'answer' with the value of the correct answer, and based the questions from the article below. \n\nArticle: " . $script->getNotes();
+        $prompt = '
+        Given the following article:
+
+        '. $script->getNotes() .'
+
+        Please generate a multiple-choice type questionnaire that covers the main topics and key points discussed in the article. The questionnaire should consist of 5 questions.
+
+        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question", "option1", "option2", "option3", "option4" then  and "option_answer" with the value of the correct option and "answer" with the value of the correct answer.';
 
         Log::channel('openai')->info('QBank Prompt:');
         Log::channel('openai')->info($prompt);

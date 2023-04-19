@@ -29,29 +29,12 @@ class ManageFlashCards extends Component implements HasTable
     protected function getTableHeaderActions()
     {
         return [
-            CreateAction::make('invite')
+            Action::make('Create Flash Card')
                 ->form([
-                    TextInput::make('email')->required()
+                    TextInput::make('max')->numeric()->required()
                 ])
                 ->action(function(array $data){
-                    
-                    $email = $data['email'];
-
-                    if(!$this->hasInvitation($email))
-                    {
-                        $invitation = Invitation::create([
-                            'team_id' => $this->team->id,
-                            'email' => $email,
-                            'token' => Str::random(40)
-                        ]);
-
-                        InvitationCreated::dispatch($invitation);
-                        
-                        $this->alert('success', 'Successfully invited ' . $email);
-                    }else{
-                        
-                        $this->alert('error', $email . ' is already on the invitation list.');
-                    }
+                    dd($data);
                     
                 })
             ];

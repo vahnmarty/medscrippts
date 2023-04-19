@@ -41,7 +41,14 @@ class GenerateFlashCards implements ShouldQueue
     private function createFlashCards(Script $script)
     {
         $max = 5;
-        $prompt = "Write me {$max} items questionnaire in a JSON format,  group them into 'questions' then give each item with keys 'question' and 'answer', and based the questions from the article below. \n\nArticle: " . $script->getNotes();
+        $prompt = '
+        Given the following article:
+
+        '. $script->getNotes() .'
+
+        Please generate a questionnaire that covers the main topics and key points discussed in the article. The questionnaire should consist of 5 questions.
+
+        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question" and "answer".';
 
         Log::channel('openai')->info('Prompt:');
         Log::channel('openai')->info($prompt);

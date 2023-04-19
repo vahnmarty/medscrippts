@@ -7,7 +7,7 @@
         :class="search ? 'rounded-b-none' : ''"
         placeholder="Search">
         <div x-show="search" x-cloak class="absolute left-0 right-0 min-h-[1rem] max-h-[16rem] overflow-auto bg-white top-10 border z-20 rounded-md rounded-l-none rounded-r-none">
-            <template x-for="item in list" :key="item">
+            <template x-for="(item,i) in list" :key="i">
                 <div>
                     <div
                         x-on:click="$wire.select(item); search = ''" 
