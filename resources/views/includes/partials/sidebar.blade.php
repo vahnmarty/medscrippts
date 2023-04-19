@@ -44,6 +44,12 @@
                     </x-slot>
                 </x-sidebar-item>
 
+                <x-sidebar-item label="QBanks" link="{{ url('qbanks') }}" :active="request()->is('qbanks*') ">
+                    <x-slot name="icon">
+                        <x-heroicon-s-question-mark-circle class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
+                    </x-slot>
+                </x-sidebar-item>
+
 
 
 

@@ -20,4 +20,9 @@ class QuestionBank extends Model
     {
         return $this->belongsToMany(Category::class, 'question_bank_categories');
     }
+
+    public function records()
+    {
+        return $this->hasMany(QuestionBankRecord::class);
+    }
 }

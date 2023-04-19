@@ -11,7 +11,9 @@ module.exports = {
     ],
     safelist:[
         'line-through',
-        'blur-sm'
+        'blur-sm',
+        'bg-red',
+        'bg-green'
     ],
 
     theme: {

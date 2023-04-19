@@ -31,7 +31,7 @@ class CreateScript extends Component implements HasForms
 
     public function mount()
     {
-        $this->form->fill(Script::first()->toArray());
+        //$this->form->fill(Script::first()->toArray());
     }
 
     protected function getFormSchema()

@@ -40,6 +40,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Livewire\Courses\ModuleItemPreview;
 use App\Http\Livewire\FlashCard\ManageFlashCards;
 use App\Http\Controllers\SocialiteLoginController;
+use App\Http\Livewire\QuestionBank\PlayQuestionBank;
+use App\Http\Livewire\QuestionBank\ManageQuestionBanks;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +95,9 @@ Route::group(['middleware' => ['auth', 'subscribed']], function(){
 
     Route::get('flashcards', ManageFlashCards::class)->name('flashcard.index');
     Route::get('flashcards/{id}/play', PlayFlashCard::class)->name('flashcard.play');
+
+    Route::get('qbanks', ManageQuestionBanks::class)->name('qbank.index');
+    Route::get('qbanks/{id}/play', PlayQuestionBank::class)->name('qbank.play');
 
 });
 
