@@ -77,8 +77,10 @@ class PlayQuestionBank extends Component
 
     public function retake()
     {
+        return redirect(request()->header('Referer'));
         $this->end = false;
         $this->index = 0;
+        
     }
 
     public function selectAnswer(int $index, $option)

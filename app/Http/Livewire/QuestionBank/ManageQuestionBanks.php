@@ -47,7 +47,10 @@ class ManageQuestionBanks extends Component implements HasTable
             TextColumn::make('created_at')->label('Date Created')->dateTime('m/d/Y'),
             TextColumn::make('categories.name'),
             TextColumn::make('items_count')->label('Questions')->counts('items'),
-            TextColumn::make('prev_score'),
+            TextColumn::make('prev_score')
+                ->getStateUsing( function (QuestionBank $record){
+                return $record->records()->first()?->score;
+             }),
             TextColumn::make('records_count')->label('Times Taken')->counts('records'),
         ];
     }

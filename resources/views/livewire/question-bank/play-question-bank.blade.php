@@ -10,7 +10,7 @@
         <div class="mt-16">
             <div>
 
-                <section x-data="{ end: $wire.entangle('end') }" x-show="end"
+                <section x-data="{ end: $wire.entangle('end') }" x-show="end" x-cloak
                     class="max-w-xl px-4 mx-auto">
                     <div class="flex justify-center">
                         <x-heroicon-s-puzzle class="w-16 h-16 text-gray-400"/>
