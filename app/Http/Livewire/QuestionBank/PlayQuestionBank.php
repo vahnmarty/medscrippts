@@ -4,14 +4,17 @@ namespace App\Http\Livewire\QuestionBank;
 
 use Livewire\Component;
 use App\Models\QuestionBank;
+use Auth;
 
 class PlayQuestionBank extends Component
 {
     public $results = [], $index = 0;
 
-    public $end;
+    public $end, $score, $passed, $passing_pct = 60;
 
-    public $flash_card_id;
+    public $has_answered;
+
+    public $qbank_id;
 
     public function render()
     {
@@ -20,7 +23,7 @@ class PlayQuestionBank extends Component
 
     public function mount($id)
     {
-        $this->flash_card_id = $id;
+        $this->qbank_id = $id;
         $flashCard = QuestionBank::with('items')->find($id);
 
         $items = $flashCard->items->toArray();
@@ -42,11 +45,29 @@ class PlayQuestionBank extends Component
 
         if(empty($this->results[$this->index])){
             $this->end = true;
-
-            $flashCard = FlashCard::find($this->flash_card_id);
-            $flashCard->reviews = $flashCard->reviews+1;
-            $flashCard->save();
+            $this->complete();
         }
+
+        $this->reset('has_answered');
+    }
+
+    public function complete()
+    {
+        $qbank = QuestionBank::find($this->qbank_id);
+
+        $items = $this->results;
+        $total = collect($items)->count();
+        $score = collect($items)->where('is_correct', true)->count();
+
+        $qbank->records()->create([
+            'user_id' => Auth::id(),
+            'items' => $total,
+            'score' => $score
+        ]);
+
+        $this->score = $score;
+
+        $this->passed = ($score / $total * 100) >= $this->passing_pct;
     }
 
     public function exit()
@@ -58,7 +79,6 @@ class PlayQuestionBank extends Component
     {
         $this->end = false;
         $this->index = 0;
-        
     }
 
     public function selectAnswer(int $index, $option)
@@ -69,5 +89,7 @@ class PlayQuestionBank extends Component
         if($item['option_answer'] == $option){
             $this->results[$index]['is_correct'] = true;
         }
+
+        $this->has_answered = true;
     }
 }
