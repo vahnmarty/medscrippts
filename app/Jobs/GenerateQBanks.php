@@ -76,9 +76,9 @@ class GenerateQBanks implements ShouldQueue
 
             $questions = $data['questions'];
 
-            $qBank = $this->qBank;
+            $qbank = $this->qBank;
 
-            if(!$qBank)
+            if(!$qbank)
             {
                 $qbank = QuestionBank::create(['user_id' => $script->user_id]);
                 $qbank->categories()->attach($script->category_id);

@@ -6,6 +6,7 @@ use Storage;
 use App\Models\Category;
 use App\Services\Airtable;
 use Illuminate\Database\Seeder;
+use App\Jobs\ImportImageFromAirtable;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ImportCategoriesTableSeeder extends Seeder
@@ -27,11 +28,7 @@ class ImportCategoriesTableSeeder extends Seeder
                 $image_url = $image['url'];
 
                 if (filter_var($image_url, FILTER_VALIDATE_URL)) {
-                    $fileContents = file_get_contents($image_url);
-                    $fileName = basename($image_url);
-                    Storage::disk('public')->put('categories/'. $fileName, $fileContents);
-                    $category->image = 'categories/'. $fileName;
-                    $category->save();
+                    ImportImageFromAirtable::dispatch($category, $image_url);
                 }
             }
             
