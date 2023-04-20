@@ -37,3 +37,14 @@ if (! function_exists('site_logo')) {
     }
 }
 
+if(! function_exists('parse_json_result')){
+    function parse_json_result($content)
+    {
+        $json = json_encode($content);
+        $decode = json_decode($json);
+        $data =  json_decode(str_replace("\\\"", "\"", $decode), true);
+
+        return $data;
+    }
+}
+
