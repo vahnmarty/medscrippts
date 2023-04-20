@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ImportCategoriesTableSeeder::class);
         $this->call(ImportScriptsTableSeeder::class);
         $this->call(PlansTableSeeder::class);
+        $this->call(GenerateScriptQuizSeeder::class);
     }
 }

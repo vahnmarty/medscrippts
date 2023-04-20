@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('question');
             $table->string('answer');
             $table->timestamps();
+
+            $table->foreign('flash_card_id')->references('id')->on('flash_cards')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

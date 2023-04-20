@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('answer');
             $table->string('option_answer')->comment('Option 1 - 4');
             $table->timestamps();
+
+            $table->foreign('question_bank_id')->references('id')->on('question_banks')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Scripts;
 
 use Livewire\Component;
 use App\Models\Category;
+use App\Models\FlashCard;
+use App\Models\QuestionBank;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\CheckboxList;
@@ -42,6 +44,7 @@ class ImportScripts extends Component implements HasForms
 
         $categories = Category::whereIn('id', $selected)->with('scripts')->get();
 
+        # Import Scripts
         foreach($categories as $category)
         {
             foreach($category->scripts as $script)
@@ -51,6 +54,47 @@ class ImportScripts extends Component implements HasForms
                 $clone->save();
             }
         }
+
+        # Import Flash Cards
+        $flashCards = FlashCard::whereNull('user_id')->has('cards')->get();
+
+        foreach($flashCards as $flashCard)
+        {
+            $clone = $flashCard->replicate();
+            $clone->user_id = auth()->id();
+            $clone->save();
+
+            $newCard = $clone;
+            $newCard->categories()->attach($newCard->category_id);
+
+            foreach($flashCard->cards as $card)
+            {
+                $duplicate = $card->replicate();
+                $duplicate->flash_card_id = $newCard->id;
+                $duplicate->save();
+            }
+        }
+
+        # Import QBanks
+        $qBanks = QuestionBank::whereNull('user_id')->has('items')->get();
+
+        foreach($qBanks as $qBank)
+        {
+            $clone = $qBank->replicate();
+            $clone->user_id = auth()->id();
+            $clone->save();
+
+            $newQ = $clone;
+            $newQ->categories()->attach($newQ->category_id);
+
+            foreach($qBank->items as $item)
+            {
+                $duplicate = $item->replicate();
+                $duplicate->question_bank_id = $newQ->id;
+                $duplicate->save();
+            }
+        }
+
 
         return redirect('dashboard');
     }
