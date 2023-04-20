@@ -47,7 +47,7 @@ class GenerateQBanks implements ShouldQueue
 
         Please generate a multiple-choice type questionnaire that covers the main topics and key points discussed in the article. The questionnaire should consist of '.$max.' questions.
 
-        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question", "option1", "option2", "option3", "option4" then  and "option_answer" with the value of the correct option and "answer" with the value of the correct answer.';
+        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question", "option1", "option2", "option3", "option4" then  and "option_answer" with the value of the correct option and "answer" with the value of the correct answer. To clarify, the "option_answer" should either "option1", "option2", "option3" or "option4", and the "answer" is the string value of the correct answer.';
 
         Log::channel('openai')->info('QBank Prompt:');
         Log::channel('openai')->info($prompt);
