@@ -40,21 +40,20 @@ class GenerateQBanks implements ShouldQueue
     private function generate(Script $script)
     {
         $max = 5;
-        $prompt = '
-        Given the following article:
+        $system_prompt = 'Please generate a 5 items of multiple-choice type questionnaire that covers the main topics and key points discussed in the article.
 
-        '. $script->getNotes() .'
+        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question", "option1", "option2", "option3", "option4" then  and "option_answer" with the value of the correct option and "answer" with the value of the correct answer. To clarify, the "option_answer" should either "option1", "option2", "option3" or "option4", and the "answer" is the string value of the correct answer. To avoid any errors in saving it to database, make every key in the JSON  be maximum of 150 characters only.';
 
-        Please generate a multiple-choice type questionnaire that covers the main topics and key points discussed in the article. The questionnaire should consist of '.$max.' questions.
+        $user_prompt = $script->getNotes();
 
-        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question", "option1", "option2", "option3", "option4" then  and "option_answer" with the value of the correct option and "answer" with the value of the correct answer. To clarify, the "option_answer" should either "option1", "option2", "option3" or "option4", and the "answer" is the string value of the correct answer.';
-
-        Log::channel('openai')->info('QBank Prompt:');
-        Log::channel('openai')->info($prompt);
+        $messages[] = [
+            'role' => 'system', 
+            'content' =>  $system_prompt
+        ];
 
         $messages[] = [
             'role' => 'user', 
-            'content' =>  $prompt
+            'content' =>  $user_prompt
         ];
 
         $response = OpenAI::chat()->create([
@@ -74,6 +73,10 @@ class GenerateQBanks implements ShouldQueue
 
             foreach($questions as $item)
             {
+
+                // Check if option answer is option1,2,3,4
+
+                // Check if 'answer' is from the list of the options
                 QuestionBank::create([
                     'script_id' => $script->id,
                     'category_id' => $script->category_id,
