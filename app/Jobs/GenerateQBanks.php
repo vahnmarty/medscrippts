@@ -21,12 +21,15 @@ class GenerateQBanks implements ShouldQueue
 
     public Script $script;
 
+    public $qBank;
+
     /**
      * Create a new job instance.
      */
-    public function __construct(Script $script)
+    public function __construct(Script $script, QuestionBank $qBank = null)
     {
         $this->script = $script;
+        $this->qBank = $qBank;
     }
 
     /**
@@ -72,9 +75,16 @@ class GenerateQBanks implements ShouldQueue
             $data = $this->parseResult($content);
 
             $questions = $data['questions'];
+
+            $qBank = $this->qBank;
+
+            if(!$qBank)
+            {
+                $qbank = QuestionBank::create(['user_id' => $script->user_id]);
+                $qbank->categories()->attach($script->category_id);
+            }
     
-            $qbank = QuestionBank::create(['user_id' => $script->user_id]);
-            $qbank->categories()->attach($script->category_id);
+            
     
             foreach($questions as $item)
             {

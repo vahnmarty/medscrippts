@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('score');
             $table->integer('items');
             $table->timestamps();
+
+            $table->foreign('question_bank_id')->references('id')->on('question_banks')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -60,12 +60,14 @@ class ImportScripts extends Component implements HasForms
 
         foreach($flashCards as $flashCard)
         {
+
             $clone = $flashCard->replicate();
             $clone->user_id = auth()->id();
             $clone->save();
 
             $newCard = $clone;
-            $newCard->categories()->attach($newCard->categories()->first()?->id);
+
+            $newCard->categories()->attach($flashCard->categories()->first()?->id);
 
             foreach($flashCard->cards as $card)
             {
@@ -85,7 +87,7 @@ class ImportScripts extends Component implements HasForms
             $clone->save();
 
             $newQ = $clone;
-            $newQ->categories()->attach($newQ->categories()->first()?->id);
+            $newQ->categories()->attach($qBank->categories()->first()?->id);
 
             foreach($qBank->items as $item)
             {

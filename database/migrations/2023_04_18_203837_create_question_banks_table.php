@@ -22,6 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('question_bank_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
+
+            $table->foreign('question_bank_id')->references('id')->on('question_banks')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

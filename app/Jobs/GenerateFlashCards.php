@@ -19,13 +19,15 @@ class GenerateFlashCards implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public Script $script;
+    public $flashCard;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(Script $script)
+    public function __construct(Script $script, FlashCard $flashCard = null)
     {
         $this->script = $script;
+        $this->flashCard = $flashCard;
     }
 
     /**
@@ -72,8 +74,13 @@ class GenerateFlashCards implements ShouldQueue
 
         $questions = $data['questions'];
 
-        $flashCard = FlashCard::create(['user_id' => $script->user_id]);
-        $flashCard->categories()->attach($script->category_id);
+        $flashCard = $this->flashCard;
+
+        if(!$flashCard){
+            $flashCard = FlashCard::create(['user_id' => $script->user_id]);
+            $flashCard->categories()->attach($script->category_id);
+        }
+        
 
         foreach($questions as $item)
         {

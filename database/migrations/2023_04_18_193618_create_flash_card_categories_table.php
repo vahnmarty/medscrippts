@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('flash_card_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
+
+            $table->foreign('flash_card_id')->references('id')->on('flash_cards')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

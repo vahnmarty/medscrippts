@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\FlashCard;
 use App\Jobs\GenerateQBanks;
+use App\Models\QuestionBank;
 use Illuminate\Database\Seeder;
 use App\Jobs\GenerateFlashCards;
 use App\Jobs\GenerateFlashCardsForCategory;
@@ -20,10 +22,17 @@ class GenerateScriptQuizSeeder extends Seeder
 
         foreach($categories as $category)
         {
+            $flashCard = FlashCard::firstOrCreate();
+            $flashCard->categories()->attach($category->id);
+
+            $qbank = QuestionBank::firstOrCreate();
+            $qbank->categories()->attach($category->id);
+
+
             foreach($category->scripts as $script)
             {
-                GenerateFlashCards::dispatch($script);
-                GenerateQBanks::dispatch($script);
+                GenerateFlashCards::dispatch($script, $flashCard);
+                GenerateQBanks::dispatch($script, $qbank);
             }
         }
     }

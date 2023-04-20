@@ -21,6 +21,11 @@ class ManageFlashCards extends Component implements HasTable
         return view('livewire.flash-card.manage-flash-cards');
     }
 
+    public function mount()
+    {
+        
+    }
+
     protected function getTableQuery() 
     {
         return FlashCard::where('user_id', Auth::id());
