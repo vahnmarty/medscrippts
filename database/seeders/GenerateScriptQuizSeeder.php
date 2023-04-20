@@ -18,7 +18,7 @@ class GenerateScriptQuizSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = Category::has('scripts')->get();
+        $categories = Category::has('scripts')->limit(1)->get();
 
         foreach($categories as $category)
         {

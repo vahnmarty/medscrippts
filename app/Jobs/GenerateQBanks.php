@@ -40,9 +40,7 @@ class GenerateQBanks implements ShouldQueue
     private function generate(Script $script)
     {
         $max = 5;
-        $system_prompt = 'Please generate a 5 items of multiple-choice type questionnaire that covers the main topics and key points discussed in the article.
-
-        The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question", "option1", "option2", "option3", "option4" then  and "option_answer" with the value of the correct option and "answer" with the value of the correct answer. To clarify, the "option_answer" should either "option1", "option2", "option3" or "option4", and the "answer" is the string value of the correct answer. To avoid any errors in saving it to database, make every key in the JSON  be maximum of 150 characters only.';
+        $system_prompt = 'Please generate a 5 items of multiple-choice type questionnaire that covers the main topics and key points discussed in the article. The output should be in JSON format and grouped in a key called "questions". Each item must have these keys: "question", "option1", "option2", "option3", "option4". And add a key called "option_answer" with option number of the correct answer, so it must be ["option1", "option2", "option3", "option4"].';
 
         $user_prompt = $script->getNotes();
 
@@ -50,16 +48,19 @@ class GenerateQBanks implements ShouldQueue
             'role' => 'system', 
             'content' =>  $system_prompt
         ];
-
         $messages[] = [
             'role' => 'user', 
             'content' =>  $user_prompt
         ];
 
+        Log::channel('openai')->info($messages);
+
         $response = OpenAI::chat()->create([
             'model' => 'gpt-3.5-turbo',
             'messages' => $messages
         ]);
+
+
 
         $content = $response['choices'][0]['message']['content'];
 
@@ -86,7 +87,7 @@ class GenerateQBanks implements ShouldQueue
                     'option3' => $item['option3'],
                     'option4' => $item['option4'],
                     'option_answer' => $item['option_answer'],
-                    'answer' => $item['answer'],
+                    //'answer' => $item['answer'],
                 ]);
             }
         } catch (\Throwable $th) {
