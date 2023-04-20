@@ -56,47 +56,24 @@ class ImportScripts extends Component implements HasForms
         }
 
         # Import Flash Cards
-        $flashCards = FlashCard::whereNull('user_id')->has('cards')->get();
+        $flashCards = FlashCard::whereNull('user_id')->get();
 
         foreach($flashCards as $flashCard)
         {
-
             $clone = $flashCard->replicate();
             $clone->user_id = auth()->id();
             $clone->save();
-
-            $newCard = $clone;
-
-            $newCard->categories()->attach($flashCard->categories()->first()?->id);
-
-            foreach($flashCard->cards as $card)
-            {
-                $duplicate = $card->replicate();
-                $duplicate->flash_card_id = $newCard->id;
-                $duplicate->save();
-            }
         }
 
         # Import QBanks
-        $qBanks = QuestionBank::whereNull('user_id')->has('items')->get();
+        $qBanks = QuestionBank::whereNull('user_id')->get();
 
         foreach($qBanks as $qBank)
         {
             $clone = $qBank->replicate();
             $clone->user_id = auth()->id();
             $clone->save();
-
-            $newQ = $clone;
-            $newQ->categories()->attach($qBank->categories()->first()?->id);
-
-            foreach($qBank->items as $item)
-            {
-                $duplicate = $item->replicate();
-                $duplicate->question_bank_id = $newQ->id;
-                $duplicate->save();
-            }
         }
-
 
         return redirect('dashboard');
     }

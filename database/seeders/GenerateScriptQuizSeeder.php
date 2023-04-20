@@ -22,17 +22,10 @@ class GenerateScriptQuizSeeder extends Seeder
 
         foreach($categories as $category)
         {
-            $flashCard = FlashCard::create();
-            $flashCard->categories()->attach($category->id);
-
-            $qbank = QuestionBank::create();
-            $qbank->categories()->attach($category->id);
-
-
             foreach($category->scripts as $script)
             {
-                GenerateFlashCards::dispatch($script, $flashCard);
-                GenerateQBanks::dispatch($script, $qbank);
+                GenerateFlashCards::dispatch($script);
+                GenerateQBanks::dispatch($script);
             }
         }
     }

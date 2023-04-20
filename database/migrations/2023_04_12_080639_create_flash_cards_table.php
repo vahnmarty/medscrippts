@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('flash_cards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->integer('confidence')->nullable();
-            $table->integer('reviews')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('script_id')->nullable();
+            $table->string('question');
+            $table->string('answer');
             $table->timestamps();
         });
     }

@@ -19,15 +19,13 @@ class GenerateFlashCards implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public Script $script;
-    public $flashCard;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(Script $script, FlashCard $flashCard = null)
+    public function __construct(Script $script)
     {
         $this->script = $script;
-        $this->flashCard = $flashCard;
     }
 
     /**
@@ -35,12 +33,10 @@ class GenerateFlashCards implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::channel('openai')->info('Queue ChatGPT');
-
-        $this->createFlashCards($this->script);
+        $this->generate($this->script);
     }
 
-    private function createFlashCards(Script $script)
+    private function generate(Script $script)
     {
         $max = 5;
         $prompt = '
@@ -48,7 +44,7 @@ class GenerateFlashCards implements ShouldQueue
 
         '. $script->getNotes() .'
 
-        Please generate a questionnaire that covers the main topics and key points discussed in the article. The questionnaire should consist of 5 questions.
+        Please generate a questionnaire that covers the main topics and key points discussed in the article. The questionnaire should consist of '. $max.' questions.
 
         The output should be in JSON format and grouped in a key called "questions". Each item in the array should have a key called "question" and "answer".';
 
@@ -74,18 +70,11 @@ class GenerateFlashCards implements ShouldQueue
 
         $questions = $data['questions'];
 
-        $flashCard = $this->flashCard;
-
-        if(!$flashCard){
-            $flashCard = FlashCard::create(['user_id' => $script->user_id]);
-            $flashCard->categories()->attach($script->category_id);
-        }
-        
-
         foreach($questions as $item)
         {
-            $flashCard->cards()->create([
+            FlashCard::create([
                 'script_id' => $script->id,
+                'category_id' => $script->category_id,
                 'question' => $item['question'],
                 'answer' => $item['answer'],
             ]);

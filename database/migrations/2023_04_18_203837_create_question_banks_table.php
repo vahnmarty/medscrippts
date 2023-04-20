@@ -14,18 +14,18 @@ return new class extends Migration
         Schema::create('question_banks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('script_id')->nullable();
+            $table->string('question');
+            $table->string('option1');
+            $table->string('option2');
+            $table->string('option3');
+            $table->string('option4');
+            $table->string('answer');
+            $table->string('option_answer')->comment('Option 1 - 4');
             $table->timestamps();
         });
 
-        Schema::create('question_bank_categories', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('question_bank_id');
-            $table->unsignedBigInteger('category_id');
-            $table->timestamps();
-
-            $table->foreign('question_bank_id')->references('id')->on('question_banks')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
-        });
     }
 
     /**
@@ -33,7 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question_bank_categories');
         Schema::dropIfExists('question_banks');
     }
 };
