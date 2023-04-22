@@ -70,7 +70,6 @@ class QuestionBankRecords extends Component implements HasTable
             TextColumn::make('categories.name'),
             TextColumn::make('items_count')->label('Items')->counts('items'),
             TextColumn::make('score'),
-            TextColumn::make('items')
         ];
     }
 
