@@ -15,13 +15,13 @@ use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 
-class ManageFlashCards extends Component implements HasTable
+class FlashCardScripts extends Component implements HasTable
 {
     use InteractsWithTable;
     
     public function render()
     {
-        return view('livewire.flash-card.manage-flash-cards');
+        return view('livewire.flash-card.flash-card-scripts');
     }
 
     public function mount()

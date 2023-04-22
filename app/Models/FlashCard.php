@@ -16,8 +16,15 @@ class FlashCard extends Model
         return $this->hasMany(FlashCardItem::class);
     }
 
-    public function categories()
+    
+
+    public function category()
     {
-        return $this->belongsToMany(Category::class, 'flash_card_categories');
+        return $this->belongsTo(Category::class);
+    }
+
+    public function script()
+    {
+        return $this->belongsTo(Script::class);
     }
 }
