@@ -12,9 +12,12 @@
         <div x-data="{ tab: 'records' }">
             <div>
                 <nav class="flex space-x-4" aria-label="Tabs">
-                    <a href="#" class="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-700">
+                    <a href="#"
+                        x-on:click.prevent="tab = 'scripts'" 
+                        class="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-700">
                         Scripts</a>
                     <a href="#"
+                        x-on:click.prevent="tab = 'records'"
                         class="px-3 py-2 text-sm font-medium text-gray-800 bg-gray-200 rounded-md">Records</a>
                 </nav>
             </div>

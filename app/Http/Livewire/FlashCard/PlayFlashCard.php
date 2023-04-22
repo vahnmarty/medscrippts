@@ -4,6 +4,7 @@ namespace App\Http\Livewire\FlashCard;
 
 use Livewire\Component;
 use App\Models\FlashCard;
+use App\Models\FlashCardRecord;
 
 class PlayFlashCard extends Component
 {
@@ -11,7 +12,7 @@ class PlayFlashCard extends Component
 
     public $end;
 
-    public $flash_card_id;
+    public $flash_card_record_id;
 
     public function render()
     {
@@ -20,10 +21,10 @@ class PlayFlashCard extends Component
 
     public function mount($id)
     {
-        $this->flash_card_id = $id;
-        $flashCard = FlashCard::with('cards')->find($id);
+        $this->flash_card_record_id = $id;
+        $flashCard = FlashCardRecord::with('items')->findOrFail($id);
 
-        $this->results = $flashCard->cards;
+        $this->results = $flashCard->items;
     }
 
     public function next()
@@ -33,15 +34,15 @@ class PlayFlashCard extends Component
         if(empty($this->results[$this->index])){
             $this->end = true;
 
-            $flashCard = FlashCard::find($this->flash_card_id);
-            $flashCard->reviews = $flashCard->reviews+1;
+            $flashCard = FlashCardRecord::find($this->flash_card_record_id);
+            $flashCard->reviewed = $flashCard->reviewed+1;
             $flashCard->save();
         }
     }
 
     public function exit()
     {
-        return redirect('dashboard');
+        return redirect('flashcards');
     }
 
     public function retake()

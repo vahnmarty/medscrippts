@@ -78,7 +78,8 @@
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-darkgreen">Flash Card</h3>
 
-                @if($end)
+                <div class="h-16">
+                    @if($end)
                 <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
                 @else
                 <div x-data="{ open: false }"
@@ -86,6 +87,7 @@
                     <button x-show="open" x-on:click="open = false" wire:click="next" type="button" class="btn-primary">Next</button>
                 </div>
                 @endif
+                </div>
             </div>
         </div>
     </footer>
