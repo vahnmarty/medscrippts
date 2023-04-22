@@ -11,6 +11,11 @@ class QuestionBank extends Model
 
     protected $guarded = [];
 
+    public function script()
+    {
+        return $this->belongsTo(Script::class);
+    }
+
     public function items()
     {
         return $this->hasMany(QuestionBankItem::class);

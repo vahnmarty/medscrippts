@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\QuestionBank;
 
+use Auth;
 use Livewire\Component;
 use App\Models\QuestionBank;
-use Auth;
+use App\Models\QuestionBankRecord;
 
 class PlayQuestionBank extends Component
 {
@@ -14,7 +15,7 @@ class PlayQuestionBank extends Component
 
     public $has_answered;
 
-    public $qbank_id;
+    public $qbank_record_id;
 
     public function render()
     {
@@ -23,8 +24,8 @@ class PlayQuestionBank extends Component
 
     public function mount($id)
     {
-        $this->qbank_id = $id;
-        $flashCard = QuestionBank::with('items')->find($id);
+        $this->qbank_record_id = $id;
+        $flashCard = QuestionBankRecord::with('items')->find($id);
 
         $items = $flashCard->items->toArray();
         
@@ -53,31 +54,28 @@ class PlayQuestionBank extends Component
 
     public function complete()
     {
-        $qbank = QuestionBank::find($this->qbank_id);
+        $qbank = QuestionBankRecord::find($this->qbank_record_id);
 
-        $items = $this->results;
-        $total = collect($items)->count();
-        $score = collect($items)->where('is_correct', true)->count();
+        $score = collect($this->results)->where('is_correct', true)->count();
 
-        $qbank->records()->create([
-            'user_id' => Auth::id(),
-            'items' => $total,
+        $qbank->update([
             'score' => $score
         ]);
 
         $this->score = $score;
 
-        $this->passed = ($score / $total * 100) >= $this->passing_pct;
+        $this->passed = ($score / count($this->results) * 100) >= $this->passing_pct;
     }
 
     public function exit()
     {
-        return redirect('dashboard');
+        return redirect('qbanks');
     }
 
     public function retake()
     {
         return redirect(request()->header('Referer'));
+        
         $this->end = false;
         $this->index = 0;
         

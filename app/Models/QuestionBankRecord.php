@@ -10,4 +10,14 @@ class QuestionBankRecord extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'question_bank_record_categories');
+    }
+
+    public function items()
+    {
+        return $this->belongsToMany(QuestionBank::class, 'question_bank_record_items');
+    }
 }
