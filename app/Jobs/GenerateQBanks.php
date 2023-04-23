@@ -76,8 +76,8 @@ class GenerateQBanks implements ShouldQueue
 
             foreach($questions as $item)
             {
-
-                // Check if option answer is option1,2,3,4
+                $option_answer = $this->fixOptionAnswer($item, $item['option_answer']);
+                
 
                 // Check if 'answer' is from the list of the options
                 QuestionBank::create([
@@ -88,7 +88,7 @@ class GenerateQBanks implements ShouldQueue
                     'option2' => $item['option2'],
                     'option3' => $item['option3'],
                     'option4' => $item['option4'],
-                    'option_answer' => $item['option_answer'],
+                    'option_answer' => $option_answer,
                     //'answer' => $item['answer'],
                 ]);
             }
@@ -96,6 +96,29 @@ class GenerateQBanks implements ShouldQueue
             throw $th;
         }
 
+    }
+
+    public function fixOptionAnswer($result, $option_answer)
+    {
+        $opt_group1 = ['option1', 'option2', 'option3', 'option4'];
+        $opt_group2 = [1,2,3,4];
+
+        if(in_array($option_answer, $opt_group1)){
+            return $option_answer;
+        }
+
+        if(in_array($option_answer, $opt_group2)){
+            return 'option' . $option_answer;
+        }
+
+        foreach($opt_group1 as $opt)
+        {
+            if($option_answer == $result[$opt]){
+                return $opt;
+            }
+        }
+
+        return null;
     }
 
     public function parseResult($content)
