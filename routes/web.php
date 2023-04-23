@@ -25,7 +25,7 @@ use App\Http\Livewire\Courses\ShowCourse;
 use App\Http\Livewire\Pathway\ShowPathway;
 use App\Http\Livewire\Courses\CoursePlayer;
 use App\Http\Livewire\Courses\CreateCourse;
-use App\Http\Livewire\Scripts\CreateScript;
+use App\Http\Livewire\Scripts\CrudScript;
 use App\Http\Livewire\SubscriptionCheckout;
 use App\Http\Livewire\Courses\ManageCourses;
 use App\Http\Controllers\DashboardController;
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth']], function(){
 Route::group(['middleware' => ['auth', 'subscribed']], function(){
 
     Route::get('scripts', HomeScripts::class)->name('home');
-    Route::get('scripts/create', CreateScript::class);
+    Route::get('scripts/create', CrudScript::class);
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
     Route::get('support', SupportPage::class)->name('support');
     Route::get('qbank/{flashCardId}', QBank::class)->name('qbank');

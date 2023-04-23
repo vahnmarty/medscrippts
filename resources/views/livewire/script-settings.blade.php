@@ -58,11 +58,11 @@
             </div>
 
             <div class="mt-8">
-                <button x-data x-on:click="$dispatch('openmodal-create')"  type="button" class="w-full btn-primary btn-sm">
+                <button x-data wire:click="$emit('createScript')"  type="button" class="w-full btn-primary btn-sm">
                     <span>Create Script</span>
                 </button>
-                <x-modal-lg ref="create">
-                    @livewire('scripts.create-script')
+                <x-modal-lg ref="script">
+                    @livewire('scripts.crud-script')
                 </x-modal-lg>
             </div>
         </div>

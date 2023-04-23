@@ -91,6 +91,7 @@ class HomeScripts extends Component
     public function refreshScripts()
     {
         $this->refreshSettings();
+        $this->render();
     }
 
     public function refreshSettings()
