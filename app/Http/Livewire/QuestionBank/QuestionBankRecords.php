@@ -44,7 +44,7 @@ class QuestionBankRecords extends Component implements HasTable
                     Select::make('categories')
                         ->required()
                         ->multiple()
-                        ->options(Category::get()->pluck('name', 'id')),
+                        ->options(Category::has('questions')->get()->pluck('name', 'id')),
                     TextInput::make('max')
                         ->numeric()
                         ->required()

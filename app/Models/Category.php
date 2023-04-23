@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->hasMany(Script::class);
     }
+
+    public function questions()
+    {
+        return $this->hasMany(QuestionBank::class);
+    }
 }
