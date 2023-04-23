@@ -47,7 +47,7 @@ class FlashCardRecords extends Component implements HasTable
                     Select::make('categories')
                         ->required()
                         ->multiple()
-                        ->options(Category::get()->pluck('name', 'id')),
+                        ->options(Category::has('flashcards')->get()->pluck('name', 'id')),
                     TextInput::make('max')
                         ->numeric()
                         ->required()

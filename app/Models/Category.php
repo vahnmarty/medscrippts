@@ -20,4 +20,9 @@ class Category extends Model
     {
         return $this->hasMany(QuestionBank::class);
     }
+
+    public function flashcards()
+    {
+        return $this->hasMany(FlashCard::class);
+    }
 }
