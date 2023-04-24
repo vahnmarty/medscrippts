@@ -26,7 +26,7 @@
                 <div x-show="tab == 'records'">
                     @livewire('question-bank.question-bank-records')
                 </div>
-                <div x-show="tab == 'scripts'">
+                <div x-show="tab == 'scripts'" x-cloak>
                     @livewire('question-bank.question-bank-scripts')
                 </div>
             </div>

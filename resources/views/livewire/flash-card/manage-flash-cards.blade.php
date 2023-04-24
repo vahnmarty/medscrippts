@@ -26,7 +26,7 @@
                 <div x-show="tab == 'records'">
                     @livewire('flash-card.flash-card-records')
                 </div>
-                <div x-show="tab == 'scripts'">
+                <div x-show="tab == 'scripts'" x-cloak>
                     @livewire('flash-card.flash-card-scripts')
                 </div>
             </div>
