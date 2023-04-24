@@ -32,11 +32,13 @@
                     <x-heroicon-s-question-mark-circle class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
                 </button>
 
+                @if(null)
                 <x-modal-sm ref="qbank">
                     <div class="py-4">
                         @livewire('question-generator')
                     </div>
                 </x-modal-sm>
+                @endif
 
                 <x-sidebar-item label="Flash Cards" link="{{ url('flashcards') }}" :active="request()->is('flashcards*') ">
                     <x-slot name="icon">
