@@ -48,22 +48,32 @@
                     <div wire:key="quiz-{{ $loop->index }}">
                         @if($index == $loop->index)
                         <div x-data="{ flip: false }" 
-                            class="group w-full h-[16rem] [perspective:1000px] ">
+                            class="group w-full h-[20rem] [perspective:1000px] ">
                             <div
                                 x-on:click="flip = !flip; $dispatch('next')"
                                 :class="flip ? '[transform:rotateY(180deg)]' : ''"
                                 class="relative bg-white h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]">
                                 <div class="absolute inset-0 p-4">
                                     <div class="flex flex-col items-center justify-center w-full h-full">
-                                        <h1 class="text-3xl font-bold">{{ $result['question'] }}</h1>
+                                        <h1 class="text-3xl font-bold text-center">{{ $result['question'] }}</h1>
                                     </div>
                                 </div>
-                                <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                                    <div class="flex flex-col items-center justify-center w-full h-full">
-                                        <p class="text-xl text-orange-400">{{ $result['answer'] }}</p>
+                                <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                                    <div class="relative">
+
+                                        <div class="absolute top-0 left-0 right-0">
+                                            <h3 class="mt-8 text-xl font-bold text-center">{{ $result['question'] }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center w-full h-full text-center">
+
+                                        <p class="mt-16 text-2xl text-orange-400">{{ $result['answer'] }}</p>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mt-4 text-sm text-center">
+                            {{ $index+1 }}/{{ count($results )}}
                         </div>
                         @endif
                     </div>
