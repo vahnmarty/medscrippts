@@ -63,8 +63,8 @@
                                 <div
                                     x-on:click="flip = !flip"
                                     :class="flip ? '[transform:rotateY(180deg)]' : ''"
-                                    class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]">
-                                    <div class="absolute inset-0 p-4 bg-white border"  id="front">
+                                    class="relative h-full w-full rounded-xl  transition-all duration-500 [transform-style:preserve-3d]">
+                                    <div class="absolute inset-0 p-4 bg-white"  id="front">
                                         <header>
                                             <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
                                             <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden] border"
+                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
                                         id="back">
                                         <div class="py-8">
                                             <header class="text-left">
@@ -117,6 +117,15 @@
                         </div>
                     </div>
                     @endforeach
+                </div>
+
+                <div class="flex justify-center"> 
+                    <button id="prevArrow" type="button" class="p-2 bg-white border rounded-full">
+                        <x-heroicon-s-arrow-left class="w-6 h-6"/>
+                    </button>
+                    <button id="nextArrow" type="button" class="p-2 bg-white border rounded-full">
+                        <x-heroicon-s-arrow-right class="w-6 h-6"/>
+                    </button>
                 </div>
             </div>
         </section>
@@ -177,6 +186,8 @@
             speed: 300,
             slidesToShow: 1,
             slidesToScroll: 1,
+            prevArrow: $('#prevArrow'),
+            nextArrow: $('#nextArrow'),
             responsive:[{
                 breakpoint: 480,
                 settings: {
