@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\StudySetting;
 use App\Enums\BlurSetting;
 use Auth;
+use Jenssegers\Agent\Agent;
 
 class HomeScripts extends Component
 {
@@ -26,7 +27,10 @@ class HomeScripts extends Component
     public function render()
     {
         $scripts = $this->getScripts();
-        return view('livewire.home-scripts', compact('scripts'));
+        $agent = new Agent();
+        $layout = $agent->isMobile() ? 'layouts.mobile' : 'layouts.app';
+
+        return view('livewire.home-scripts', compact('scripts'))->layout($layout);
     }
 
     public function dehydrate()
@@ -41,6 +45,7 @@ class HomeScripts extends Component
 
     public function mount()
     {   
+
         $this->settings = $this->getSettings();
         $this->categories = $this->getCategories();
     }

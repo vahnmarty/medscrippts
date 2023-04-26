@@ -11,6 +11,7 @@
         "filament/tables": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "jantinnerezo/livewire-alert": "^2.2",
+        "jenssegers/agent": "^2.6",
         "laravel/cashier": "^14.11",
         "laravel/framework": "^10.0",
         "laravel/horizon": "^5.15",

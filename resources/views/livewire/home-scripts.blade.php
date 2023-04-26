@@ -1,7 +1,7 @@
 
 <div>
         
-    <div class="px-8 py-12 bg-gray-100 lg:px-16">
+    <div class="px-4 py-12 bg-gray-100 lg:px-16">
         
 
         @if(count($scripts))
@@ -11,7 +11,7 @@
                     @foreach($scripts as $index => $script)
                     <div wire:key="script-{{ $index }}" 
                             x-data="{ open: false }"
-                            class="relative bg-white">
+                            class="relative lg:bg-white">
                             
                         <div class="hidden md:block">
                             <div class="absolute top-5 right-5">
@@ -64,13 +64,13 @@
                                     x-on:click="flip = !flip"
                                     :class="flip ? '[transform:rotateY(180deg)]' : ''"
                                     class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]">
-                                    <div class="absolute inset-0 p-4" id="front">
+                                    <div class="absolute inset-0 p-4 bg-white border"  id="front">
                                         <header>
                                             <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
                                             <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
                                         </header>
                                         <div class="gap-6 lg:grid lg:grid-cols-2">
-                                            <div class="p-3 py-4 space-y-3 lg:p-4">
+                                            <div class="p-2 py-4 space-y-3 lg:p-4">
                                                 @foreach($settings as $setting)
                                                 @php  $var = $setting['key']; @endphp
                                                 <div x-data="{ 
@@ -81,18 +81,18 @@
                                                     }"
                                                     x-on:blur-{{ $setting['key'] }}.window="toggle()"
                                                     x-on:blur-all.window="blur = $event.detail.enable;"
-                                                    class="flex gap-4">
+                                                    class="flex gap-2 lg:gap-4">
                                                     <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
                                                     <button type="button"
                                                         x-on:click="toggle()"
                                                         :class="blur ? 'blur-sm'  : ''"
-                                                        class="text-sm text-gray-600 cursor-pointer">{{ $script->$var }}</button>
+                                                        class="text-sm text-left text-gray-600 cursor-pointer">{{ $script->$var }}</button>
                                                 </div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
+                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden] border"
                                         id="back">
                                         <div class="py-8">
                                             <header class="text-left">
@@ -177,6 +177,14 @@
             speed: 300,
             slidesToShow: 1,
             slidesToScroll: 1,
+            responsive:[{
+                breakpoint: 480,
+                settings: {
+                    arrows:false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }]
           });
 
         console.log('init slider');
