@@ -60,17 +60,24 @@
                         </div>
                         <div class="md:hidden">
                             <div x-data="{ flip: false }" class="group w-full h-[34rem] [perspective:1000px]">
-                                <div
-                                    x-on:click="flip = !flip"
-                                    :class="flip ? '[transform:rotateY(180deg)]' : ''"
+                                <div :class="flip ? '[transform:rotateY(180deg)]' : ''"
                                     class="relative h-full w-full rounded-xl  transition-all duration-500 [transform-style:preserve-3d]">
                                     <div class="absolute inset-0 p-4 bg-white"  id="front">
-                                        <header>
-                                            <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
-                                            <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
+                                        <header class="flex justify-between text-left">
+                                            <div>
+                                                <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
+                                                <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
+                                            </div>
+                                            <div>
+                                                <button type="button" x-on:click="flip = !flip">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                                      </svg>
+                                                </button>
+                                            </div>
                                         </header>
                                         <div class="gap-6 lg:grid lg:grid-cols-2">
-                                            <div class="p-2 py-4 space-y-3 lg:p-4">
+                                            <div class="p-0 py-4 space-y-2 divide-y divide-gray-100 lg:p-4">
                                                 @foreach($settings as $setting)
                                                 @php  $var = $setting['key']; @endphp
                                                 <div x-data="{ 
@@ -81,26 +88,43 @@
                                                     }"
                                                     x-on:blur-{{ $setting['key'] }}.window="toggle()"
                                                     x-on:blur-all.window="blur = $event.detail.enable;"
-                                                    class="flex gap-2 lg:gap-4">
+                                                    class="flex gap-2 pt-4 lg:gap-4">
                                                     <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
                                                     <button type="button"
                                                         x-on:click="toggle()"
                                                         :class="blur ? 'blur-sm'  : ''"
-                                                        class="text-sm text-left text-gray-600 cursor-pointer">{{ $script->$var }}</button>
+                                                        class="text-sm font-light text-left text-gray-500 cursor-pointer">{{ $script->$var }}</button>
                                                 </div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
+                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
                                         id="back">
-                                        <div class="py-8">
-                                            <header class="text-left">
-                                                <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
-                                                <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
-                                            </header>
-                                            <div class="flex flex-col items-center justify-center h-full gap-8 mt-8 space-x-8">
+                                        <div>
+                                            <header class="flex justify-between text-left">
                                                 <div>
+                                                    <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
+                                                    <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
+                                                </div>
+                                                <div>
+                                                    <button type="button" x-on:click="flip = !flip">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                                          </svg>
+                                                    </button>
+                                                </div>
+                                            </header>
+                                            <div>
+
+                                                <h3 class="mt-8">Links</h3>
+                                                <div class="p-2 mt-2 bg-gray-100">
+                                                    @foreach($script->links as $link)
+                                                    <a href="{{ $link->url }}" target="_blank" class="font-sans text-sm">{{ $link->url }}</a>
+                                                    @endforeach
+                                                </div>
+                                                <h3 class="mt-8">Images</h3>
+                                                <div class="mt-2">
                                                     @if(count($script->images))
                                                     @foreach($script->images as $image)
                                                     <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">

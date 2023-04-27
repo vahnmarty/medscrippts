@@ -52,6 +52,20 @@ class ImportScripts extends Component implements HasForms
                 $clone = $script->replicate(); 
                 $clone->user_id = auth()->id();
                 $clone->save();
+
+                foreach($script->links as $link)
+                {
+                    $clone->links()->create(['url' => $link->url]);
+                }
+
+                foreach($script->images as $image)
+                {
+                    $clone->images()->create([
+                        
+                        'url' => $image->url,
+                        'filename' => $image->filename
+                    ]);
+                }
             }
         }
 
@@ -63,6 +77,9 @@ class ImportScripts extends Component implements HasForms
             $clone = $flashCard->replicate();
             $clone->user_id = auth()->id();
             $clone->save();
+
+            
+
         }
 
         # Import QBanks
