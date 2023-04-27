@@ -1,7 +1,7 @@
 
 <div>
         
-    <div class="px-4 py-12 bg-gray-100 lg:px-16">
+    <div class="px-2 py-12 bg-gray-100 lg:px-16">
         
 
         @if(count($scripts))
@@ -11,7 +11,7 @@
                     @foreach($scripts as $index => $script)
                     <div wire:key="script-{{ $index }}" 
                             x-data="{ open: false }"
-                            class="relative lg:bg-white">
+                            class="relative mx-1 lg:bg-white">
                             
                         <div class="hidden md:block">
                             <div class="absolute top-5 right-5">
@@ -59,60 +59,55 @@
             
                         </div>
                         <div class="md:hidden">
-                            <div x-data="{ flip: false }" class="group w-full h-[34rem] [perspective:1000px]">
+                            <div x-data="{ flip: false }" class="group w-full  h-[32rem]  [perspective:1000px]">
                                 <div :class="flip ? '[transform:rotateY(180deg)]' : ''"
                                     class="relative h-full w-full rounded-xl  transition-all duration-500 [transform-style:preserve-3d]">
-                                    <div class="absolute inset-0 p-4 bg-white"  id="front">
-                                        <header class="flex justify-between text-left">
-                                            <div>
-                                                <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
-                                                <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
-                                            </div>
-                                            <div>
-                                                <button type="button" x-on:click="flip = !flip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                                                      </svg>
-                                                </button>
-                                            </div>
-                                        </header>
-                                        <div class="gap-6 lg:grid lg:grid-cols-2">
-                                            <div class="p-0 py-4 space-y-2 divide-y divide-gray-100 lg:p-4">
-                                                @foreach($settings as $setting)
-                                                @php  $var = $setting['key']; @endphp
-                                                <div x-data="{ 
-                                                        blur: {{ $setting['blur'] }}, 
-                                                        toggle(){
-                                                            this.blur = !this.blur;
-                                                        }
-                                                    }"
-                                                    x-on:blur-{{ $setting['key'] }}.window="toggle()"
-                                                    x-on:blur-all.window="blur = $event.detail.enable;"
-                                                    class="flex gap-2 pt-4 lg:gap-4">
-                                                    <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
-                                                    <button type="button"
-                                                        x-on:click="toggle()"
-                                                        :class="blur ? 'blur-sm'  : ''"
-                                                        class="text-sm font-light text-left text-gray-500 cursor-pointer">{{ $script->$var }}</button>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
-                                        id="back">
+                                    <div class="absolute inset-0 p-4 pb-20 bg-white" >
                                         <div>
-                                            <header class="flex justify-between text-left">
+                                            <header class="text-left">
                                                 <div>
                                                     <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
                                                     <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
                                                 </div>
+                                            </header>
+                                            <div class="gap-6 lg:grid lg:grid-cols-2">
+                                                <div class="p-0 py-4 space-y-2 divide-y divide-gray-100 lg:p-4">
+                                                    @foreach($settings as $setting)
+                                                    @php  $var = $setting['key']; @endphp
+                                                    <div x-data="{ 
+                                                            blur: {{ $setting['blur'] }}, 
+                                                            toggle(){
+                                                                this.blur = !this.blur;
+                                                            }
+                                                        }"
+                                                        x-on:blur-{{ $setting['key'] }}.window="toggle()"
+                                                        x-on:blur-all.window="blur = $event.detail.enable;"
+                                                        class="flex gap-2 pt-4 lg:gap-4">
+                                                        <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
+                                                        <button type="button"
+                                                            x-on:click="toggle()"
+                                                            :class="blur ? 'blur-sm'  : ''"
+                                                            class="text-sm font-light text-left text-gray-500 cursor-pointer">{{ $script->$var }}</button>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
+                                            <div class="flex justify-between">
+                                                <button type="button" class="px-3 py-1.5 text-sm text-blue-500 bg-blue-100 rounded-md">Edit</button>
+                                                <button type="button" x-on:click="flip = !flip">
+                                                    <x-heroicon-s-switch-horizontal class="w-6 h-6 text-gray-400"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                                        <div>
+                                            <header class="text-left">
                                                 <div>
-                                                    <button type="button" x-on:click="flip = !flip">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                                                          </svg>
-                                                    </button>
+                                                    <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
+                                                    <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
                                                 </div>
                                             </header>
                                             <div>
@@ -135,7 +130,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
+                                            <div class="flex justify-between">
+                                                <button type="button" class="px-3 py-1.5 text-sm text-blue-500 bg-blue-100 rounded-md">Edit</button>
+                                                <button type="button" x-on:click="flip = !flip">
+                                                    <x-heroicon-s-switch-horizontal class="w-6 h-6 text-gray-400"/>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -207,6 +212,8 @@
         $('#slider').slick({
             dots: true,
             infinite: false,
+            centerMode:true,
+            centerPadding: '11px',
             speed: 300,
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -214,10 +221,14 @@
             nextArrow: $('#nextArrow'),
             responsive:[{
                 breakpoint: 480,
+
+            centerMode:true,
+            centerPadding: '11px',
                 settings: {
                     arrows:false,
                     slidesToShow: 1,
                     slidesToScroll: 1
+
                 }
             }]
           });

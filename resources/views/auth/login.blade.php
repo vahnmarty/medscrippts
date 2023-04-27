@@ -66,11 +66,6 @@
                         </defs>
                     </svg>
                 </a>
-                <a href="{{ url('login/twitter') }}">
-                    <span class="sr-only">Twitter</span>
-                    <img src="{{ asset('img/twitter.svg') }}" class="w-6 h-6 mt-2" alt="">
-                        
-                </a>
                 <a href="{{ url('login/facebook') }}">
                     <span class="sr-only">Facebook</span>
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
