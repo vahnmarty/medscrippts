@@ -1,7 +1,7 @@
 
 <div>
         
-    <div class="px-2 py-12 bg-gray-100 lg:px-16">
+    <div class="px-2 py-6 bg-gray-100 lg:py-12 lg:px-16">
         
 
         @if(count($scripts))
