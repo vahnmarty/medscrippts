@@ -48,10 +48,10 @@
                                     <div class="hidden mx-auto lg:block">
                                         @if(count($script->images))
                                         @foreach($script->images as $image)
-                                        <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">
+                                        <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
                                         @endforeach
                                         @else
-                                        <img src="{{ asset('img/question.jpg') }}" class="max-h-[12rem] " alt="">
+                                        <img src="{{ asset('img/question.jpg') }}" class="max-h-[12rem]" loading="lazy" alt="">
                                         @endif
                                     </div>
                                 </div>
