@@ -5,8 +5,8 @@
         </div>
         <section class="mt-16">
             <div class="grid grid-cols-1 gap-3 mx-auto mt-10 isolate lg:mx-0 sm:grid-cols-2 lg:gap-8">
-                <div x-data="{ plan: $wire.entangle('plan').defer }">
-                    <h3 class="mb-2 text-lg font-bold text-darkgreen">1. Select Plan</h3>
+                <div x-data="{ plan: $wire.entangle('plan') }">
+                    <h3 class="mb-2 text-lg font-bold text-darkgreen">Select Plan</h3>
                     <div class="space-y-3">
                         @foreach ($plans as $plan)
                             <label 
@@ -29,25 +29,51 @@
                                 </div>
                             </label>
                         @endforeach
+
+                        <h3 class="mb-2 text-lg font-bold text-darkgreen">Coupon</h3>
+                        <div class="p-6 bg-white rounded-sm ring-1 ring-gray-200">
+                            <input wire:model.defer="coupon" type="text" class="block w-full px-2 py-4 mt-2 bg-white border border-gray-300 rounded-md" placeholder="Enter Promo Code">
+
+
+                            <button type="button" wire:click="validateCoupon" class="mt-2 btn-primary btn-sm">Validate</button>
+
+                            @error('coupon') <span class="text-red-700 error">{{ $message }}</span> @enderror
+
+                            @if($is_coupon_valid)
+                            <span class="text-green-700">Valid Promo Code</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div>
-                    <h3 class="mb-2 text-lg font-bold text-darkgreen">2. Setup Payment</h3>
+                    <h3 class="mb-2 text-lg font-bold text-darkgreen">Enter Payment</h3>
                     <div class="p-6 bg-white rounded-sm ring-1 ring-gray-200">
                         <form>
-                            <div>
-                                <label>Card Name</label>
-                                <input id="card-holder-name" value="My Card" type="text"
-                                    class="w-full mt-2 border border-gray-300 rounded-md" placeholder="e.g. default">
-                            </div>
-
-                            <!-- Stripe Elements Placeholder -->
-                            <div class="mt-4">
-                                <label>Card Details</label>
-                                <div id="card-element"
-                                    class="px-2 py-4 mt-2 bg-white border border-gray-300 rounded-md">
+                            <div class="pb-3 mb-3 border-b border-b-dashed">
+                                <div class="flex items-center justify-between">
+                                    <p>Sub-Total:</p>
+                                    <p class="">${{ number_format($subtotal, 2) }}</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <p>Discount:</p>
+                                    <p class="">${{ number_format($discount, 2) }}</p>
+                                </div>
+                                <div class="flex items-center justify-between mt-1 text-lg">
+                                    <p class="font-bold">Total:</p>
+                                    <p class="font-bold text-red-700">${{ number_format($total, 2) }}</p>
                                 </div>
                             </div>
+                            <section wire:ignore>
+                                
+                                <div>
+                                    <label>Card Details</label>
+                                    <div id="card-element"
+                                        class="px-2 py-4 mt-2 bg-white border border-gray-300 rounded-md">
+                                    </div>
+                                </div>
+                                
+                            </section>
+                            @error('payment') <span class="text-red-700 error">{{ $message }}</span> @enderror
 
                             <div class="flex justify-center mt-8">
                                 <button type="button" id="card-button" class="w-full btn-primary"
@@ -97,7 +123,7 @@
                         payment_method: {
                             card: cardElement,
                             billing_details: {
-                                name: cardHolderName.value
+                                //name: cardHolderName.value
                             }
                         }
                     }
