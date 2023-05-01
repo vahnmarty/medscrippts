@@ -1,41 +1,28 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Scripts;
 
-use Sesssion;
-use App\Models\Script;
-use Livewire\Component;
-use App\Models\Category;
-use App\Enums\BlurSetting;
 use Auth;
+use Livewire\Component;
+use App\Enums\BlurSetting;
 
-class ScriptSettings extends Component
+class StudyMode extends Component
 {
     public $study_settings = [];
-    public $categories = [];
-    public $scripts = [];
     public $blurAll = true;
-    public $category_id, $script_id;
-    public $n = 0;
 
     public function render()
     {
-        return view('livewire.script-settings');
+        return view('livewire.scripts.study-mode');
     }
 
     public function mount()
     {
-        $this->categories = Category::orderBy('name')->get();
-        $this->scripts = Script::where('user_id', auth()->id())->orderBy('title')->get();
-        $this->n = Script::where('user_id', auth()->id())->count();
-
         if(session('blurAll')){
             $this->blurAll = session('blurAll');
         }
 
         $this->getSettings();
-
-        //dd($this->blurAll);
     }
 
     public function setBlurAll($enable)
@@ -94,16 +81,5 @@ class ScriptSettings extends Component
         $settings->save();
 
         //$this->emit('refreshScripts');
-    }
-
-
-    public function updatedCategoryId()
-    {
-        $this->emit('setCategory', $this->category_id);
-    }
-
-    public function updatedScriptId()
-    {
-        $this->emit('setScript', $this->script_id);
     }
 }

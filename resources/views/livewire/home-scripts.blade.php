@@ -59,7 +59,10 @@
             
                         </div>
                         <div class="md:hidden">
-                            <div x-data="{ flip: false }" class="group w-full  h-[32rem]  [perspective:1000px]">
+                            <div x-data="{ flip: false }" 
+                                x-on:flipup.window="flip = false"
+                                x-on:flipback.window="flip = true"
+                                class="group w-full  h-[32rem]  [perspective:1000px]">
                                 <div :class="flip ? '[transform:rotateY(180deg)]' : ''"
                                     class="relative h-full w-full rounded-xl  transition-all duration-500 [transform-style:preserve-3d]">
                                     <div class="absolute inset-0 p-4 pb-20 bg-white" >
