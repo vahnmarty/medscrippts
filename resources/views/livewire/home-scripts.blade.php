@@ -149,6 +149,9 @@
                     @endforeach
                 </div>
 
+                <!-- 
+                    Slick Slider
+
                 <div class="flex justify-center"> 
                     <button id="prevArrow" type="button" class="p-2 bg-white border rounded-full">
                         <x-heroicon-s-arrow-left class="w-6 h-6"/>
@@ -157,8 +160,10 @@
                         <x-heroicon-s-arrow-right class="w-6 h-6"/>
                     </button>
                 </div>
+                 -->
 
-                {{ $scripts->links() }}
+
+                {{ $scripts->links('includes.pagination.custom-paginator') }}
             </div>
         </section>
         @else
@@ -237,10 +242,11 @@
           });
 
           slick.on('beforeChange', function(event, slick, currentSlide, nextSlide){
-              var lastSlide = slick.slideCount - 1;
-            if (nextSlide === lastSlide) {
-                alert('next');
-            }
+                var lastSlide = slick.slideCount - 1;
+                if (nextSlide === slick.slideCount) {
+                    console.log('last')
+                    @this.nextPage('page');
+                }
         });
 
         console.log('init slider');

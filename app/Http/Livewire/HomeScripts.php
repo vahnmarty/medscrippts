@@ -70,7 +70,7 @@ class HomeScripts extends Component
             $scriptQuery = Script::with('images')->where('id', $this->script_id);
         }
 
-        $scripts = $scriptQuery->paginate(self::MAX);
+        $scripts = $scriptQuery->paginate(1);
 
         return $scripts;
     }
