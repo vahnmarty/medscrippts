@@ -9,6 +9,8 @@ class Plan extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function scopeFromEnv($query)
     {
         if(config('app.env') == 'production'){
