@@ -20,7 +20,7 @@ class SubscriptionCheckout extends Component
         $plans = Plan::active()->fromEnv()->get();
         $intent = Auth::user()->createSetupIntent();
 
-        $this->total = $this->subtotal - $this->discount;
+        $this->calculate();
 
         return view('livewire.subscription-checkout', compact('plans', 'intent'))->layout('layouts.auth');
     }
@@ -101,6 +101,44 @@ class SubscriptionCheckout extends Component
         }
 
         $this->is_coupon_valid = true;
+
+        $this->calculate();
+
+        if($this->total <= 0)
+        {
+            $this->expressCheckout();
+        }
+    }
+
+    public function calculate()
+    {
+        $this->total = $this->subtotal - $this->discount;
+    }
+
+    public function expressCheckout()
+    {
+        $plan = Plan::find($this->plan);
+
+        $user = Auth::user();
+
+        if($plan && $user)
+        {
+            try {
+
+                if($this->coupon){
+                    $promotionCode = $user->findPromotionCode($this->coupon);
+
+                    $subscribed = $user->newSubscription('default', $plan->stripe_plan)
+                        ->withPromotionCode($promotionCode?->id)
+                        ->create();
+                }
+
+                return redirect('scripts');
+            } catch (\Throwable $th) {
+
+                $this->addError('payment', $th->getMessage());
+            }
+        }
     }
 
     private function validatePromocode($code)
