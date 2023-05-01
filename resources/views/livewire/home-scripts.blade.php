@@ -6,8 +6,8 @@
 
         @if(count($scripts))
         <section>
-            <div x-data="{ }">
-                <div id="slider">
+            <div x-data="{ }" >
+                <div id="slider" class="h-[32rem] min-h-[32rem] lg:min-h-[27rem] lg:max-h-[27rem] overflow-auto"> 
                     @foreach($scripts as $index => $script)
                     <div wire:key="script-{{ $index }}" 
                             x-data="{ open: false }"
@@ -162,8 +162,14 @@
                 </div>
                  -->
 
+                 <div class="flex justify-between mt-2">
+                    <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
 
-                {{ $scripts->links('includes.pagination.custom-paginator') }}
+
+                    {{ $scripts->links('includes.pagination.custom-paginator') }}
+                 </div>
+
+                 
             </div>
         </section>
         @else
@@ -203,56 +209,7 @@
 </div>
 
 @push('scripts')
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-<script>
-
-    window.addEventListener('reboot-slider', event=>{
-        $('#slider').slick('unslick');
-        slider();
-    });
-
-    slider();
-    
-    function slider(){
-        var slick = $('#slider').slick({
-            dots: true,
-            infinite: false,
-            centerMode:true,
-            centerPadding: '11px',
-            speed: 300,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            prevArrow: $('#prevArrow'),
-            nextArrow: $('#nextArrow'),
-            responsive:[{
-                breakpoint: 480,
-
-            centerMode:true,
-            centerPadding: '11px',
-                settings: {
-                    arrows:false,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-
-                }
-            }]
-          });
-
-          slick.on('beforeChange', function(event, slick, currentSlide, nextSlide){
-                var lastSlide = slick.slideCount - 1;
-                if (nextSlide === slick.slideCount) {
-                    console.log('last')
-                    @this.nextPage('page');
-                }
-        });
-
-        console.log('init slider');
-    }
-    
-</script>
 @endpush
 
 
