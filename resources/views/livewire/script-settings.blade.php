@@ -51,7 +51,7 @@
                         <option value="{{ $scriptItem->id }}">{{ $scriptItem->title }}</option>
                         @endif
                     @else
-                    <option value="{{ $scriptItem->id }}">Else {{ $scriptItem->title }}</option>
+                    <option value="{{ $scriptItem->id }}">{{ $scriptItem->title }}</option>
                     @endif
                     @endforeach
                 </select>
