@@ -2,17 +2,24 @@
 
 namespace App\Http\Livewire;
 
+use Auth;
 use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\StudySetting;
 use App\Enums\BlurSetting;
-use Auth;
 use Jenssegers\Agent\Agent;
+use App\Models\StudySetting;
+use Livewire\WithPagination;
 
 class HomeScripts extends Component
 {
+    use WithPagination;
+
+    const MAX = 3;
+    
     public $reactive = false;
+
+    public $n;
 
     public $category_id, $script_id;
 
@@ -63,7 +70,7 @@ class HomeScripts extends Component
             $scriptQuery = Script::with('images')->where('id', $this->script_id);
         }
 
-        $scripts = $scriptQuery->get();
+        $scripts = $scriptQuery->paginate(self::MAX);
 
         return $scripts;
     }

@@ -110,7 +110,8 @@
                                                     <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
                                                 </div>
                                             </header>
-                                            <div>
+                                            <div>   
+                                                @if(count($script->links))
 
                                                 <h3 class="mt-8">Links</h3>
                                                 <div class="p-2 mt-2 bg-gray-100">
@@ -118,16 +119,16 @@
                                                     <a href="{{ $link->url }}" target="_blank" class="font-sans text-sm">{{ $link->url }}</a>
                                                     @endforeach
                                                 </div>
+                                                @endif
+
+                                                @if(count($script->images))
                                                 <h3 class="mt-8">Images</h3>
                                                 <div class="mt-2">
-                                                    @if(count($script->images))
                                                     @foreach($script->images as $image)
-                                                    <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" alt="">
+                                                    <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
                                                     @endforeach
-                                                    @else
-                                                    <img src="{{ asset('img/question.jpg') }}" class="max-h-[12rem] " alt="">
-                                                    @endif
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
@@ -156,6 +157,8 @@
                         <x-heroicon-s-arrow-right class="w-6 h-6"/>
                     </button>
                 </div>
+
+                {{ $scripts->links() }}
             </div>
         </section>
         @else
@@ -209,7 +212,7 @@
     slider();
     
     function slider(){
-        $('#slider').slick({
+        var slick = $('#slider').slick({
             dots: true,
             infinite: false,
             centerMode:true,
@@ -232,6 +235,13 @@
                 }
             }]
           });
+
+          slick.on('beforeChange', function(event, slick, currentSlide, nextSlide){
+              var lastSlide = slick.slideCount - 1;
+            if (nextSlide === lastSlide) {
+                alert('next');
+            }
+        });
 
         console.log('init slider');
     }
