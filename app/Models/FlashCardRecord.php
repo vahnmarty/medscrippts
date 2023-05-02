@@ -16,6 +16,11 @@ class FlashCardRecord extends Model
         return $this->belongsToMany(Category::class, 'flash_card_record_categories');
     }
 
+    public function getCategoriesName()
+    {
+        return implode(', ', $this->categories()->pluck('name')->toArray());
+    }
+
     public function items()
     {
         return $this->belongsToMany(FlashCard::class, 'flash_card_record_items');

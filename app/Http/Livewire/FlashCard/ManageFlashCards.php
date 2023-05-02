@@ -13,15 +13,17 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
+use App\Http\Livewire\Traits\AgentLayoutTrait;
 use Filament\Tables\Concerns\InteractsWithTable;
 
 class ManageFlashCards extends Component implements HasTable
 {
     use InteractsWithTable;
+    use AgentLayoutTrait;
     
     public function render()
     {
-        return view('livewire.flash-card.manage-flash-cards');
+        return view('livewire.flash-card.manage-flash-cards')->layout($this->getLayout());
     }
 
     public function mount()

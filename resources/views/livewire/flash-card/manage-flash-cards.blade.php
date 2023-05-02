@@ -1,14 +1,16 @@
-<div>
-
-    <header class="flex justify-between px-16 py-6">
-        <h1 class="text-4xl font-bold leading-7 text-darkgreen sm:leading-9">Flash Cards</h1>
-        <div class="flex gap-6">
-
-        </div>
+<div class="bg-gray-100">
+    @php
+    $agent = new \Jenssegers\Agent\Agent();
+    @endphp
+    
+    @if($agent->isMobile())
+        @livewire('flash-card.flash-card-mobile')
+    @else
+    <header class="flex justify-between px-8 py-3 lg:px-16 lg:py-6">
+        <h1 class="text-2xl font-bold leading-7 lg:text-4xl text-darkgreen sm:leading-9">Flash Cards</h1>
     </header>
     <div class="px-8 py-12 space-y-8 bg-gray-100 lg:px-16">
-
-
+        
         <div x-data="{ tab: 'records' }">
             <div>
                 <nav class="flex space-x-4" aria-label="Tabs">
@@ -32,9 +34,6 @@
             </div>
         </div>
 
-
-
-
-
     </div>
+    @endif
 </div>

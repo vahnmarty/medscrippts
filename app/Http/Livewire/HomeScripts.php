@@ -7,13 +7,14 @@ use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
 use App\Enums\BlurSetting;
-use Jenssegers\Agent\Agent;
 use App\Models\StudySetting;
 use Livewire\WithPagination;
+use App\Http\Livewire\Traits\AgentLayoutTrait;
 
 class HomeScripts extends Component
 {
     use WithPagination;
+    use AgentLayoutTrait;
 
     const MAX = 3;
     
@@ -34,10 +35,8 @@ class HomeScripts extends Component
     public function render()
     {
         $scripts = $this->getScripts();
-        $agent = new Agent();
-        $layout = $agent->isMobile() ? 'layouts.mobile' : 'layouts.app';
 
-        return view('livewire.home-scripts', compact('scripts'))->layout($layout);
+        return view('livewire.home-scripts', compact('scripts'))->layout($this->getLayout());
     }
 
     public function dehydrate()
