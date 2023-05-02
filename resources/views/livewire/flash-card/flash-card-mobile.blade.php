@@ -1,9 +1,30 @@
 <div class="bg-gray-100">
 
+    <x-modal-sm ref="create">
+        <div>
+            <div>
+                <div class="flex">
+                    <x-heroicon-s-book-open class="flex-shrink-0 w-6 h-6 text-gray-500"/>
+                    <div class="ml-2">
+                        <h3 class="text-lg text-darkgreen">Create Flash Card</h3>
+                    </div>
+                </div>
+                <p class="mt-2 text-sm text-gray-700">Select categories then input the number of cards you want to generate.</p>
+                
+            </div>
+
+            <form wire:submit.prevent="save" class="mt-8">
+                {{ $this->form }}
+
+                <button type="submit" class="mt-8 btn-primary">Submit</button>
+            </form>
+        </div>
+    </x-modal-sm>
+    
     <header class="flex items-center justify-between px-6 py-6 lg:px-16 lg:py-6">
         <h1 class="text-2xl font-bold leading-7 lg:text-4xl text-darkgreen sm:leading-9">Flash Cards</h1>
         <div>
-            <button type="button" class="btn-primary">Create</button>
+            <button x-data x-on:click="$dispatch('openmodal-create')" type="button" class="btn-primary">Create</button>
         </div>
     </header>
 
