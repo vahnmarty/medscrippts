@@ -6,7 +6,7 @@
         <a href="{{ url('flashcards') }}" class="px-3 py-3">
             <x-heroicon-o-clipboard-list class="w-8 h-8 text-gray-500 hover:text-orange-400"/>
         </a>
-        <a href="{{ url('qbanks') }}" class="px-3 py-3">
+        <a href="{{ url('qbanks/mobile') }}" class="px-3 py-3">
             <x-heroicon-o-view-grid class="w-8 h-8 text-gray-500 hover:text-orange-400"/>
         </a>
         <a href="#" x-data x-on:click.prevent="$dispatch('openmodal-studymode')" class="px-3 py-3" aria-title="Study Mode">

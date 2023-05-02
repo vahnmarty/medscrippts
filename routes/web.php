@@ -22,10 +22,10 @@ use App\Http\Controllers\PageController;
 use App\Http\Livewire\ManageEnvironment;
 use App\Http\Livewire\Courses\EditCourse;
 use App\Http\Livewire\Courses\ShowCourse;
+use App\Http\Livewire\Scripts\CrudScript;
 use App\Http\Livewire\Pathway\ShowPathway;
 use App\Http\Livewire\Courses\CoursePlayer;
 use App\Http\Livewire\Courses\CreateCourse;
-use App\Http\Livewire\Scripts\CrudScript;
 use App\Http\Livewire\SubscriptionCheckout;
 use App\Http\Livewire\Courses\ManageCourses;
 use App\Http\Controllers\DashboardController;
@@ -41,6 +41,7 @@ use App\Http\Livewire\Courses\ModuleItemPreview;
 use App\Http\Livewire\FlashCard\ManageFlashCards;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Livewire\QuestionBank\PlayQuestionBank;
+use App\Http\Livewire\QuestionBank\QuestionBankMobile;
 use App\Http\Livewire\QuestionBank\ManageQuestionBanks;
 
 /*
@@ -97,6 +98,7 @@ Route::group(['middleware' => ['auth', 'subscribed']], function(){
     Route::get('flashcards/{id}/play', PlayFlashCard::class)->name('flashcard.play');
 
     Route::get('qbanks', ManageQuestionBanks::class)->name('qbank.index');
+    Route::get('qbanks/mobile', QuestionBankMobile::class)->name('qbank.mobile');
     Route::get('qbanks/{id}/play', PlayQuestionBank::class)->name('qbank.play');
 
 });
