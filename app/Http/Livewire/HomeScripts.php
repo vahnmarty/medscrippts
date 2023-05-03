@@ -58,6 +58,9 @@ class HomeScripts extends Component
 
     public function getScripts()
     {
+        if($this->script_id){
+            $scriptQuery = Script::with('images')->where('id', $this->script_id);
+        }
         $scriptQuery = Script::where('user_id', auth()->id())->with('images');
         
 
@@ -87,6 +90,8 @@ class HomeScripts extends Component
     public function setScript($id)
     {
         $this->script_id = $id;
+
+        $this->resetPage();
     }
 
     public function blur($key)

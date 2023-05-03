@@ -17,7 +17,7 @@
                                             <x-heroicon-s-pencil class="text-gray-400 h-7 w-7 hover:text-yellow-500" />
                                         </button>
                                     </div>
-                                    <div class="flex-shrink-0 p-6 lg:w-[64rem] lg:p-6">
+                                    <div class="flex-shrink-0 p-6 lg:min-h-[27rem] lg:w-[64rem] lg:p-6">
                                         <header>
                                             <p class="text-orange-500">{{ $index + 1 }} -
                                                 {{ $script->category->name ?? 'Uncategorized' }}</p>
