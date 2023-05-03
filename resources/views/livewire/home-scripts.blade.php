@@ -114,24 +114,26 @@
                                                 </div>
                                             </header>
                                             <div>   
-                                                @if(count($script->links))
 
                                                 <h3 class="mt-8">Links</h3>
                                                 <div class="p-2 mt-2 bg-gray-100">
-                                                    @foreach($script->links as $link)
-                                                    <a href="{{ $link->url }}" target="_blank" class="font-sans text-sm">{{ $link->url }}</a>
-                                                    @endforeach
+                                                    @forelse($script->links as $link)
+                                                    <a href="{{ $link->url }}" target="_blank" class="font-sans text-sm text-blue-400 word-break">
+                                                        {{ $link->url }}
+                                                    </a>
+                                                    @empty
+                                                    <span>-</span>
+                                                    @endforelse
                                                 </div>
-                                                @endif
 
-                                                @if(count($script->images))
                                                 <h3 class="mt-8">Images</h3>
                                                 <div class="mt-2">
-                                                    @foreach($script->images as $image)
+                                                    @forelse($script->images as $image)
                                                     <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
-                                                    @endforeach
+                                                    @empty
+                                                    <img src="{{ asset('img/placeholder.png') }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
+                                                    @endforelse
                                                 </div>
-                                                @endif
                                             </div>
                                         </div>
                                         <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
