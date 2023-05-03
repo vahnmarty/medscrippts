@@ -19,7 +19,7 @@
                             <x-heroicon-s-bell class="w-5 h-5 mt-1 text-darkgreen"/>
                         </button>
                     </x-slot>
-                    <div class="p-8 w-96">
+                    <div class="p-8 w-72 lg:w-96">
                         <h3 class="font-bold text-darkgreen">Notifications</h3>
 
                         <p class="mt-4 text-sm font-normal text-gray-600">You have no new notifications.</p>
