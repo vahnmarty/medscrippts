@@ -173,7 +173,7 @@
                         @endforeach
                     </div>
 
-                    <div class="flex justify-between mt-8">
+                    <div class="flex items-center justify-between mt-8">
                         <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
 
 
