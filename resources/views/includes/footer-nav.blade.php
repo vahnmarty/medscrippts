@@ -6,7 +6,7 @@
         <a href="{{ url('flashcards') }}" class="px-3 py-3 {{ request()->is('flashcards*') ? 'text-orange-500' : 'text-gray-500' }}">
             <x-heroicon-o-clipboard-list class="w-8 h-8"/>
         </a>
-        <a href="{{ url('qbanks/mobile') }}" class="px-3 py-3 {{ request()->is('qbanks*') ? 'text-orange-500' : 'text-gray-500' }}">
+        <a href="{{ url('qbanks') }}" class="px-3 py-3 {{ request()->is('qbanks*') ? 'text-orange-500' : 'text-gray-500' }}">
             <x-heroicon-o-view-grid class="w-8 h-8"/>
         </a>
         @if(request()->is('scripts'))
