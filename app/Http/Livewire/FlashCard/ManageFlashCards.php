@@ -5,6 +5,7 @@ namespace App\Http\Livewire\FlashCard;
 use Auth;
 use Livewire\Component;
 use App\Models\FlashCard;
+use App\Models\FlashCardRecord;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -16,66 +17,20 @@ use Filament\Tables\Actions\DeleteAction;
 use App\Http\Livewire\Traits\AgentLayoutTrait;
 use Filament\Tables\Concerns\InteractsWithTable;
 
-class ManageFlashCards extends Component implements HasTable
+class ManageFlashCards extends Component 
 {
-    use InteractsWithTable;
     use AgentLayoutTrait;
+
+    public $flash_cards = [];
     
     public function render()
     {
-        return view('livewire.flash-card.manage-flash-cards')->layout($this->getLayout());
+        return view('livewire.flash-card.manage-flash-cards');
     }
 
     public function mount()
     {
-        
-    }
-
-    protected function getTableQuery() 
-    {
-        return FlashCard::where('user_id', Auth::id());
-    } 
-
-    protected function getTableHeaderActions()
-    {
-        return [
-            CreateAction::make()
-                ->form([
-                    TextInput::make('max')->numeric()->required()
-                ])
-                ->action(function(array $data){
-                    dd($data);
-                    
-                })
-            ];
-    }
-
-    protected function getTableColumns(): array 
-    {
-        return [
-            TextColumn::make('created_at')->label('Date Created')->dateTime('m/d/Y'),
-            TextColumn::make('script.title'),
-            TextColumn::make('question')
-                ->label('Content')
-                ->description(fn (FlashCard $record): string => $record->answer)->wrap()
-        ];
-    }
-
-    protected function getTableActions()
-    {
-        return [
-            ActionGroup::make([
-                EditAction::make()
-                    ->button(),
-                DeleteAction::make()
-                    ->button(),
-            ])
-           
-            // Action::make('retake')
-            //      ->url(fn (FlashCard $record): string => route('flashcard.play', $record->id))
-            //      ->color('primary')
-            //     ->button()
-        ];
+        $this->flash_cards = FlashCardRecord::get();
     }
     
 }

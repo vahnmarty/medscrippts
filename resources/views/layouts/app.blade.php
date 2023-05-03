@@ -36,11 +36,15 @@
     @stack('head-scripts')
 </head>
 <body class="bg-gray-100">
-    <x-banner />
+    @php
+    $agent = new Jenssegers\Agent\Agent();
+    @endphp
 
     <div class="flex">
-
+        
+        @if($agent->isDesktop())
         @include('includes.partials.sidebar')
+        @endif
 
         @if(request()->is('scripts'))
         @livewire('script-settings')
@@ -64,6 +68,10 @@
         </div>
 
     </div>
+
+    @if($agent->isMobile())
+    @include('includes.footer-nav')
+    @endif
 
 
     @stack('scripts')
