@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->subscribed('default'))
+        if(Auth::user()->subscribed())
         {
             return redirect('scripts');
         }else{

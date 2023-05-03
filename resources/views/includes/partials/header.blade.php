@@ -6,10 +6,10 @@
         <section>
             
             <div class="flex items-center justify-end gap-6">
-                @if(Auth::user()->subscribed('default'))
+                @if(Auth::user()->subscribed())
                 <div>
                     <p class="px-3 py-1 text-xs text-indigo-600 rounded-full bg-indigo-600/10">
-                        Standard
+                        {{ Auth()->user()->subscription()->name }}
                     </p>
                 </div>
                 @endif
@@ -40,6 +40,16 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile Settings') }}
                             </x-dropdown-link>
+
+                            <!-- Billing -->
+                            <x-dropdown-link href="{{ url('billing-portal') }}">
+                                {{ __('Billing') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="https://docs.medscrippts.com" target="_blank">
+                                {{ __('Documentation') }}
+                            </x-dropdown-link>
+
                             @if(null)
                              <!-- Team Management -->
                              <div class="block px-4 py-2 text-xs text-gray-400">
