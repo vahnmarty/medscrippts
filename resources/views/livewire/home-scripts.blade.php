@@ -7,11 +7,11 @@
         @if(count($scripts))
         <section>
             <div x-data="{ }" >
-                <div id="slider" class="h-[32rem] min-h-[32rem] lg:min-h-[27rem] lg:max-h-[27rem] overflow-auto"> 
+                <div id="slider" class="h-[32rem] min-h-[32rem] lg:min-h-[26rem] lg:max-h-[26rem] overflow-auto"> 
                     @foreach($scripts as $index => $script)
                     <div wire:key="script-{{ $index }}" 
                             x-data="{ open: false }"
-                            class="relative mx-1 lg:bg-white">
+                            class="relative mx-1 lg:bg-white lg:min-h-[26rem] lg:max-h-[26rem] overflow-auto">
                             
                         <div class="hidden md:block">
                             <div class="absolute top-5 right-5">
@@ -27,7 +27,6 @@
                                 <div class="gap-6 lg:grid lg:grid-cols-2">
                                     <div class="p-3 py-4 space-y-3 lg:p-4">
                                         @foreach($settings as $setting)
-                                        @php  $var = $setting['key']; @endphp
                                         <div x-data="{ 
                                                 blur: {{ $setting['blur'] }}, 
                                                 toggle(){
@@ -41,7 +40,7 @@
                                             <button type="button"
                                                 x-on:click="toggle()"
                                                 :class="blur ? 'blur-sm'  : ''"
-                                                class="text-sm text-gray-600 cursor-pointer">{{ $script->$var }}</button>
+                                                class="text-sm text-left text-gray-500 cursor-pointer">{{ $script->{ $setting['key'] } }}</button>
                                         </div>
                                         @endforeach
                                     </div>
@@ -167,7 +166,7 @@
                 </div>
                  -->
 
-                 <div class="flex justify-between mt-2">
+                 <div class="flex justify-between mt-8">
                     <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
 
 
