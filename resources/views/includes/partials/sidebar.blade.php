@@ -1,4 +1,4 @@
-<div class="block min-h-screen transition-all duration-300 ease-in-out bg-white border-r md:overflow-hidden ">
+<div class="hidden min-h-screen transition-all duration-300 ease-in-out bg-white border-r lg:block md:overflow-hidden ">
     <div class="flex flex-col flex-grow min-h-screen py-5 overflow-y-auto">
         <div class="flex justify-center">
             <div class="flex items-center bg-transparent rounded-md">

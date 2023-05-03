@@ -1,4 +1,4 @@
-<div class="fixed bottom-0 left-0 right-0 bg-white border-t">
+<div class="fixed bottom-0 left-0 right-0 block bg-white border-t lg:hidden">
     <div class="flex justify-evenly">
         <a href="{{ url('scripts') }}" class="px-3 py-3 {{ request()->is('scripts') ? 'text-orange-500' : 'text-gray-500' }}">
             <x-heroicon-o-home class="w-8 h-8"/>

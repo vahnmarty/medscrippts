@@ -1,9 +1,37 @@
 <div class="bg-gray-100">
+
+    <x-modal-sm ref="create">
+        <div>
+            <div>
+                <div class="flex">
+                    <x-heroicon-s-book-open class="flex-shrink-0 w-6 h-6 text-gray-500 lg:h-8 lg:w-8" />
+                    <div class="ml-2">
+                        <h3 class="text-lg text-darkgreen">Create Flash Card</h3>
+                    </div>
+                </div>
+                <p class="mt-2 text-sm text-gray-700">Select categories then input the number of cards you want to
+                    generate.</p>
+
+            </div>
+
+            <form wire:submit.prevent="save" class="mt-8">
+                {{ $this->form }}
+
+                <button type="submit" class="mt-8 btn-primary">Submit</button>
+            </form>
+        </div>
+    </x-modal-sm>
+
+
     <header class="flex justify-between px-6 py-3 bg-white lg:px-16 lg:py-6">
         <h1 class="text-2xl font-bold leading-7 text-darkgreen sm:leading-9 lg:text-4xl">Flash Cards</h1>
+        <div>
+            <button x-data x-on:click="$dispatch('openmodal-create')" type="button" class="btn-primary">Create</button>
+        </div>
     </header>
+
     <div class="px-6 py-12 space-y-8 bg-gray-100 lg:px-16">
-        <div class="grid gap-6 lg:grid-cols-3">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($flash_cards as $card)
                 <a href="{{ route('flashcard.play', $card->id) }}" wire:key="card-{{ $card->id }}"
                     class="relative block p-5 border border-gray-300 rounded-md bg-gray-50 hover:bg-white">
