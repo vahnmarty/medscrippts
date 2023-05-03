@@ -36,7 +36,7 @@ class HomeScripts extends Component
     {
         $scripts = $this->getScripts();
 
-        return view('livewire.home-scripts', compact('scripts'))->layout($this->getLayout());
+        return view('livewire.home-scripts', compact('scripts'));
     }
 
     public function dehydrate()

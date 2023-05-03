@@ -11,7 +11,7 @@
     x-on:toggle-settings.window="open = !open"
     :class="open ? 'w-72' : 'w-0'"
     x-cloak
-    class="overflow-hidden transition-all duration-300 ease-in-out bg-white border-r">
+    class="hidden overflow-hidden transition-all duration-300 ease-in-out bg-white border-r lg:block">
         
     <div class="flex flex-col justify-between flex-shrink-0 min-h-screen p-6">
         <div>
