@@ -41,26 +41,44 @@
         
         @include('includes.partials.sidebar')
 
-        @if(request()->is('scripts'))
-        @livewire('script-settings')
-        @endif
+        <aside x-data="{ showSidebar: true }" 
+            x-on:toggle-window.window="showSidebar = !showSidebar"
+            class="flex flex-1">
 
-        <div class="flex-1 max-h-screen overflow-auto">
-            @include('includes.partials.header')
-            <div class="bg-white md:px-8">
-                @yield('header')
-                {{ $header ?? '' }}
+
+            @if(request()->is('scripts*'))
+            <div class="fixed top-[75px] z-20 transition-all duration-200 ease-in-out left-[50px]" 
+                x-transition.duration.800ms>
+                <button x-on:click="showSidebar = !showSidebar" type="button" class="p-1 rounded-full bg-darkgreen">
+                    <x-heroicon-s-chevron-double-left x-show="showSidebar" class="w-4 h-4 text-gray-200 hover:text-white"/>
+                    <x-heroicon-s-chevron-double-right x-show="!showSidebar" x-cloak class="w-4 h-4 text-gray-200 hover:text-white"/>
+                </button>
             </div>
+            
+            <div
+                :class="showSidebar ? 'w-72' : 'w-0'"
+                class="flex-shrink-0 hidden transition-all duration-300 ease-in-out border-r lg:block">
+                @livewire('script-settings')
+            </div>
+            @endif
 
-            <main class="flex-grow">
-                <div class="bg-white">
-                    @yield('content')
-                    {{ $slot ?? '' }}
+            <div class="flex-1">
+                @include('includes.partials.header')
+                <div class="bg-white md:px-8">
+                    @yield('header')
+                    {{ $header ?? '' }}
                 </div>
 
-                @include('includes.partials.footer')
-            </main>
-        </div>
+                <main class="flex-grow">
+                    <div class="bg-white">
+                        @yield('content')
+                        {{ $slot ?? '' }}
+                    </div>
+
+                    @include('includes.partials.footer')
+                </main>
+            </div>
+        </aside>
 
     </div>
 

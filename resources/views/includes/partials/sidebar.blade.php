@@ -17,19 +17,6 @@
                     </x-slot>
                 </x-sidebar-item>
 
-                @if( request()->is('scripts*') )
-                <a x-data
-                    x-on:click.prevent="$dispatch('toggle-settings')"
-                    href="#"
-                    class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden">
-                    <x-heroicon-s-cog class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
-                </a>
-                @else
-                <span class="text-gray-500 hover:bg-gray-100 border-l-4 border-transparent group flex items-center px-2 py-2 text-sm max-h-[40px] overflow-hidden opacity-50 cursor-not-allowed">
-                    <x-heroicon-s-cog class="flex-shrink-0 w-6 h-6 ml-1 mr-4 text-gray-500"/>
-                </span>
-                @endif
-
                 @if(null)
                 <button x-data
                     x-on:click="$dispatch('openmodal-qbank')"
