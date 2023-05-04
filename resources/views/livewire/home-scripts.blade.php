@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="flex-shrink-0 p-6 lg:min-h-[27rem] lg:w-[64rem] lg:p-6">
                                         <header>
-                                            <p class="text-orange-500">{{ $index + 1 }} -
+                                            <p class="text-orange-500">
                                                 {{ $script->category->name ?? 'Uncategorized' }}</p>
                                             <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}
                                             </h3>

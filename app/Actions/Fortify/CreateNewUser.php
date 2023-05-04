@@ -4,11 +4,14 @@ namespace App\Actions\Fortify;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Mail\WelcomeUser;
+use App\Jobs\DeliverWelcomeUser;
+use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Jetstream\Jetstream;
+use Mail;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -36,6 +39,14 @@ class CreateNewUser implements CreatesNewUsers
             ]), function (User $user) {
 
                 $user->createAsStripeCustomer();
+
+                try {
+                    Mail::to($user->email)->send(new WelcomeUser($user));
+                    //DeliverWelcomeUser::dispatch($user);
+                } catch (\Throwable $th) {
+                    echo $th->getMessage();
+                }
+                
                 
                 $this->createTeam($user);
             });
