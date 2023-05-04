@@ -47,7 +47,7 @@
 
 
             @if(request()->is('scripts*'))
-            <div class="fixed top-[75px] z-20 transition-all duration-200 ease-in-out left-[50px]" 
+            <div class="lg:block hidden fixed top-[75px] z-20 transition-all duration-200 ease-in-out left-[50px]" 
                 x-transition.duration.800ms>
                 <button x-on:click="showSidebar = !showSidebar" type="button" class="p-1 rounded-full bg-darkgreen">
                     <x-heroicon-s-chevron-double-left x-show="showSidebar" class="w-4 h-4 text-gray-200 hover:text-white"/>
