@@ -61,6 +61,7 @@
             </div>
 
             <div class="flex justify-center gap-4">
+                @if(config('services.google.enable'))
                 <a href="{{ url('login/google') }}">
                     <span class="sr-only">Google</span>
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,6 +79,8 @@
                         </defs>
                     </svg>
                 </a>
+                @endif
+                @if(config('services.facebook.enable'))
                 <a href="{{ url('login/facebook') }}">
                     <span class="sr-only">Facebook</span>
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,8 +94,8 @@
                         </linearGradient>
                         </defs>
                     </svg>
-                        
                 </a>
+                @endif
             </div>
 
             <div class="flex items-center justify-center mt-4">
