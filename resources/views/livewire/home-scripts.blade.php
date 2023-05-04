@@ -44,7 +44,7 @@
                                                     </div>
                                                 @endforeach
                                             </div>
-                                            <div class="hidden mx-auto lg:block">
+                                            <div class="hidden lg:block">
                                                 <h3>Links</h3>
                                                 <div class="p-2 mt-2 bg-gray-100">
                                                     @forelse($script->links as $link)
