@@ -20,6 +20,7 @@
                     <div class="p-6 mt-6 space-y-5 bg-white border rounded-md">
                         <h1 class="text-5xl font-bold text-center text-gray-900">{{ $this->score }} / {{ count($results) }}</h1>
 
+                        @if(null)
                         <div class="flex justify-center mt-3">
                             @if($passed)
                             <span class="text-xs px-6 py-0.5 bg-green-200 border border-green-300 rounded-lg text-green-600">Passed</span>
@@ -27,6 +28,7 @@
                             <span class="text-xs px-6 py-0.5 bg-red-200 border border-red-300 rounded-lg text-red-600">Failed</span>
                             @endif
                         </div>
+                        @endif
                     </div>
                 </section>
 

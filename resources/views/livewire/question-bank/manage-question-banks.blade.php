@@ -50,10 +50,10 @@
                             <x-heroicon-o-calendar class="flex-shrink-0 w-6 h-6" />
                             <span>{{ $card->created_at->format('F d Y') }}</span>
                         </div>
-                        <div class="flex items-center gap-2 text-gray-700 {{ $card->score }}">
-                            <x-heroicon-o-star class="flex-shrink-0 w-6 h-6" />
+                        <div class="flex items-center gap-2 text-xs text-gray-700">
+                            <span>Last Score: </span>
                             @if($card->score)
-                            <span>{{ $card->score  . '/' . $card->items_count}} </span>
+                            <strong>{{ $card->score  . '/' . $card->items_count}} </strong>
                             @else
                             <span>-</span>
                             @endif
