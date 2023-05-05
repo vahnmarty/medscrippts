@@ -73,7 +73,7 @@
                                 @endforeach
                             </div>
 
-                            @if($result['selected_option'])
+                            @if($result['selected_option'] && $result['explanation'])
                             <div class="p-4 mt-8 bg-blue-100 border-l-4 border-blue-400">
                                 <x-heroicon-s-light-bulb class="w-6 h-6 text-blue-700"/>
 
