@@ -125,3 +125,19 @@ trix-editor#content{
 .slick-next:before{
     @apply text-yellow-900;
 }
+
+@layer utilities
+{
+
+.rotate-y-180{
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    }
+
+    .transform-3d {
+        transform-style: preserve-3d;
+    }
+      
+
+}
