@@ -28,6 +28,8 @@ class ManageFlashCards extends Component  implements HasForms
     public $flash_cards = [];
 
     public $categories = [], $max = 20;
+
+    public $widget_decks = 0;
     
     public function render()
     {
@@ -37,6 +39,8 @@ class ManageFlashCards extends Component  implements HasForms
     public function mount()
     {
         $this->flash_cards = FlashCardRecord::withCount('items')->where('user_id', auth()->id())->get();
+
+        $this->widget_decks = count($this->flash_cards);
     }
 
     public function getFormSchema()

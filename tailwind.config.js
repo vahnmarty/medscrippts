@@ -40,6 +40,7 @@ module.exports = {
             primary: colors.emerald,
             success: colors.green,
             warning: colors.yellow,
+            pink: colors.pink,
             darkgreen: '#2F5662'
         }
     },

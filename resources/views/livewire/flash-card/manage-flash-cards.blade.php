@@ -31,6 +31,28 @@
     </header>
 
     <div class="px-6 py-12 space-y-8 bg-gray-100 lg:px-16">
+
+        <div class="grid lg:grid lg:grid-cols-2 lg:gap-6">
+            <div class="p-6 bg-white rounded-md">
+                <div>
+                    <h3 class="text-xl font-bold">Your Progress</h3>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mt-4">
+                    <div class="p-4 bg-pink-100 rounded-md">
+                        <x-heroicon-s-chart-bar class="w-6 h-6 p-1 text-white bg-pink-500 rounded-full"/>
+
+                        <h2 class="mt-3 text-xl font-bold">{{ $widget_decks }}</h2>
+                        <p class="mt-1 text-sm">Cards</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden p-6 bg-white rounded-md lg:block">
+                <div>
+                    <h3 class="text-xl font-bold">Insights</h3>
+                </div>
+            </div>
+        </div>
+
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($flash_cards as $card)
                 <a href="{{ route('flashcard.play', $card->id) }}" wire:key="card-{{ $card->id }}"

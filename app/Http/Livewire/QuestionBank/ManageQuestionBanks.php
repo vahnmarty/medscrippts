@@ -21,6 +21,9 @@ class ManageQuestionBanks extends Component implements HasForms
     
     public $categories = [], $max= 20;
 
+
+    public $widget_correct = 0, $widget_question = 0, $widget_decks = 0;
+
     public function render()
     {
         return view('livewire.question-bank.manage-question-banks');
@@ -29,6 +32,10 @@ class ManageQuestionBanks extends Component implements HasForms
     public function mount()
     {
         $this->qbanks = QuestionBankRecord::with('categories')->withCount('items')->where('user_id', auth()->id())->get();
+
+
+        $this->widget_decks = count($this->qbanks);
+        $this->widget_question = QuestionBankRecord::where('user_id', auth()->id())->whereNotNull('score')->count();
     }
 
     public function getFormSchema()
