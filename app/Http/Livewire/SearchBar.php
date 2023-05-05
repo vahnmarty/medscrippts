@@ -36,6 +36,11 @@ class SearchBar extends Component
     {
         $script = Script::find($id);
 
-        $this->emit('setScript', $script?->id);
+        if(request()->is('scripts*')){
+            $this->emit('setScript', $script?->id);
+        }else{
+            return redirect('scripts?script_id=' . $script->id );
+        }
+        
     }
 }

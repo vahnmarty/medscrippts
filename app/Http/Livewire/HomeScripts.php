@@ -28,13 +28,15 @@ class HomeScripts extends Component
 
     public $settings = [];
 
-    //protected $queryString = ['category_id', 'script_id'];
+    protected $queryString = ['script_id'];
 
     protected $listeners = [ 'refreshScripts', 'setCategory', 'setScript' ];
 
     public function render()
     {
         $scripts = $this->getScripts();
+
+        $this->reset('script_id');
 
         return view('livewire.home-scripts', compact('scripts'));
     }
