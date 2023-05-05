@@ -114,7 +114,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="absolute bottom-0 left-0 right-0 bg-white">
+                                            <div class="absolute bottom-0 left-0 right-0 bg-white [backface-visibility:hidden]">
                                                 <div class="w-full h-2 bg-gray-700/10 backdrop-blur-xl"></div>
                                                 <div class="px-4 py-4">
                                                     <div class="flex justify-between">
@@ -166,7 +166,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
+                                                <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white [backface-visibility:hidden]">
                                                     <div class="flex justify-between">
                                                         <button type="button"
                                                             class="rounded-md bg-blue-100 px-3 py-1.5 text-sm text-blue-500">Edit</button>
