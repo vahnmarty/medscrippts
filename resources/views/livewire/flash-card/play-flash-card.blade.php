@@ -61,13 +61,14 @@
                                 <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 [transform:rotateY(180deg)] [backface-visibility:hidden]">
                                     <div class="relative">
 
-                                        <div class="absolute top-0 left-0 right-0">
-                                            <h3 class="mt-8 text-xl font-bold text-center">{{ $result['question'] }}</h3>
+                                        <div class="absolute top-0 left-0 right-0 text-orange-400">
+                                            <h5 class="mt-8">{{ $result['script']['category']['name'] }}</h5>
+                                            <h3 class="text-xl font-bold text-darkgreen">{{ $result['script']['title'] }}</h3>
                                         </div>
                                     </div>
                                     <div class="flex flex-col items-center justify-center w-full h-full text-center">
 
-                                        <p class="mt-16 text-2xl text-orange-400">{{ $result['answer'] }}</p>
+                                        <p class="mt-16 text-2xl text-gray-900">{{ $result['answer'] }}</p>
                                     </div>
                                 </div>
                             </div>
