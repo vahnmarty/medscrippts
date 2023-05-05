@@ -188,7 +188,7 @@
 
                     <div class="items-center justify-between block mt-8 lg:flex">
                         @foreach($scripts as $script)
-                        <div class="flex hidden gap-8 p-4 bg-white rounded-md lg:block">
+                        <div class="hidden gap-8 p-4 bg-white rounded-md lg:flex lg:block">
                             <div>
                                 <strong class="font-semibold text-gray-900">0</strong>
                                 <span class="ml-2 text-xs text-gray-700">Views</span>
