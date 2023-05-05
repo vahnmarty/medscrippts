@@ -186,11 +186,24 @@
                         @endforeach
                     </div>
 
-                    <div class="flex items-center justify-between mt-8">
-                        <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
+                    <div class="items-center justify-between block mt-8 lg:flex">
+                        @foreach($scripts as $script)
+                        <div class="flex hidden gap-8 p-4 bg-white rounded-md lg:block">
+                            <div>
+                                <strong class="font-semibold text-gray-900">0</strong>
+                                <span class="ml-2 text-xs text-gray-700">Views</span>
+                            </div>
+                            <div>
+                                <strong class="font-semibold text-gray-900">{{ $script->updated_at->format('M d, Y')}}</strong>
+                                <span class="ml-2 text-xs text-gray-700">Last Updated</span>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="flex items-center justify-between gap-3 lg:justify-start">
+                            <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
 
-
-                        {{ $scripts->links('includes.pagination.custom-paginator') }}
+                            {{ $scripts->links('includes.pagination.custom-paginator') }}
+                        </div>
                     </div>
 
 
