@@ -76,7 +76,7 @@
                                 <div class="lg:hidden">
                                     <div x-data="{ flip: false }" x-on:flipup.window="flip = false"
                                         x-on:flipback.window="flip = true"
-                                        class="group h-[32rem] w-full [perspective:1000px]">
+                                        class="group h-[32rem] w-full [-webkit-perspective:1000px]">
                                         <div :class="flip ? 'rotate-y-180' : ''"
                                             class="relative w-full h-full transition-all duration-500 rounded-xl transform-3d">
                                             <div class="absolute inset-0 p-4 pb-20 overflow-auto bg-white">
