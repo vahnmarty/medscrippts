@@ -42,29 +42,29 @@
                                 <div wire:key="q{{ $q}}-option-{{ $i }}" >
                                     @if($result['selected_option'])
                                     @if($result['selected_option'] == 'option' . $i && $result['option_answer'] == 'option' . $i)
-                                    <div class="flex justify-between w-full p-6 text-left bg-green-200 border border-green-300 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-green-200 border border-green-300 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                         <x-heroicon-s-check-circle class="w-5 h-5 text-green-500"/>
                                     </div>
                                     @elseif($result['selected_option'] == 'option' . $i && $result['option_answer'] != 'option' . $i)
-                                    <div class="flex justify-between w-full p-6 text-left bg-red-200 border border-red-300 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-red-200 border border-red-300 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                         <x-heroicon-s-check-circle class="w-5 h-5 text-red-500"/>
                                     </div>
                                     @elseif($result['option_answer'] == 'option' . $i && !$result['is_correct'])
-                                    <div class="flex justify-between w-full p-6 text-left bg-green-200 border border-green-300 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-green-200 border border-green-300 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                         <x-heroicon-s-check-circle class="w-5 h-5 text-green-500"/>
                                     </div>
                                     @else
-                                    <div class="flex justify-between w-full p-6 text-left bg-white border border-gray-200 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-white border border-gray-200 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                     </div>
                                     @endif
                                     @else
                                     <button type="button" 
                                         wire:click="selectAnswer({{ $q }}, `{{ 'option' . $i}}` )"
-                                        class="flex justify-between w-full p-6 text-left bg-white border rounded-sm hover:bg-gray-200 ">
+                                        class="flex justify-between w-full p-4 text-sm text-left bg-white border rounded-sm hover:bg-gray-200 ">
                                         <span class="flex-1 text-gray-700">{{ $result['option' . $i] }}</span>
                                         <div class="w-5"></div>
                                     </button>
@@ -72,6 +72,14 @@
                                 </div>
                                 @endforeach
                             </div>
+
+                            @if($result['selected_option'])
+                            <div class="p-4 mt-8 bg-blue-100 border-l-4 border-blue-400">
+                                <x-heroicon-s-light-bulb class="w-6 h-6 text-blue-700"/>
+
+                                <p class="mt-3 text-sm">{{ $result['explanation'] }}</p>
+                            </div>
+                            @endif
                         </div>
                         @endif
                     </div>

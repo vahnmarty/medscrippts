@@ -25,7 +25,7 @@ class PlayQuestionBank extends Component
     public function mount($id)
     {
         $this->qbank_record_id = $id;
-        $flashCard = QuestionBankRecord::with('items')->find($id);
+        $flashCard = QuestionBankRecord::with('items')->findOrFail($id);
 
         $items = $flashCard->items->toArray();
         

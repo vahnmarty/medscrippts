@@ -40,7 +40,7 @@ class GenerateQBanks implements ShouldQueue
     private function generate(Script $script)
     {
         $max = 5;
-        $system_prompt = 'Please generate a 5 items of multiple-choice type questionnaire that covers the main topics and key points discussed in the article. The output should be in JSON format and grouped in a key called "questions". Each item must have these keys: "question", "option1", "option2", "option3", "option4". And add a key called "option_answer" with option number of the correct answer, so it must be ["option1", "option2", "option3", "option4"]';
+        $system_prompt = 'Please generate a 5 items of multiple-choice type questionnaire that covers the main topics and key points discussed in the article. The output should be in JSON format and grouped in a key called "questions". Each item must have these keys: "question", "explanation", "option1", "option2", "option3", "option4". And add a key called "option_answer" with option number of the correct answer, so it must be ["option1", "option2", "option3", "option4"].';
 
         //$system_prompt = 'From the provided notes, Please generate 5 items of multiple choice questions with 4 answer choices, one correct and 3 incorrect. The output should be in JSON format and grouped in a key called "questions". Each item must have these keys: "question", "option1", "option2", "option3", "option4". And add a key called "option_answer" with option number of the correct answer, so it must be ["option1", "option2", "option3", "option4"].';
 
@@ -89,6 +89,7 @@ class GenerateQBanks implements ShouldQueue
                     'option3' => $item['option3'],
                     'option4' => $item['option4'],
                     'option_answer' => $option_answer,
+                    'explanation' => $item['explanation']
                     //'answer' => $item['answer'],
                 ]);
             }

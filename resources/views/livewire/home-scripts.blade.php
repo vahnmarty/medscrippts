@@ -39,7 +39,7 @@
                                                         <div class="flex-shrink-0 w-10 text-darkgreen">
                                                             {{ $setting['value'] }}</div>
                                                         <button type="button" x-on:click="toggle()"
-                                                            :class="blur ? 'blur-sm' : ''"
+                                                            :class="{ 'blur-sm' : blur }"
                                                             class="text-sm text-left text-gray-500 cursor-pointer">{{ $script->{$setting['key']} }}</button>
                                                     </div>
                                                 @endforeach
