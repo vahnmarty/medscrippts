@@ -53,7 +53,7 @@
                                 x-on:click="flip = !flip; $dispatch('next')"
                                 :class="flip ? '[transform:rotateY(180deg)]' : ''"
                                 class="relative bg-white h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]">
-                                <div class="absolute inset-0 p-4">
+                                <div class="absolute inset-0 p-4 [backface-visibility:hidden]">
                                     <div class="flex flex-col items-center justify-center w-full h-full">
                                         <h1 class="text-3xl font-bold text-center">{{ $result['question'] }}</h1>
                                     </div>
