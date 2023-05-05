@@ -43,6 +43,7 @@
 
         <aside x-data="{ showSidebar: true }" 
             x-on:toggle-window.window="showSidebar = !showSidebar"
+            x-init="$refs.main.classList.remove('w-72')"
             class="flex flex-1">
 
 
@@ -57,7 +58,8 @@
             
             <div
                 :class="showSidebar ? 'w-72' : 'w-0'"
-                class="flex-shrink-0 hidden transition-all duration-300 ease-in-out border-r lg:block">
+                x-ref="main"
+                class="flex-shrink-0 hidden transition-all duration-300 ease-in-out border-r lg:block w-72">
                 @livewire('script-settings')
             </div>
             @endif
