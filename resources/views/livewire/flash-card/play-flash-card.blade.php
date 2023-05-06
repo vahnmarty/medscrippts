@@ -94,7 +94,7 @@
     <footer class="fixed bottom-0 left-0 right-0 z-20 py-6 bg-white border-t">
         <div class="max-w-4xl px-6 mx-auto">
             <div class="flex items-center justify-between">
-                <h3 class="font-bold text-darkgreen">Flash Card - debug</h3>
+                <h3 class="font-bold text-darkgreen">Flash Card</h3>
 
                 <div class="h-10 lg:h-16">
                     @if ($end)
