@@ -56,21 +56,20 @@
 
                                 <div aria-title="Front" class="absolute inset-0 p-4 [backface-visibility:hidden]">
                                     <div class="flex flex-col items-center justify-center w-full h-full">
-                                        <h1 class="text-3xl font-bold text-center">{{ $result['question'] }}</h1>
+                                        <h1 class="text-xl font-bold text-center lg:text-3xl">{{ $result['question'] }}</h1>
                                     </div>
                                 </div>
 
-                                <div aria-title="Back" class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 rotate-y-180 [backface-visibility:hidden]">
+                                <div aria-title="Back" class="absolute inset-0 h-full w-full rounded-xl bg-white p-4 rotate-y-180 [backface-visibility:hidden]">
                                     <div class="relative">
-
                                         <div class="absolute top-0 left-0 right-0 text-orange-400">
-                                            <h5 class="mt-8">{{ $result['script']['category']['name'] }}</h5>
+                                            <h5>{{ $result['script']['category']['name'] }}</h5>
                                             <h3 class="text-xl font-bold text-darkgreen">{{ $result['script']['title'] }}</h3>
                                         </div>
                                     </div>
                                     <div class="flex flex-col items-center justify-center w-full h-full text-center">
 
-                                        <p class="mt-16 text-2xl text-gray-900">{{ $result['answer'] }}</p>
+                                        <p class="mt-16 text-base text-gray-900 lg:text-2xl">{{ $result['answer'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +90,7 @@
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-darkgreen">Flash Card</h3>
 
-                <div class="h-16">
+                <div class="lg:h-16">
                     @if($end)
                 <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
                 @else
