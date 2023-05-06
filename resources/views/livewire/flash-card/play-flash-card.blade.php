@@ -60,16 +60,14 @@
                                     </div>
                                 </div>
 
-                                <div aria-title="Back" class="absolute inset-0 w-full h-full p-4 bg-white rounded-xl rotate-y-180">
-                                    <div class="relative">
-                                        <div class="absolute top-0 left-0 right-0 text-orange-400">
-                                            <h5>{{ $result['script']['category']['name'] }}</h5>
-                                            <h3 class="text-xl font-bold text-darkgreen">{{ $result['script']['title'] }}</h3>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-center justify-center w-full h-full text-center">
+                                <div aria-title="Back" class="absolute inset-0 w-full h-full p-4 bg-white rounded-xl rotate-y-180 [backface-visibility:hidden]">
+                                    
+                                    <div class="flex flex-col justify-center w-full h-full">
 
-                                        <p class="mt-16 text-base text-gray-900 lg:text-2xl">{{ $result['answer'] }}</p>
+                                        <h5 class="text-orange-400">{{ $result['script']['category']['name'] }}</h5>
+                                        <h3 class="text-xl font-bold text-darkgreen">{{ $result['script']['title'] }}</h3>
+
+                                        <p class="mt-16 text-base text-center text-gray-900 lg:text-2xl">{{ $result['answer'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +86,7 @@
     <footer class="fixed bottom-0 left-0 right-0 z-20 py-6 bg-white border-t">
         <div class="max-w-4xl px-6 mx-auto">
             <div class="flex items-center justify-between">
-                <h3 class="font-bold text-darkgreen">Flash Card</h3>
+                <h3 class="font-bold text-darkgreen">Flash Card - debug</h3>
 
                 <div class="lg:h-16">
                     @if($end)
