@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                <div aria-title="Back" class="absolute inset-0 h-full w-full rounded-xl bg-white p-4 rotate-y-180 [backface-visibility:hidden]">
+                                <div aria-title="Back" class="absolute inset-0 w-full h-full p-4 bg-white rounded-xl rotate-y-180">
                                     <div class="relative">
                                         <div class="absolute top-0 left-0 right-0 text-orange-400">
                                             <h5>{{ $result['script']['category']['name'] }}</h5>
