@@ -1,11 +1,11 @@
-<div class="min-h-screen bg-gray-100 h-100">
+<div class="h-full min-h-screen bg-gray-100">
 
     <button type="button" wire:click="exit"
         class="fixed z-50 p-2 text-gray-900 duration-300 ease-in-out bg-gray-300 rounded-full top-3 right-10 hover:bg-red-500 hover:text-white">
         <x-heroicon-s-x class="w-4 h-4" />
     </button>
 
-    <div class="min-h-screen px-8 pb-32 mx-auto max-w-7xl">
+    <div class="h-screen min-h-screen px-8 pb-20 mx-auto max-w-7xl">
         @if ($end)
             <section class="max-w-3xl px-4 mx-auto">
                 <div class="flex justify-center">
@@ -36,8 +36,8 @@
                 </div>
             </section>
         @else
-            <section class="h-screen max-w-3xl px-4 mx-auto">
-                <div class="flex flex-col justify-center h-screen">
+            <section class="h-full max-w-3xl px-4 mx-auto">
+                <div class="flex flex-col justify-center h-full">
                     <div>
                         @foreach ($results as $result)
                             <div wire:key="quiz-{{ $loop->index }}">
