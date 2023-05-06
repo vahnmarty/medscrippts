@@ -51,14 +51,16 @@
                             class="group w-full h-[20rem] [perspective:1000px] ">
                             <div
                                 x-on:click="flip = !flip; $dispatch('next')"
-                                :class="flip ? '[transform:rotateY(180deg)]' : ''"
-                                class="relative bg-white h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]">
-                                <div class="absolute inset-0 p-4 [backface-visibility:hidden]">
+                                :class="{ 'rotate-y-180': flip }"
+                                class="relative w-full h-full transition-all duration-500 bg-white shadow-xl rounded-xl transform-3d">
+
+                                <div aria-title="Front" class="absolute inset-0 p-4 [backface-visibility:hidden]">
                                     <div class="flex flex-col items-center justify-center w-full h-full">
                                         <h1 class="text-3xl font-bold text-center">{{ $result['question'] }}</h1>
                                     </div>
                                 </div>
-                                <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+
+                                <div aria-title="Back" class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white px-12 rotate-y-180 [backface-visibility:hidden]">
                                     <div class="relative">
 
                                         <div class="absolute top-0 left-0 right-0 text-orange-400">

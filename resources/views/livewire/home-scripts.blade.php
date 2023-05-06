@@ -79,7 +79,7 @@
                                         class="group h-[32rem] w-full [-webkit-perspective:1000px]">
                                         <div :class="flip ? 'rotate-y-180' : ''"
                                             class="relative w-full h-full transition-all duration-500 rounded-xl transform-3d">
-                                            <div class="absolute inset-0 [backface-visibility:hidden] p-4 pb-20 overflow-auto bg-white">
+                                            <div aria-title="Front" class="absolute inset-0 [backface-visibility:hidden] p-4 pb-20 overflow-auto bg-white">
                                                 <div>
                                                     <header class="text-left">
                                                         <div>
@@ -127,8 +127,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div
-                                                class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 [transform:rotateY(180deg)] [backface-visibility:hidden] lg:text-center">
+                                            <div aria-title="Back" 
+                                                class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 rotate-y-180 [backface-visibility:hidden] lg:text-center">
                                                 <div>
                                                     <header class="text-left">
                                                         <div>
