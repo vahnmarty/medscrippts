@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="h-full">
 <head>
     <title>{{ config('app.name') }} | @yield('title', 'Home')</title>
     <meta charset="utf-8">
@@ -35,7 +35,7 @@
 
     @stack('head-scripts')
 </head>
-<body class="bg-gray-100">
+<body class="h-full bg-gray-100">
 
     <div class="flex">
         
@@ -72,7 +72,7 @@
                 </div>
 
                 <main class="flex-grow">
-                    <div class="bg-white">
+                    <div class="mb-32 bg-white lg:mb-0">
                         @yield('content')
                         {{ $slot ?? '' }}
                     </div>
