@@ -102,6 +102,7 @@
                     @else
                         <div x-data="{ open: false }" x-on:next.window="open = true">
                             <button x-show="open" 
+                                x-cloak
                                 x-on:click="open = false" 
                                 wire:click="next" 
                                 type="button"
