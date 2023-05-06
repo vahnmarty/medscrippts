@@ -64,8 +64,7 @@
                                                             alt="">
                                                     @empty
                                                         <img src="{{ asset('img/placeholder.png') }}"
-                                                            class="max-h-[12rem] overflow-auto" loading="lazy"
-                                                            alt="">
+                                                            class="max-h-[12rem] overflow-auto w-32 h-32">
                                                     @endforelse
                                                 </div>
                                             </div>
@@ -79,6 +78,7 @@
                                         class="group h-[32rem] w-full [-webkit-perspective:1000px]">
                                         <div :class="flip ? 'rotate-y-180' : ''"
                                             class="relative w-full h-full transition-all duration-500 rounded-xl transform-3d">
+
                                             <div aria-title="Front" class="absolute inset-0 [backface-visibility:hidden] p-4 pb-20 overflow-auto bg-white">
                                                 <div>
                                                     <header class="text-left">
@@ -128,7 +128,7 @@
                                                 </div>
                                             </div>
                                             <div aria-title="Back" 
-                                                class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 rotate-y-180 [backface-visibility:hidden] lg:text-center">
+                                                class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 rotate-y-180 [backface-visibility:hidden] lg:text-center overflow-auto pb-20 ">
                                                 <div>
                                                     <header class="text-left">
                                                         <div>
@@ -138,7 +138,7 @@
                                                                 {{ $script->title }}</h3>
                                                         </div>
                                                     </header>
-                                                    <div>
+                                                    <div class="pb-2 border-b border-dashed">
 
                                                         <h3 class="mt-8">Links</h3>
                                                         <div class="p-2 mt-2 bg-gray-100">
@@ -160,24 +160,25 @@
                                                                     alt="">
                                                             @empty
                                                                 <img src="{{ asset('img/placeholder.png') }}"
-                                                                    class="max-h-[12rem] overflow-auto" loading="lazy"
-                                                                    alt="">
+                                                                    class="max-h-[12rem] overflow-auto w-32 h-auto" >
                                                             @endforelse
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
-                                                <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white [backface-visibility:hidden]">
-                                                    <div class="flex justify-between">
-                                                        <button type="button"
-                                                            class="rounded-md bg-blue-100 px-3 py-1.5 text-sm text-blue-500">Edit</button>
-                                                        <button type="button" x-on:click="flip = !flip">
-                                                            <x-heroicon-s-switch-horizontal
-                                                                class="w-6 h-6 text-gray-400" />
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
 
+                                            <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white [backface-visibility:hidden] rotate-y-180">
+                                                <div class="flex justify-between">
+                                                    <button type="button"
+                                                        class="rounded-md bg-blue-100 px-3 py-1.5 text-sm text-blue-500">Edit</button>
+                                                    <button type="button" x-on:click="flip = !flip">
+                                                        <x-heroicon-s-switch-horizontal
+                                                            class="w-6 h-6 text-gray-400" />
+                                                    </button>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
