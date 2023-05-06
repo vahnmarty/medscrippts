@@ -42,14 +42,15 @@
                         @foreach ($results as $result)
                             <div wire:key="quiz-{{ $loop->index }}">
                                 @if ($index == $loop->index)
-                                    <div x-data="{ flip: false }" x-on:flipup.window="flip = false"
+                                    <div x-data="{ flip: false }" 
+                                        x-on:flipup.window="flip = false"
                                         x-on:flipback.window="flip = true"
-                                        class="group h-[24rem] w-full [-webkit-perspective:1000px] lg:h-[20rem]">
+                                        class="group h-[24rem] w-full [-webkit-perspective:1000px] lg:h-[20rem] relative">
                                         <div :class="flip ? 'rotate-y-180' : ''"
                                             class="relative w-full h-full transition-all duration-500 transform-3d rounded-xl">
                                             <div aria-title="Front" 
-                                                x-on:click="flip = !flip; $dispatch('next')"
-                                                class="p-4[backface-visibility:hidden] absolute inset-0 h-full cursor-pointer overflow-auto rounded-md border border-gray-300 bg-white">
+                                                x-on:click="flip = true; $dispatch('next')"
+                                                class="p-4 [backface-visibility:hidden] absolute inset-0 h-full cursor-pointer overflow-auto rounded-md border border-gray-300 bg-white">
 
                                                 {{-- Front Content --}}
 
@@ -61,8 +62,9 @@
 
                                             </div>
 
-                                            <div aria-title="Back" x-on:click="flip = !flip"
-                                                class="text-slate-200 rotate-y-180 absolute inset-0 h-full w-full cursor-pointer rounded-md border border-gray-300 bg-white p-4 [backface-visibility:hidden] lg:px-16 lg:py-6">
+                                            <div aria-title="Back"
+                                                x-on:click="flip = false"
+                                                class=" absolute inset-0 h-full w-full rounded-xl bg-white p-4 rotate-y-180 [backface-visibility:hidden]">
 
                                                 {{-- Back Content --}}
                                                 <div>
@@ -94,13 +96,21 @@
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-darkgreen">Flash Card - debug</h3>
 
-                <div class="lg:h-16">
+                <div class="h-10 lg:h-16">
                     @if ($end)
                         <button wire:click="retake" type="button" class="btn-primary">Retake</button>
                     @else
                         <div x-data="{ open: false }" x-on:next.window="open = true">
-                            <button x-show="open" x-on:click="open = false" wire:click="next" type="button"
-                                class="btn-primary">Next</button>
+                            <button x-show="open" 
+                                x-on:click="open = false" 
+                                wire:click="next" 
+                                type="button"
+                                class="btn-primary">
+                                    Next
+                            </button>
+
+                            <button x-show="!open"  type="button"
+                                class="cursor-not-allowed opacity-60 btn-primary">Next</button>
                         </div>
                     @endif
                 </div>
