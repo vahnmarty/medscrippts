@@ -1,20 +1,19 @@
 @import '../../vendor/filament/forms/dist/module.esm.css';
-/*@import 'swiper/swiper.min.css';*/
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.text-primary{
+/* .text-primary{
     color: #2F5662;
 }
 
 .bg-primary{
     background-color: #2F5662;
-}
+} */
 
 .btn-primary{
-    @apply  px-3 py-2 text-sm text-white rounded-md lg:text-base lg:py-3 lg:px-6 bg-primary hover:bg-darkgreen/90 ;
+    @apply  px-3 py-2 text-sm text-white rounded-md lg:text-base lg:py-3 lg:px-6 bg-darkgreen hover:bg-darkgreen/90 ;
 }
 
 .btn-sm{
