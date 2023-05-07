@@ -57,7 +57,14 @@
             @foreach ($flash_cards as $card)
                 <a href="{{ route('flashcard.play', $card->id) }}" wire:key="card-{{ $card->id }}"
                     class="relative block p-5 border border-gray-300 rounded-md bg-gray-50 hover:bg-white">
-                    <h4 class="text-xl font-bold text-orange-600">{{ $card->getCategoriesName() }}</h4>
+                    
+                    <div class="relative group">
+                        <h4 class="text-xl font-bold text-orange-600">{{ Str::limit($card->getCategoriesName(), 50) }}</h4>
+                        @if(Str::length($card->getCategoriesName()) >= 100)
+                        <x-tooltip>{{ $card->getCategoriesName() }}</x-tooltip>
+                        @endif
+                    </div>
+                    
 
                     <div class="mt-4 space-y-2">
                         <div class="flex items-center gap-2 text-gray-700">
