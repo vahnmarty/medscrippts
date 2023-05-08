@@ -74,19 +74,31 @@ class CrudScript extends Component implements HasForms
     {
         return [
             Grid::make(2)
-            ->schema([
-                TextInput::make('title')
-                    ->required(),
-                Select::make('category_id')
-                    ->label('Category')
-                    ->options(Category::orderBy('name')->get()->pluck('name', 'id'))
-                    ->required(),
-            ]),
-            Textarea::make('pathophysiology')->label('Pathophysiology (Path)')->inlineLabel()->rows(2),
-            Textarea::make('epidemiology')->label('Epidemiology (Epi)')->inlineLabel()->rows(2),
-            Textarea::make('signs')->label('Signs and Symptoms (S/S)')->inlineLabel()->rows(2),
-            Textarea::make('diagnosis')->label('Diagnosis (Dx)')->inlineLabel()->rows(2),
-            Textarea::make('treatments')->label('Treatments (Tx)')->inlineLabel()->rows(2),
+                ->schema([
+
+                    Grid::make(1)
+                        ->columnSpan(1)
+                        ->schema([
+                                TextInput::make('title')
+                                    ->required(),
+                                Select::make('category_id')
+                                    ->label('Category')
+                                    ->options(Category::orderBy('name')->get()->pluck('name', 'id'))
+                                    ->required(),
+                                Textarea::make('pathophysiology')->label('Pathophysiology (Path)')->inlineLabel()->rows(2),
+                                Textarea::make('epidemiology')->label('Epidemiology (Epi)')->inlineLabel()->rows(2),
+                                Textarea::make('signs')->label('Signs and Symptoms (S/S)')->inlineLabel()->rows(2),
+                                Textarea::make('diagnosis')->label('Diagnosis (Dx)')->inlineLabel()->rows(2),
+                                Textarea::make('treatments')->label('Treatments (Tx)')->inlineLabel()->rows(2),
+                            ]),
+
+                    Grid::make(1)
+                            ->columnSpan(1)
+                        ->schema([
+                            Textarea::make('links')->label('Links')->rows(2),
+                        ])
+                ])
+            
         ];
     }
 

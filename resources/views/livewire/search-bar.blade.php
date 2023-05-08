@@ -16,7 +16,7 @@
                     <div>
                         <div x-on:click="$wire.select(i); search = ''"
                             class="px-6 py-3 border-b cursor-pointer hover:bg-gray-100"
-                            x-show="item.toLowerCase().includes(search.toLowerCase())" x-text="item + ' ' + i">
+                            x-show="item.toLowerCase().includes(search.toLowerCase())" x-text="item">
                         </div>
                     </div>
                 </template>
@@ -57,7 +57,7 @@
                             <div>
                                 <div x-on:click="$wire.select(i); search = ''; $dispatch('closemodal-searchbar') "
                                     class="px-6 py-3 border-b cursor-pointer hover:bg-gray-100"
-                                    x-show="item.toLowerCase().includes(search.toLowerCase())" x-text="item + ' ' + i">
+                                    x-show="item.toLowerCase().includes(search.toLowerCase())" x-text="item">
                                 </div>
                             </div>
                         </template>

@@ -44,9 +44,9 @@
                 <button x-data wire:click="$emit('createScript')"  type="button" class="w-full btn-primary btn-sm">
                     <span>Create Script</span>
                 </button>
-                <x-modal-lg ref="script">
+                <x-modal-xl ref="script">
                     @livewire('scripts.crud-script')
-                </x-modal-lg>
+                </x-modal-xl>
             </div>
         </div>
     
