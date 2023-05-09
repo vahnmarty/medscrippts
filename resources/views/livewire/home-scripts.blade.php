@@ -49,7 +49,7 @@
                                                 <div class="p-2 mt-2 bg-gray-100">
                                                     @forelse($script->links as $link)
                                                         <a href="{{ $link->url }}" target="_blank"
-                                                            class="font-sans text-sm text-blue-400 word-break">
+                                                            class="font-sans text-sm text-blue-400 whitespace-normal ">
                                                             {{ $link->url }}
                                                         </a>
                                                     @empty

@@ -37,7 +37,7 @@
                     <div wire:key="quiz-{{ $loop->index }}">
                         @if($index == $loop->index)
                         <div>
-                            <h3 class="text-xl font-bold text-darkgreen">{{ $result['question'] }}</h3>
+                            <h3 class="text-xl font-bold text-center text-darkgreen">{{ $result['question'] }}</h3>
 
                             <div class="mt-8 space-y-2">
                                 @foreach(range(1,4) as $i)
@@ -100,11 +100,11 @@
                     <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
                     @endif
 
-                    @if($has_answered)
-                    <div> 
-                        <button  wire:click="next" type="button" class="btn-primary">Next</button>
+                    <div x-data="{ open: $wire.entangle('has_answered') }"> 
+                        <button x-show="open" wire:click="next" type="button" class="btn-primary">Next</button>
+
+                        <button x-show="!open" disabled type="button" class="cursor-not-allowed btn-primary opacity-40">Next</button>
                     </div>
-                    @endif
                 </div>
             </div>
         </div>
