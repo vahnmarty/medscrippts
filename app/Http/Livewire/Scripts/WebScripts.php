@@ -18,6 +18,8 @@ class WebScripts extends Component
 
     public $settings = [];
 
+    public $title, $pathophysiology, $epidemiology, $signs, $diagnosis, $treatments, $notes;
+
     protected $queryString = ['script_id', 'category_id'];
     
     public function render()
@@ -65,5 +67,13 @@ class WebScripts extends Component
         $this->resetPage();
 
         $this->dispatchBrowserEvent('closemodal-categories');
+    }
+
+    public function save($id, $field, $value)
+    {
+        $script = Script::find($id);
+
+        $script->$field = $value;
+        $script->save();
     }
 }

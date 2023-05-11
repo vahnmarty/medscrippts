@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function(){
 Route::group(['middleware' => ['auth', 'subscribed']], function(){
 
     Route::get('scripts', HomeScripts::class)->name('home');
-    Route::get('web-scripts', WebScripts::class)->name('scripts.web');
+    Route::get('scripts/web', WebScripts::class)->name('scripts.web');
     Route::get('scripts/create', CrudScript::class);
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
     Route::get('support', SupportPage::class)->name('support');

@@ -64,7 +64,7 @@
             </div>
             @endif
 
-            <div class="flex-1">
+            <div class="flex-1 max-h-screen overflow-auto">
                 @include('includes.partials.header')
                 <div class="bg-white md:px-8">
                     @yield('header')
@@ -86,14 +86,10 @@
 
     @include('includes.footer-nav')
 
-
     @stack('scripts')
-    
 
 
     @livewireScripts
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <x-livewire-alert::scripts />
 
 
 </body>
