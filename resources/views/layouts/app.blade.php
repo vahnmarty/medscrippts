@@ -59,7 +59,7 @@
             <div
                 :class="showSidebar ? 'w-72' : 'w-0'"
                 x-ref="main"
-                class="flex-shrink-0 hidden transition-all duration-300 ease-in-out border-r lg:block w-72">
+                class="flex-shrink-0 hidden overflow-hidden transition-all duration-300 ease-in-out border-r lg:block w-72">
                 @livewire('script-settings')
             </div>
             @endif
