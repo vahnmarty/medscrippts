@@ -7,6 +7,7 @@ use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
 use App\Enums\BlurSetting;
+use Jenssegers\Agent\Agent;
 use App\Models\StudySetting;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\AgentLayoutTrait;
@@ -61,6 +62,12 @@ class HomeScripts extends Component
 
     public function mount()
     {   
+        $agent = new Agent;
+
+        if($agent->isDesktop())
+        {
+            return redirect('scripts/web');
+        }
 
         $this->settings = $this->getSettings();
         $this->categories = $this->getCategories();

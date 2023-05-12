@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scripts;
 use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
+use Jenssegers\Agent\Agent;
 use Livewire\WithPagination;
 
 
@@ -45,6 +46,13 @@ class WebScripts extends Component
 
     public function mount()
     {
+        $agent = new Agent;
+
+        if($agent->isMobile())
+        {
+            return redirect('scripts');
+        }
+        
         $this->categories = Category::withCount('userScripts')->get()->toArray();
     }
 
