@@ -191,12 +191,12 @@
                         @foreach($scripts as $script)
                         <div class="hidden gap-8 p-4 bg-white rounded-md lg:flex lg:block">
                             <div>
-                                <strong class="font-semibold text-gray-900">0</strong>
+                                <strong class="font-semibold text-gray-900">{{ $script->views }}</strong>
                                 <span class="ml-2 text-xs text-gray-700">Views</span>
                             </div>
                             <div>
-                                <strong class="font-semibold text-gray-900">{{ $script->updated_at->format('M d, Y')}}</strong>
-                                <span class="ml-2 text-xs text-gray-700">Last Updated</span>
+                                <strong class="font-semibold text-gray-900">{{ $script->viewed_at ? $script->viewed_at->format('M d, Y') : date('M d, Y') }}</strong>
+                                <span class="ml-2 text-xs text-gray-700">Last Viewed</span>
                             </div>
                         </div>
                         @endforeach

@@ -36,6 +36,14 @@ class HomeScripts extends Component
     {
         $scripts = $this->getScripts();
 
+        foreach($scripts as $item)
+        {
+            $script = Script::find($item['id']);
+            $script->views = $script->views + 1;
+            $script->viewed_at = now();
+            $script->save();
+        }
+
         $this->reset('script_id');
 
         return view('livewire.home-scripts', compact('scripts'));
