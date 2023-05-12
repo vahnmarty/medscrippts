@@ -51,4 +51,11 @@ class Script extends Model
 
         return $string;
     }
+
+    public function getLinksString()
+    {
+        $array = $this->links()->pluck('url')->toArray();
+
+        return implode(', ', $array);
+    }
 }

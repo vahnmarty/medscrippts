@@ -91,6 +91,8 @@
 
     @livewireScripts
 
+    <x-modal-error/>
+
 
 </body>
 </html>
