@@ -31,15 +31,21 @@ class WebScripts extends Component
         }else{
             $category = $scripts[0]['category'];
         }
+
+        if($scripts[0])
+        {
+            $script = Script::find($scripts[0]['id']);
+            $script->views = $script->views + 1;
+            $script->viewed_at = now();
+            $script->save();
+        }
         
         return view('livewire.scripts.web-scripts', compact('category', 'scripts'));
     }
 
     public function mount()
     {
-        $this->categories = Category::whereHas('scripts', function($query){
-                    $query->where('user_id', auth()->id());
-                })->withCount('scripts')->get()->toArray();
+        $this->categories = Category::withCount('userScripts')->get()->toArray();
     }
 
     public function getScripts()
@@ -55,7 +61,7 @@ class WebScripts extends Component
             $scriptQuery = Script::with('images')->where('id', $this->script_id);
         }
 
-        $scripts = $scriptQuery->paginate(1);
+        $scripts = $scriptQuery->withCount('flashcards')->withCount('qbanks')->paginate(1);
 
         return $scripts;
     }

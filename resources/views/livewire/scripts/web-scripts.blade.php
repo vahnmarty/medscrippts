@@ -22,7 +22,7 @@
                         </div>
                         <div class="text-left">
                             <h5 class="font-bold text-darkgreen">{{ $categoryItem['name'] }}</h5>
-                            <p class="text-sm text-gray-700">{{ $categoryItem['scripts_count'] ?? 0 }} Scripts</p>
+                            <p class="text-sm text-gray-700">{{ $categoryItem['user_scripts_count'] ?? 0 }} Scripts</p>
                         </div>
                     </button>
                 @endforeach
@@ -60,7 +60,7 @@
                                 Last Viewed
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-indigo-600 md:inline-block">
-                                    {{ $script->updated_at->format('F d Y') }}
+                                    {{ $script->viewed_at?->format('F d Y') }}
                                 </span>
                             </div>
 
@@ -69,7 +69,7 @@
                                 Viewed
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
-                                    #
+                                    {{ $script->views }}
                                 </span>
                             </div>
                             <div
@@ -77,7 +77,7 @@
                                 Cards
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
-                                    #
+                                    {{ $script->flashcards_count ?? '0' }}
                                 </span>
                             </div>
                             <div
@@ -85,7 +85,7 @@
                                 QBanks
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
-                                    #
+                                    {{ $script->qbanks_count ?? '0' }}
                                 </span>
                             </div>
                         </nav>
@@ -107,7 +107,7 @@
             <section x-data="{ edit: false }">
                 <div class="p-8 mt-8 space-y-2 bg-white border border-gray-300 rounded-md">
                     <div x-data="{
-                        model: '{{ $script->pathophysiology }}', 
+                        model: `{{ $script->pathophysiology }}`, 
                         active: false,
                         open: false,
                         draft: false,
@@ -133,7 +133,7 @@
                             class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->pathophysiology }}</textarea>
                     </div>
                     <div x-data="{
-                        model: '{{ $script->epidemiology }}', 
+                        model: `{{ $script->epidemiology }}`, 
                         active: false,
                         open: false,
                         draft: false,
@@ -159,7 +159,7 @@
                             class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->pathophysiology }}</textarea>
                     </div>
                     <div x-data="{
-                        model: '{{ $script->signs }}', 
+                        model: `{{ $script->signs }}`, 
                         active: false,
                         open: false,
                         draft: false,
@@ -185,7 +185,7 @@
                             class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->signs }}</textarea>
                     </div>
                     <div x-data="{
-                        model: '{{ $script->diagnosis }}', 
+                        model: `{{ $script->diagnosis }}`, 
                         active: false,
                         open: false,
                         draft: false,
@@ -211,7 +211,7 @@
                             class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->diagnosis }}</textarea>
                     </div>
                     <div x-data="{
-                        model: '{{ $script->treatments }}', 
+                        model: `{{ $script->treatments }}`, 
                         active: false,
                         open: false,
                         draft: false,

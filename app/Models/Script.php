@@ -12,6 +12,10 @@ class Script extends Model
 
     protected $guarded  = [];
 
+    protected $casts = [
+        'viewed_at' => 'datetime'
+    ];
+
     public function links(): MorphMany
     {
         return $this->morphMany(Link::class, 'linkable');
@@ -25,6 +29,16 @@ class Script extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function flashcards()
+    {
+        return $this->hasMany(FlashCard::class);
+    }
+
+    public function qbanks()
+    {
+        return $this->hasMany(QuestionBank::class);
     }
 
     public function getNotes()
