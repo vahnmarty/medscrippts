@@ -105,7 +105,7 @@ class ScriptCard extends Component
     public function updatedImages()
     {
         $this->validate([
-            'images.*' => 'image|max:1024', // 1MB Max
+            'images.*' => 'image|max:4098', // 1MB Max
         ]);
 
         
