@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Scripts;
 
+use Auth;
 use App\Models\Script;
 use Livewire\Component;
 use App\Models\Category;
+use App\Enums\BlurSetting;
 use Jenssegers\Agent\Agent;
 use Livewire\WithPagination;
 
@@ -22,6 +24,8 @@ class WebScripts extends Component
     public $title, $pathophysiology, $epidemiology, $signs, $diagnosis, $treatments, $notes;
 
     protected $queryString = ['script_id', 'category_id'];
+
+    protected $listeners = [ 'refreshScripts', 'setCategory', 'setScript' ];
     
     public function render()
     {
@@ -53,6 +57,8 @@ class WebScripts extends Component
             return redirect('scripts');
         }
         
+        $this->settings = $this->getSettings();
+
         $this->categories = Category::withCount('userScripts')->get()->toArray();
     }
 
@@ -90,4 +96,59 @@ class WebScripts extends Component
         $script->$field = $value;
         $script->save();
     }
+
+    public function setCategory($id)
+    {
+        $this->category_id = $id;
+    }
+
+    public function setScript($id)
+    {
+        $this->script_id = $id;
+
+        $this->resetPage();
+    }
+
+    public function blur($key)
+    {
+        $var = 'blur_' . $key;
+        $settings = Auth::user()->getStudySettings();
+        $settings->$var = !$settings->$var;
+        $settings->save();
+
+        $this->refreshSettings();
+    }
+
+    public function refreshScripts()
+    {
+        $this->refreshSettings();
+        $this->render();
+    }
+
+    public function refreshSettings()
+    {
+        $this->settings = $this->getSettings();
+    }
+
+    public function getSettings()
+    {
+        $settings = [];
+        $setting = Auth::user()->getStudySettings();
+
+        $data = BlurSetting::asArray();
+
+        foreach($data as $key =>  $config)
+        {
+            $enum = BlurSetting::fromKey($key);
+            $settings[] = [
+                'description' => $enum->description,
+                'key' => $enum->key,
+                'value' => $enum->value,
+                'blur' => $setting['blur_' . $enum->key]
+            ];
+        }
+
+        return $settings;
+    }
+
 }

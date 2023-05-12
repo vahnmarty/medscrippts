@@ -33,7 +33,7 @@
     <header class="flex justify-between px-6 py-3 bg-white lg:px-16 lg:py-6">
         <div class="flex items-center gap-6">
             <button x-data x-on:click="$dispatch('openmodal-categories')" type="button"
-                class="text-darkgreen hover:text-gray-900">
+                class="p-2 border border-gray-200 rounded-full shadow-lg text-darkgreen hover:text-gray-900 bg-gray-50">
                 <x-heroicon-s-view-grid class="flex-shrink-0 w-8 h-8" />
             </button>
             <h1 class="text-xl font-bold leading-7 text-darkgreen sm:leading-9 lg:text-3xl">
@@ -66,7 +66,7 @@
 
                             <div
                                 class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
-                                Viewed
+                                Viewed:
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
                                     {{ $script->views }}
@@ -74,7 +74,7 @@
                             </div>
                             <div
                                 class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
-                                Cards
+                                Cards:
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
                                     {{ $script->flashcards_count ?? '0' }}
@@ -82,7 +82,7 @@
                             </div>
                             <div
                                 class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
-                                QBanks
+                                QBanks:
                                 <span
                                     class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
                                     {{ $script->qbanks_count ?? '0' }}
@@ -101,169 +101,8 @@
                 </div>
             </div>
 
-        
-
-
-            <section x-data="{ edit: false }">
-                <div class="p-8 mt-8 space-y-2 bg-white border border-gray-300 rounded-md">
-                    <div x-data="{
-                        model: `{{ $script->pathophysiology }}`, 
-                        active: false,
-                        open: false,
-                        draft: false,
-                    }">
-                        <div class="flex justify-between">
-                            <div class="flex">
-                                <h4 class="text-lg font-bold text-darkgreen">Pathophysiology</h4>
-                            </div>
-                            <div>
-                                <span x-show="draft" class="self-end mb-1 mr-2 text-xs italic text-gray-500">Draft</span>
-                                <button 
-                                    x-show="draft" 
-                                    x-on:click="$wire.save(`{{ $script->id }}`, 'pathophysiology', model); draft = false; open = false"
-                                    type="button" 
-                                    class="px-2 py-1 text-xs text-white rounded-md bg-darkgreen/80 hover:bg-darkgreen">Save</button>
-                            </div>
-                        </div>
-                        <textarea 
-                            x-model="model" 
-                            x-on:input="open = true; draft = true;" 
-                            x-on:click.away="open = false;"
-                            rows="3" 
-                            class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->pathophysiology }}</textarea>
-                    </div>
-                    <div x-data="{
-                        model: `{{ $script->epidemiology }}`, 
-                        active: false,
-                        open: false,
-                        draft: false,
-                    }">
-                        <div class="flex justify-between">
-                            <div class="flex">
-                                <h4 class="text-lg font-bold text-darkgreen">Epidemiology</h4>
-                            </div>
-                            <div>
-                                <span x-show="draft" class="self-end mb-1 mr-2 text-xs italic text-gray-500">Draft</span>
-                                <button 
-                                    x-show="draft" 
-                                    x-on:click="$wire.save(`{{ $script->id }}`, 'epidemiology', model); draft = false; open = false"
-                                    type="button" 
-                                    class="px-2 py-1 text-xs text-white rounded-md bg-darkgreen/80 hover:bg-darkgreen">Save</button>
-                            </div>
-                        </div>
-                        <textarea 
-                            x-model="model" 
-                            x-on:input="open = true; draft = true;" 
-                            x-on:click.away="open = false;"
-                            rows="3" 
-                            class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->pathophysiology }}</textarea>
-                    </div>
-                    <div x-data="{
-                        model: `{{ $script->signs }}`, 
-                        active: false,
-                        open: false,
-                        draft: false,
-                    }">
-                        <div class="flex justify-between">
-                            <div class="flex">
-                                <h4 class="text-lg font-bold text-darkgreen">Signs and Symptoms</h4>
-                            </div>
-                            <div>
-                                <span x-show="draft" class="self-end mb-1 mr-2 text-xs italic text-gray-500">Draft</span>
-                                <button 
-                                    x-show="draft" 
-                                    x-on:click="$wire.save(`{{ $script->id }}`, 'signs', model); draft = false; open = false"
-                                    type="button" 
-                                    class="px-2 py-1 text-xs text-white rounded-md bg-darkgreen/80 hover:bg-darkgreen">Save</button>
-                            </div>
-                        </div>
-                        <textarea 
-                            x-model="model" 
-                            x-on:input="open = true; draft = true;" 
-                            x-on:click.away="open = false;"
-                            rows="3" 
-                            class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->signs }}</textarea>
-                    </div>
-                    <div x-data="{
-                        model: `{{ $script->diagnosis }}`, 
-                        active: false,
-                        open: false,
-                        draft: false,
-                    }">
-                        <div class="flex justify-between">
-                            <div class="flex">
-                                <h4 class="text-lg font-bold text-darkgreen">Diagnosis</h4>
-                            </div>
-                            <div>
-                                <span x-show="draft" class="self-end mb-1 mr-2 text-xs italic text-gray-500">Draft</span>
-                                <button 
-                                    x-show="draft" 
-                                    x-on:click="$wire.save(`{{ $script->id }}`, 'diagnosis', model); draft = false; open = false"
-                                    type="button" 
-                                    class="px-2 py-1 text-xs text-white rounded-md bg-darkgreen/80 hover:bg-darkgreen">Save</button>
-                            </div>
-                        </div>
-                        <textarea 
-                            x-model="model" 
-                            x-on:input="open = true; draft = true;" 
-                            x-on:click.away="open = false;"
-                            rows="3" 
-                            class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->diagnosis }}</textarea>
-                    </div>
-                    <div x-data="{
-                        model: `{{ $script->treatments }}`, 
-                        active: false,
-                        open: false,
-                        draft: false,
-                    }">
-                        <div class="flex justify-between">
-                            <div class="flex">
-                                <h4 class="text-lg font-bold text-darkgreen">Treatments</h4>
-                            </div>
-                            <div>
-                                <span x-show="draft" class="self-end mb-1 mr-2 text-xs italic text-gray-500">Draft</span>
-                                <button 
-                                    x-show="draft" 
-                                    x-on:click="$wire.save(`{{ $script->id }}`, 'treatments', model); draft = false; open = false"
-                                    type="button" 
-                                    class="px-2 py-1 text-xs text-white rounded-md bg-darkgreen/80 hover:bg-darkgreen">Save</button>
-                            </div>
-                        </div>
-                        <textarea 
-                            x-model="model" 
-                            x-on:input="open = true; draft = true;" 
-                            x-on:click.away="open = false;"
-                            rows="3" 
-                            class="block p-2.5 -mx-2 w-full text-sm text-gray-900 bg-white rounded-lg border border-white focus:ring-gray-300 focus:border-gray-300 dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-300 dark:text-white dark:focus:ring-gray-300 dark:focus:border-gray-300 focus:bg-gray-100 hover:bg-gray-100">{{ $script->treatments }}</textarea>
-                    </div>
-                </div>
-            </section>
-
-            <h2 class="mt-8 text-xl font-bold text-darkgreen">Images</h2>
-
-            <div class="pt-8 mt-8 border-t">
-                @forelse($script->images as $image)
-                    <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
-                @empty
-                    <div class="flex items-center justify-center w-32 h-32 bg-gray-100 border border-gray-300">
-                        <img src="{{ asset('img/placeholder.png') }}" class="w-24 h-auto">
-                    </div>
-                @endforelse
-            </div>
-
-            <h2 class="mt-8 text-xl font-bold text-darkgreen">Links</h2>
-
-            <div class="px-2 py-1 mt-8 bg-gray-200 border-t">
-
-                @forelse($script->links as $link)
-                    <a href="{{ $link->url }}" target="_blank"
-                        class="font-sans text-sm text-blue-400 whitespace-normal">
-                        {{ $link->url }}
-                    </a>
-                @empty
-                    <span>-</span>
-                @endforelse
-            </div>
+            @livewire('scripts.script-document', ['id' => $script['id']], key('doc-' . $script['id']))
+            
         @endforeach
     </div>
 </div>
