@@ -62,13 +62,6 @@ class HomeScripts extends Component
 
     public function mount()
     {   
-        $agent = new Agent;
-
-        if($agent->isDesktop())
-        {
-            return redirect('scripts/web');
-        }
-
         $this->settings = $this->getSettings();
         $this->categories = $this->getCategories();
     }

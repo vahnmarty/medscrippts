@@ -47,8 +47,8 @@ class ManageQuestionBanks extends Component implements HasForms
                 ->options(Category::has('flashcards')->get()->pluck('name', 'id')),
             TextInput::make('max')
                 ->maxValue(30)
+                ->minValue(5)
                 ->numeric()
-                ->disabled()
                 ->required()
         ];
     }

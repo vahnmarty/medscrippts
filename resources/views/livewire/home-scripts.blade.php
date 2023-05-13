@@ -9,7 +9,60 @@
                     <div id="slider" class="">
                         @foreach ($scripts as $index => $script)
                             <div wire:key="script-{{ $index }}" x-data="{ open: false }" class="relative mx-1">
-                                @include('livewire.scripts.desktop-scripts')
+                                <div class="hidden lg:block">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <h2 class="text-xl font-bold text-darkgreen">{{ $script->title }}</h2>
+                        
+                                            <div class="mt-3">
+                                                <nav class="flex -mb-px space-x-4" aria-label="Tabs">
+                        
+                                                    <div class="flex text-sm font-medium text-indigo-600 whitespace-nowrap">
+                                                        Last Viewed
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-indigo-600 md:inline-block">
+                                                            {{ $script->viewed_at?->format('F d Y') }}
+                                                        </span>
+                                                    </div>
+                        
+                                                    <div
+                                                        class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
+                                                        Viewed:
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
+                                                            {{ $script->views }}
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
+                                                        Cards:
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
+                                                            {{ $script->flashcards_count ?? '0' }}
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
+                                                        QBanks:
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
+                                                            {{ $script->qbanks_count ?? '0' }}
+                                                        </span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center justify-between gap-3 lg:justify-start">
+                        
+                                                {{ $scripts->links('includes.pagination.custom-paginator') }}
+                                            </div>
+                            
+                                            <div class="mt-2 text-xs">Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</div>
+                                        </div>
+                                    </div>
+                                    @livewire('scripts.script-document', ['id' => $script['id']], key('document-' . $script->id))
+                                </div>
                                 @livewire('scripts.script-card', ['id' => $script['id']], key('card-' . $script->id))
                             </div>
                         @endforeach
@@ -83,5 +136,3 @@
 
 </div>
 
-@push('scripts')
-@endpush
