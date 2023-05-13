@@ -8,6 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use Billable;
     use HasApiTokens;
@@ -102,6 +103,11 @@ class User extends Authenticatable
     public function courses(): MorphToMany
     {
         return $this->assignments()->where('assignmentable_type', Course::class)->with('assignmentable');
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->hasRole('admin');
     }
 
 }
