@@ -37,12 +37,24 @@
                 <div>
                     <h3 class="text-xl font-bold">Your Progress</h3>
                 </div>
-                <div class="grid grid-cols-2 gap-4 mt-4 lg:grid-cols-3">
+                <div class="grid grid-cols-3 gap-4 mt-4 lg:grid-cols-3">
                     <div class="p-4 bg-pink-100 rounded-md">
                         <x-heroicon-s-chart-bar class="w-6 h-6 p-1 text-white bg-pink-500 rounded-full"/>
 
                         <h2 class="mt-3 text-xl font-bold">{{ $widget_decks }}</h2>
-                        <p class="mt-1 text-sm">Cards</p>
+                        <p class="mt-1 text-sm">Decks</p>
+                    </div>
+                    <div class="p-4 bg-yellow-100 rounded-md">
+                        <x-heroicon-s-chart-bar class="w-6 h-6 p-1 text-white bg-yellow-500 rounded-full"/>
+
+                        <h2 class="mt-3 text-xl font-bold">{{ $widget_generated }}</h2>
+                        <p class="mt-1 text-sm">Generated</p>
+                    </div>
+                    <div class="p-4 bg-green-100 rounded-md">
+                        <x-heroicon-s-chart-bar class="w-6 h-6 p-1 text-white bg-green-500 rounded-full"/>
+
+                        <h2 class="mt-3 text-xl font-bold">{{ $widget_reviewed }}</h2>
+                        <p class="mt-1 text-sm">Reviewed</p>
                     </div>
                 </div>
             </div>

@@ -5,8 +5,9 @@
         <x-heroicon-s-x class="w-4 h-4" />
     </button>
 
-    <div class="h-screen min-h-screen px-8 pb-20 mx-auto max-w-7xl">
+    
         @if ($end)
+        <div class="min-h-screen px-8 pt-8 pb-[16rem] mx-auto max-w-7xl">
             <section class="max-w-3xl px-4 mx-auto">
                 <div class="flex justify-center">
                     <x-heroicon-s-puzzle class="w-16 h-16 text-gray-400" />
@@ -35,7 +36,10 @@
                     @endforeach
                 </div>
             </section>
+        </div>
+            
         @else
+        <div class="h-screen min-h-screen px-8 pb-20 mx-auto max-w-7xl">
             <section class="h-full max-w-3xl px-4 mx-auto">
                 <div class="flex flex-col justify-center h-full">
                     <div>
@@ -89,8 +93,8 @@
                 </div>
 
             </section>
+        </div>
         @endif
-    </div>
     <footer class="fixed bottom-0 left-0 right-0 z-20 py-6 bg-white border-t">
         <div class="max-w-4xl px-6 mx-auto">
             <div class="flex items-center justify-between">
