@@ -45,9 +45,15 @@ class HomeScripts extends Component
             $script->save();
         }
 
+        if($this->category_id){
+            $category = Category::find($this->category_id);
+        }else{
+            $category = $scripts[0]['category'];
+        }
+
         $this->reset('script_id');
 
-        return view('livewire.home-scripts', compact('scripts'));
+        return view('livewire.home-scripts', compact('scripts', 'category'));
     }
 
     public function dehydrate()

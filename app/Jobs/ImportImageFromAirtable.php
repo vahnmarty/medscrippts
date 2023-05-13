@@ -39,8 +39,8 @@ class ImportImageFromAirtable implements ShouldQueue
         
         $fileContents = file_get_contents($image_url);
         $fileName = basename($image_url);
-        Storage::disk('public')->put('categories/'. $fileName, $fileContents);
-        $category->image = 'categories/'. $fileName;
+        Storage::disk('public')->put('categories/'. $fileName .'.jpg', $fileContents);
+        $category->image = 'categories/'. $fileName . '.jpg';
         $category->save();
     }
 }
