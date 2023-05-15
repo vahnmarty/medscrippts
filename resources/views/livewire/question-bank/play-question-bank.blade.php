@@ -95,10 +95,10 @@
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-darkgreen">QBank</h3>
 
-                <div class="h-12">
-                    @if($end)
-                    <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
-                    @endif
+                <div class="flex h-12 gap-2">
+                    <div class="{{ $end ? 'block' : 'hidden' }}">
+                        <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
+                    </div>
 
                     <div x-data="{ open: $wire.entangle('has_answered') }"> 
                         <button x-show="open" wire:click="next" type="button" class="btn-primary">Next</button>
