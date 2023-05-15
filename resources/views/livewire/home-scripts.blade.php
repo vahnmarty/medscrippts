@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-8 mt-8">
+            <div class="grid gap-8 mt-8 lg:grid-cols-3">
                 @foreach ($categories as $categoryItem)
                     <button wire:key="selectcategory-{{ $categoryItem['id'] }}" type="button"
                         wire:click="selectCategory(`{{ $categoryItem['id'] }}`)" class="flex hover:bg-gray-100">

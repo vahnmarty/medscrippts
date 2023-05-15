@@ -31,7 +31,7 @@ class HomeScripts extends Component
 
     protected $queryString = ['script_id'];
 
-    protected $listeners = [ 'refreshScripts', 'setCategory', 'setScript' ];
+    protected $listeners = [ 'refreshScripts', 'setCategory', 'setScript' , 'setCategory'];
 
     public function render()
     {
@@ -95,7 +95,7 @@ class HomeScripts extends Component
 
     public function getCategories()
     {
-        return Category::withCount('scripts')->orderBy('name')->get();
+        return Category::withCount('userScripts')->orderBy('name')->get();
     }
 
     public function setCategory($id)
