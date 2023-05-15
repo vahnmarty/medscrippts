@@ -15,7 +15,7 @@ class WebScripts extends Component
 {
     use WithPagination;
     
-    public $category_id, $script_id;
+    public $category_id, $script_id, $user_scripts_count = 0;
 
     public $categories = [];
 
@@ -60,6 +60,8 @@ class WebScripts extends Component
         $this->settings = $this->getSettings();
 
         $this->categories = Category::withCount('userScripts')->get()->toArray();
+
+        $this->user_scripts_count = Script::where('user_id', auth()->id())->count();
     }
 
     public function getScripts()

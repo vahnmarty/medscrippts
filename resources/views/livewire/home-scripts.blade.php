@@ -133,7 +133,9 @@
 
                 </div>
             </section>
-        @else
+        @endif
+
+        @if( $user_scripts_count <= 0 )
             <section class="py-16 bg-gray-200">
                 <div class="text-center">
                     <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24"

@@ -19,6 +19,8 @@ class HomeScripts extends Component
 
     const MAX = 3;
     
+    public $user_scripts_count = 0;
+    
     public $reactive = false;
 
     public $n;
@@ -68,6 +70,9 @@ class HomeScripts extends Component
 
     public function mount()
     {   
+
+        $this->user_scripts_count = Script::where('user_id', auth()->id())->count();
+
         $this->settings = $this->getSettings();
         $this->categories = $this->getCategories();
     }
@@ -150,5 +155,17 @@ class HomeScripts extends Component
         }
 
         return $settings;
+    }
+
+    public function selectCategory($id)
+    {
+        $this->category_id = $id;
+
+        $this->resetPage();
+
+        $this->settings = $this->getSettings();
+        $this->categories = $this->getCategories();
+
+        $this->dispatchBrowserEvent('closemodal-categories');
     }
 }
