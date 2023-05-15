@@ -77,7 +77,7 @@ class HomeScripts extends Component
         if($this->script_id){
             $scriptQuery = Script::with('images')->where('id', $this->script_id);
         }
-        $scriptQuery = Script::where('user_id', auth()->id())->with('images');
+        $scriptQuery = Script::with('images');
         
 
         if($this->category_id){
@@ -88,7 +88,7 @@ class HomeScripts extends Component
             $scriptQuery = Script::with('images')->where('id', $this->script_id);
         }
 
-        $scripts = $scriptQuery->paginate(1);
+        $scripts = $scriptQuery->where('user_id', auth()->id())->paginate(1);
 
         return $scripts;
     }
