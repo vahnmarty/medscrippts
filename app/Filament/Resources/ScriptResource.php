@@ -59,6 +59,7 @@ class ScriptResource extends Resource
     {
         return [
             RelationManagers\ImagesRelationManager::class,
+            RelationManagers\LinksRelationManager::class,
         ];
     }
     
