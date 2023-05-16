@@ -60,7 +60,10 @@
             </div>
             <div class="hidden p-6 bg-white rounded-md lg:block">
                 <div>
-                    <h3 class="text-xl font-bold">Insights</h3>
+                    <h3 class="text-xl font-bold">Insights (Last 7 days)</h3>
+                </div>
+                <div>
+                    <canvas height="100" id="myChart"></canvas>
                 </div>
             </div>
         </div>
@@ -104,3 +107,34 @@
         </div>
     </div>
 </div>
+
+
+@push('scripts')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart');
+
+    var labels = @json($days);
+    var data = @json($data);
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '# of Qbanks',
+          data: data,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+@endpush

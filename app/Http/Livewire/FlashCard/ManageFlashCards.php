@@ -30,6 +30,8 @@ class ManageFlashCards extends Component  implements HasForms
     public $categories = [], $max = 20;
 
     public $widget_decks = 0, $widget_generated = 0, $widget_reviewed = 0;
+
+    public $days = [], $line = [];
     
     public function render()
     {
@@ -40,9 +42,38 @@ class ManageFlashCards extends Component  implements HasForms
     {
         $this->flash_cards = FlashCardRecord::withCount('items')->where('user_id', auth()->id())->get();
 
+        $this->getWidgets();
+
+        $this->getChartInsight();
+    }
+
+    public function getWidgets()
+    {
         $this->widget_decks = count($this->flash_cards);
         $this->widget_generated = FlashCard::where('user_id', auth()->id())->count();
         $this->widget_reviewed = FlashCardRecord::where('user_id', auth()->id())->sum('reviewed');
+    }
+
+    public function getChartInsight()
+    {
+        $today = date('Y-m-d');
+
+        $data = [];
+        $days = [];
+        
+        // Loop through the last 7 days
+        for ($i = 6; $i >= 0; $i--) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $data[] = FlashCardRecord::where('user_id', auth()->id())->whereDate('created_at', $date)->count();
+            $days[] = date('D`d', strtotime("-$i days"));
+
+
+        }
+
+
+        $this->days = $days;
+        $this->data = $data;
+
     }
 
     public function getFormSchema()

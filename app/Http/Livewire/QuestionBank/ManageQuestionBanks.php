@@ -24,6 +24,8 @@ class ManageQuestionBanks extends Component implements HasForms
 
     public $widget_correct = 0, $widget_question = 0, $widget_decks = 0;
 
+    public $days = [], $line = [];
+
     public function render()
     {
         return view('livewire.question-bank.manage-question-banks');
@@ -47,6 +49,30 @@ class ManageQuestionBanks extends Component implements HasForms
         $this->widget_correct =  $score/$items * 100;
         $this->widget_decks = count($this->qbanks);
         $this->widget_question = QuestionBankRecord::where('user_id', auth()->id())->whereNotNull('score')->count();
+
+        $this->getChartInsight();
+    }
+
+    public function getChartInsight()
+    {
+        $today = date('Y-m-d');
+
+        $data = [];
+        $days = [];
+        
+        // Loop through the last 7 days
+        for ($i = 6; $i >= 0; $i--) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $data[] = QuestionBankRecord::where('user_id', auth()->id())->whereDate('created_at', $date)->count();
+            $days[] = date('D`d', strtotime("-$i days"));
+
+
+        }
+
+
+        $this->days = $days;
+        $this->data = $data;
+
     }
 
     public function getFormSchema()
