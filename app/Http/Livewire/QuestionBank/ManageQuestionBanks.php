@@ -46,7 +46,11 @@ class ManageQuestionBanks extends Component implements HasForms
                 $items += $qbank->items_count;
             }
         } 
-        $this->widget_correct =  $score/$items * 100;
+
+        if($items ){
+            $this->widget_correct =  $score/$items * 100;
+        }
+       
         $this->widget_decks = count($this->qbanks);
         $this->widget_question = QuestionBankRecord::where('user_id', auth()->id())->whereNotNull('score')->count();
 
