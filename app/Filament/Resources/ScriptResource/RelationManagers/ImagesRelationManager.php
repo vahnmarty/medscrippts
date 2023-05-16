@@ -3,18 +3,20 @@
 namespace App\Filament\Resources\ScriptResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Image;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use App\Tables\Columns\ImageUrl;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class ImagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'images';
 
-    protected static ?string $recordTitleAttribute = 'url';
+    protected static ?string $recordTitleAttribute = 'Image';
 
     public static function form(Form $form): Form
     {
@@ -22,7 +24,8 @@ class ImagesRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('url')
                     ->required()
-                    ->maxLength(255),
+                    ->url()
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -30,7 +33,7 @@ class ImagesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('url'),
+                Tables\Columns\ImageColumn::make('url')->label('Image')
             ])
             ->filters([
                 //
