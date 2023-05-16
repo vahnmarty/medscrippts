@@ -17,6 +17,10 @@ class SocialiteLoginController extends Controller
     {
         $socialUser = Socialite::driver($provider)->user();
 
+        if( User::where('email', $socialUser->getEmail())->exists() ){
+            return redirect('login')->withErrors(['user' => $socialUser->getEmail() . ' is taken.']);
+        }
+
         $user = User::firstOrCreate(
             [
                 'provider_id' => $socialUser->getId(),
