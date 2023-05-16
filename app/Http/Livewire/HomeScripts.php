@@ -50,7 +50,7 @@ class HomeScripts extends Component
         if($this->category_id){
             $category = Category::find($this->category_id);
         }else{
-            $category = $scripts[0]['category'];
+            $category = $scripts[0] ? $scripts[0]['category'] : null;
         }
 
         $this->reset('script_id');

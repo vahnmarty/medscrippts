@@ -29,6 +29,8 @@
         </div>
     </x-modal-lg>
 
+    @if($category)
+
     <header class="flex justify-between px-6 py-3 bg-white lg:px-16 lg:py-6">
         <div class="flex items-center gap-6">
             <button x-data x-on:click="$dispatch('openmodal-categories')" type="button"
@@ -36,10 +38,12 @@
                 <x-heroicon-s-view-grid class="flex-shrink-0 w-8 h-8" />
             </button>
             <h1 class="text-xl font-bold leading-7 text-darkgreen sm:leading-9 lg:text-3xl">
-                {{ $category->name }}
+                {{ $category?->name }}
             </h1>
         </div>
     </header>
+
+    @endif
 
     <div class="px-2 py-6 bg-gray-100 lg:py-12 lg:px-16">
 
