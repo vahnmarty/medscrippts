@@ -23,7 +23,12 @@ class ScriptResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')->required(),
+                Forms\Components\Textarea::make('pathophysiology')->required()->columnSpan('full')->rows(3),
+                Forms\Components\Textarea::make('epidemiology')->required()->columnSpan('full')->rows(3),
+                Forms\Components\Textarea::make('signs')->required()->columnSpan('full')->rows(3),
+                Forms\Components\Textarea::make('diagnosis')->required()->columnSpan('full')->rows(3),
+                Forms\Components\Textarea::make('treatments')->required()->columnSpan('full')->rows(3),
             ]);
     }
 
@@ -34,10 +39,13 @@ class ScriptResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                //Tables\Columns\TextColumn::make('created_at')->dateTime(''),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('masterscripts')
+                    ->query(fn (Builder $query): Builder => $query->whereNull('user_id'))->default(),
+                Tables\Filters\Filter::make('has_images')
+                    ->query(fn (Builder $query): Builder => $query->has('images')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -50,7 +58,7 @@ class ScriptResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ImagesRelationManager::class,
         ];
     }
     
