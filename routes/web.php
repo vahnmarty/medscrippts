@@ -72,24 +72,29 @@ Route::middleware([
 });
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('subscription', SubscriptionCheckout::class);
+    // Route::get('subscription', SubscriptionCheckout::class);
     
-    //Route::get('subscription', [SubscriptionController::class, 'selectPlan'])->name('subscription.select-plan');
-    Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.store');
-    Route::get('subscription/index', [SubscriptionController::class, 'index'])->name('subscription.index');
-    Route::get('subscription/intent', [SubscriptionController::class, 'intent'])->name('subscription.intent');
-    Route::post('subscription/payment', [SubscriptionController::class, 'payment'])->name('subscription.payment');
+    // Route::get('subscription', [SubscriptionController::class, 'selectPlan'])->name('subscription.select-plan');
+    // Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.store');
+    // Route::get('subscription/index', [SubscriptionController::class, 'index'])->name('subscription.index');
+    // Route::get('subscription/intent', [SubscriptionController::class, 'intent'])->name('subscription.intent');
+    Route::get('subscription', [SubscriptionController::class, 'start'])->name('subscription.start');
+    // Route::post('subscription/payment', [SubscriptionController::class, 'payment'])->name('subscription.payment');
 
     Route::get('/billing-portal', function (Request $request) {
         return $request->user()->redirectToBillingPortal();
     });
 
-    Route::get('/subscription-checkout', function (Request $request) {
+    Route::get('/subscription-checkout/{stripe}', function (Request $request, $stripe) {
         return $request->user()
-            ->newSubscription('default', 'price_1L0J2YBe5WJ82t9XNP0aFj5J')
+            ->newSubscription('default', $stripe)
             ->allowPromotionCodes()
-            ->checkout();
+            ->checkout([
+                'success_url' => route('home'),
+                'cancel_url' => route('subscription.start', ['checkout' => 'cancelled']),
+            ]);
     });
+    
 });
 
 

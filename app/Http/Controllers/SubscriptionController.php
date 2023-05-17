@@ -9,6 +9,17 @@ use Laravel\Cashier\Cashier;
 
 class SubscriptionController extends Controller
 {
+    public function start(Request $request)
+    {
+        if(Auth::user()->subscribed()){
+            return redirect('billing-portal');
+        }
+        
+        $plans = Plan::active()->fromEnv()->get();
+
+        return view('subscription.start', compact('plans', 'request'));
+    }
+
     public function selectPlan()
     {
         $user = Auth::user();
