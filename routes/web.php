@@ -83,6 +83,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/billing-portal', function (Request $request) {
         return $request->user()->redirectToBillingPortal();
     });
+
+    Route::get('/subscription-checkout', function (Request $request) {
+        return $request->user()
+            ->newSubscription('default', 'price_1L0J2YBe5WJ82t9XNP0aFj5J')
+            ->allowPromotionCodes()
+            ->checkout();
+    });
 });
 
 
