@@ -18,7 +18,7 @@ class ScriptResource extends Resource
 {
     protected static ?string $model = Script::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-color-swatch';
 
     public static function form(Form $form): Form
     {
