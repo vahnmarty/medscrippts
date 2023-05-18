@@ -20,6 +20,7 @@
                     <div class="p-6 mt-6 space-y-5 bg-white border rounded-md">
                         <h1 class="text-5xl font-bold text-center text-gray-900">{{ $this->score }} / {{ count($results) }}</h1>
 
+                        @if(null)
                         <div class="flex justify-center mt-3">
                             @if($passed)
                             <span class="text-xs px-6 py-0.5 bg-green-200 border border-green-300 rounded-lg text-green-600">Passed</span>
@@ -27,6 +28,7 @@
                             <span class="text-xs px-6 py-0.5 bg-red-200 border border-red-300 rounded-lg text-red-600">Failed</span>
                             @endif
                         </div>
+                        @endif
                     </div>
                 </section>
 
@@ -35,36 +37,36 @@
                     <div wire:key="quiz-{{ $loop->index }}">
                         @if($index == $loop->index)
                         <div>
-                            <h3 class="text-xl font-bold text-darkgreen">{{ $result['question'] }}</h3>
+                            <h3 class="text-xl font-bold text-center text-darkgreen">{{ $result['question'] }}</h3>
 
                             <div class="mt-8 space-y-2">
                                 @foreach(range(1,4) as $i)
                                 <div wire:key="q{{ $q}}-option-{{ $i }}" >
                                     @if($result['selected_option'])
                                     @if($result['selected_option'] == 'option' . $i && $result['option_answer'] == 'option' . $i)
-                                    <div class="flex justify-between w-full p-6 text-left bg-green-200 border border-green-300 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-green-200 border border-green-300 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                         <x-heroicon-s-check-circle class="w-5 h-5 text-green-500"/>
                                     </div>
                                     @elseif($result['selected_option'] == 'option' . $i && $result['option_answer'] != 'option' . $i)
-                                    <div class="flex justify-between w-full p-6 text-left bg-red-200 border border-red-300 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-red-200 border border-red-300 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                         <x-heroicon-s-check-circle class="w-5 h-5 text-red-500"/>
                                     </div>
                                     @elseif($result['option_answer'] == 'option' . $i && !$result['is_correct'])
-                                    <div class="flex justify-between w-full p-6 text-left bg-green-200 border border-green-300 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-green-200 border border-green-300 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                         <x-heroicon-s-check-circle class="w-5 h-5 text-green-500"/>
                                     </div>
                                     @else
-                                    <div class="flex justify-between w-full p-6 text-left bg-white border border-gray-200 rounded-sm ">
+                                    <div class="flex justify-between w-full p-4 text-sm text-left bg-white border border-gray-200 rounded-sm ">
                                         <span>{{ $result['option' . $i] }}</span>
                                     </div>
                                     @endif
                                     @else
                                     <button type="button" 
                                         wire:click="selectAnswer({{ $q }}, `{{ 'option' . $i}}` )"
-                                        class="flex justify-between w-full p-6 text-left bg-white border rounded-sm hover:bg-gray-200 ">
+                                        class="flex justify-between w-full p-4 text-sm text-left bg-white border rounded-sm hover:bg-gray-200 ">
                                         <span class="flex-1 text-gray-700">{{ $result['option' . $i] }}</span>
                                         <div class="w-5"></div>
                                     </button>
@@ -72,6 +74,14 @@
                                 </div>
                                 @endforeach
                             </div>
+
+                            @if($result['selected_option'] && $result['explanation'])
+                            <div class="p-4 mt-8 bg-blue-100 border-l-4 border-blue-400">
+                                <x-heroicon-s-light-bulb class="w-6 h-6 text-blue-700"/>
+
+                                <p class="mt-3 text-sm">{{ $result['explanation'] }}</p>
+                            </div>
+                            @endif
                         </div>
                         @endif
                     </div>
@@ -85,16 +95,16 @@
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-darkgreen">QBank</h3>
 
-                <div class="h-12">
-                    @if($end)
-                    <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
-                    @endif
-
-                    @if($has_answered)
-                    <div> 
-                        <button  wire:click="next" type="button" class="btn-primary">Next</button>
+                <div class="flex h-12 gap-2">
+                    <div class="{{ $end ? 'block' : 'hidden' }}">
+                        <button  wire:click="retake" type="button" class="btn-primary">Retake</button>
                     </div>
-                    @endif
+
+                    <div x-data="{ open: $wire.entangle('has_answered') }"> 
+                        <button x-show="open" wire:click="next" type="button" class="btn-primary">Next</button>
+
+                        <button x-show="!open" disabled type="button" class="cursor-not-allowed btn-primary opacity-40">Next</button>
+                    </div>
                 </div>
             </div>
         </div>

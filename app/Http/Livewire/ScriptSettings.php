@@ -26,7 +26,7 @@ class ScriptSettings extends Component
     public function mount()
     {
         $this->categories = Category::orderBy('name')->get();
-        $this->scripts = Script::orderBy('title')->get();
+        $this->scripts = Script::where('user_id', auth()->id())->orderBy('title')->get();
         $this->n = Script::where('user_id', auth()->id())->count();
 
         if(session('blurAll')){

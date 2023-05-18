@@ -22,12 +22,14 @@ use App\Http\Controllers\PageController;
 use App\Http\Livewire\ManageEnvironment;
 use App\Http\Livewire\Courses\EditCourse;
 use App\Http\Livewire\Courses\ShowCourse;
+use App\Http\Livewire\Scripts\CrudScript;
+use App\Http\Livewire\Scripts\WebScripts;
 use App\Http\Livewire\Pathway\ShowPathway;
 use App\Http\Livewire\Courses\CoursePlayer;
 use App\Http\Livewire\Courses\CreateCourse;
-use App\Http\Livewire\Scripts\CrudScript;
 use App\Http\Livewire\SubscriptionCheckout;
 use App\Http\Livewire\Courses\ManageCourses;
+use App\Http\Livewire\Scripts\ImportScripts;
 use App\Http\Controllers\DashboardController;
 use App\Http\Livewire\Courses\CourseContents;
 use App\Http\Livewire\Pathway\ManagePathways;
@@ -41,6 +43,7 @@ use App\Http\Livewire\Courses\ModuleItemPreview;
 use App\Http\Livewire\FlashCard\ManageFlashCards;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Livewire\QuestionBank\PlayQuestionBank;
+use App\Http\Livewire\QuestionBank\QuestionBankMobile;
 use App\Http\Livewire\QuestionBank\ManageQuestionBanks;
 
 /*
@@ -70,17 +73,21 @@ Route::middleware([
 });
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('subscription', SubscriptionCheckout::class);
+    // Route::get('subscription', SubscriptionCheckout::class);
     
-    //Route::get('subscription', [SubscriptionController::class, 'selectPlan'])->name('subscription.select-plan');
-    Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.store');
+    // Route::get('subscription', [SubscriptionController::class, 'selectPlan'])->name('subscription.select-plan');
+    // Route::post('subscription', [SubscriptionController::class, 'subscribe'])->name('subscription.store');
     Route::get('subscription/index', [SubscriptionController::class, 'index'])->name('subscription.index');
-    Route::get('subscription/intent', [SubscriptionController::class, 'intent'])->name('subscription.intent');
+    // Route::get('subscription/intent', [SubscriptionController::class, 'intent'])->name('subscription.intent');
+    
     Route::post('subscription/payment', [SubscriptionController::class, 'payment'])->name('subscription.payment');
 
     Route::get('/billing-portal', function (Request $request) {
         return $request->user()->redirectToBillingPortal();
     });
+
+    Route::get('subscription', [SubscriptionController::class, 'start'])->name('subscription.start');
+    Route::get('/subscription-checkout/{stripePriceId}', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
 });
 
 
@@ -88,6 +95,8 @@ Route::group(['middleware' => ['auth']], function(){
 Route::group(['middleware' => ['auth', 'subscribed']], function(){
 
     Route::get('scripts', HomeScripts::class)->name('home');
+    Route::get('scripts/import', ImportScripts::class)->name('scripts.import');
+    Route::get('scripts/web', WebScripts::class)->name('scripts.web');
     Route::get('scripts/create', CrudScript::class);
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
     Route::get('support', SupportPage::class)->name('support');
@@ -97,6 +106,7 @@ Route::group(['middleware' => ['auth', 'subscribed']], function(){
     Route::get('flashcards/{id}/play', PlayFlashCard::class)->name('flashcard.play');
 
     Route::get('qbanks', ManageQuestionBanks::class)->name('qbank.index');
+    Route::get('qbanks/mobile', QuestionBankMobile::class)->name('qbank.mobile');
     Route::get('qbanks/{id}/play', PlayQuestionBank::class)->name('qbank.play');
 
 });

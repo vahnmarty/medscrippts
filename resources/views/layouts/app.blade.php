@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="h-full">
 <head>
     <title>{{ config('app.name') }} | @yield('title', 'Home')</title>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="url" content="{{ url('/') }}">
 
-    @include('includes.partials.favicon')
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,44 +35,63 @@
 
     @stack('head-scripts')
 </head>
-<body class="bg-gray-100">
-    <x-banner />
+<body class="h-full bg-gray-100">
 
     <div class="flex">
-
+        
         @include('includes.partials.sidebar')
 
-        @if(request()->is('scripts'))
-        @livewire('script-settings')
-        @endif
+        <aside x-data="{ showSidebar: true }" 
+            x-on:toggle-window.window="showSidebar = !showSidebar"
+            x-init="$refs.main.classList.remove('w-72')"
+            class="flex flex-1">
 
-        <div class="flex-1 max-h-screen overflow-auto">
-            @include('includes.partials.header')
-            <div class="bg-white md:px-8">
-                @yield('header')
-                {{ $header ?? '' }}
+
+            @if(request()->is('scripts*'))
+            <div class="lg:block hidden fixed top-[75px] z-20 transition-all duration-200 ease-in-out left-[50px]" 
+                x-transition.duration.800ms>
+                <button x-on:click="showSidebar = !showSidebar" type="button" class="p-1 rounded-full bg-darkgreen">
+                    <x-heroicon-s-chevron-double-left x-show="showSidebar" class="w-4 h-4 text-gray-200 hover:text-white"/>
+                    <x-heroicon-s-chevron-double-right x-show="!showSidebar" x-cloak class="w-4 h-4 text-gray-200 hover:text-white"/>
+                </button>
             </div>
+            
+            <div
+                :class="showSidebar ? 'w-72' : 'w-0'"
+                x-ref="main"
+                class="flex-shrink-0 hidden overflow-hidden transition-all duration-300 ease-in-out border-r lg:block w-72">
+                @livewire('script-settings')
+            </div>
+            @endif
 
-            <main class="flex-grow">
-                <div class="bg-white">
-                    @yield('content')
-                    {{ $slot ?? '' }}
+            <div class="flex-1 max-h-screen overflow-auto">
+                @include('includes.partials.header')
+                <div class="bg-white md:px-8">
+                    @yield('header')
+                    {{ $header ?? '' }}
                 </div>
 
-                @include('includes.partials.footer')
-            </main>
-        </div>
+                <main class="flex-grow">
+                    <div class="mb-32 bg-white lg:mb-0">
+                        @yield('content')
+                        {{ $slot ?? '' }}
+                    </div>
+
+                    @include('includes.partials.footer')
+                </main>
+            </div>
+        </aside>
 
     </div>
 
+    @include('includes.footer-nav')
 
     @stack('scripts')
-    
 
 
     @livewireScripts
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <x-livewire-alert::scripts />
+
+    <x-modal-error/>
 
 
 </body>

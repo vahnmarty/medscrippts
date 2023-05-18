@@ -20,4 +20,9 @@ class QuestionBankRecord extends Model
     {
         return $this->belongsToMany(QuestionBank::class, 'question_bank_record_items');
     }
+
+    public function getCategoriesName()
+    {
+        return implode(', ', $this->categories()->pluck('name')->toArray());
+    }
 }

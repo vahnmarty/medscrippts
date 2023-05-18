@@ -1,215 +1,185 @@
-
 <div>
-        
-    <div class="px-2 py-6 bg-gray-100 lg:py-12 lg:px-16">
-        
+    <x-modal-lg ref="categories">
+        <div>
+            <div>
+                <div class="flex">
+                    <x-heroicon-s-view-grid class="flex-shrink-0 w-6 h-6 text-gray-500 lg:h-8 lg:w-8" />
+                    <div class="ml-2">
+                        <h3 class="text-lg text-darkgreen">Categories</h3>
+                    </div>
+                </div>
+            </div>
 
-        @if(count($scripts))
-        <section>
-            <div x-data="{ }" >
-                <div id="slider" class="h-[32rem] min-h-[32rem] lg:min-h-[27rem] lg:max-h-[27rem] overflow-auto"> 
-                    @foreach($scripts as $index => $script)
-                    <div wire:key="script-{{ $index }}" 
-                            x-data="{ open: false }"
-                            class="relative mx-1 lg:bg-white">
-                            
-                        <div class="hidden md:block">
-                            <div class="absolute top-5 right-5">
-                                <button wire:click="$emit('editScript', {{$script->id}})" type="button" aria-label="Edit Script">
-                                    <x-heroicon-s-pencil class="text-gray-400 w-7 h-7 hover:text-yellow-500"/>
-                                </button>
-                            </div>
-                            <div class="flex-shrink-0 lg:w-[64rem]  p-6 lg:p-6">
-                                <header>
-                                    <p class="text-orange-500">{{ $index+1 }} - {{ $script->category->name ?? 'Uncategorized' }}</p>
-                                    <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
-                                </header>
-                                <div class="gap-6 lg:grid lg:grid-cols-2">
-                                    <div class="p-3 py-4 space-y-3 lg:p-4">
-                                        @foreach($settings as $setting)
-                                        @php  $var = $setting['key']; @endphp
-                                        <div x-data="{ 
-                                                blur: {{ $setting['blur'] }}, 
-                                                toggle(){
-                                                    this.blur = !this.blur;
-                                                }
-                                            }"
-                                            x-on:blur-{{ $setting['key'] }}.window="toggle()"
-                                            x-on:blur-all.window="blur = $event.detail.enable;"
-                                            class="flex gap-4">
-                                            <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
-                                            <button type="button"
-                                                x-on:click="toggle()"
-                                                :class="blur ? 'blur-sm'  : ''"
-                                                class="text-sm text-gray-600 cursor-pointer">{{ $script->$var }}</button>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="hidden mx-auto lg:block">
-                                        @if(count($script->images))
-                                        @foreach($script->images as $image)
-                                        <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
-                                        @endforeach
-                                        @else
-                                        <img src="{{ asset('img/question.jpg') }}" class="max-h-[12rem]" loading="lazy" alt="">
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-            
+            <div class="grid gap-8 mt-8 lg:grid-cols-3">
+                @foreach ($categories as $categoryItem)
+                    <button wire:key="selectcategory-{{ $categoryItem['id'] }}" type="button"
+                        wire:click="selectCategory(`{{ $categoryItem['id'] }}`)" class="flex hover:bg-gray-100">
+                        <div
+                            class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-1 bg-gray-100 rounded-md">
+                            <img src="{{ asset('storage/' . $categoryItem['image']) }}" class="w-8 h-8" alt="">
                         </div>
-                        <div class="md:hidden">
-                            <div x-data="{ flip: false }" class="group w-full  h-[32rem]  [perspective:1000px]">
-                                <div :class="flip ? '[transform:rotateY(180deg)]' : ''"
-                                    class="relative h-full w-full rounded-xl  transition-all duration-500 [transform-style:preserve-3d]">
-                                    <div class="absolute inset-0 p-4 pb-20 bg-white" >
+                        <div class="text-left">
+                            <h5 class="font-bold text-darkgreen">{{ $categoryItem['name'] }}</h5>
+                            <p class="text-sm text-gray-700">{{ $categoryItem['user_scripts_count'] ?? 0 }} Scripts</p>
+                        </div>
+                    </button>
+                @endforeach
+            </div>
+        </div>
+    </x-modal-lg>
+
+    @if($category)
+
+    <header class="flex justify-between px-6 py-3 bg-white lg:px-16 lg:py-6">
+        <div class="flex items-center gap-6">
+            <button x-data x-on:click="$dispatch('openmodal-categories')" type="button"
+                class="p-2 border border-gray-200 rounded-full shadow-lg text-darkgreen hover:text-gray-900 bg-gray-50">
+                <x-heroicon-s-view-grid class="flex-shrink-0 w-8 h-8" />
+            </button>
+            <h1 class="text-xl font-bold leading-7 text-darkgreen sm:leading-9 lg:text-3xl">
+                {{ $category?->name }}
+            </h1>
+        </div>
+    </header>
+
+    @endif
+
+    <div class="px-2 py-6 bg-gray-100 lg:py-12 lg:px-16">        
+
+        @if (count($scripts))
+            <section>
+                <div x-data="{}">
+                    <div id="slider" class="">
+                        @foreach ($scripts as $index => $script)
+                            <div wire:key="script-{{ $index }}" x-data="{ open: false }" class="relative mx-1">
+                                <div class="hidden lg:block">
+                                    <div class="flex justify-between">
                                         <div>
-                                            <header class="text-left">
-                                                <div>
-                                                    <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
-                                                    <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
-                                                </div>
-                                            </header>
-                                            <div class="gap-6 lg:grid lg:grid-cols-2">
-                                                <div class="p-0 py-4 space-y-2 divide-y divide-gray-100 lg:p-4">
-                                                    @foreach($settings as $setting)
-                                                    @php  $var = $setting['key']; @endphp
-                                                    <div x-data="{ 
-                                                            blur: {{ $setting['blur'] }}, 
-                                                            toggle(){
-                                                                this.blur = !this.blur;
-                                                            }
-                                                        }"
-                                                        x-on:blur-{{ $setting['key'] }}.window="toggle()"
-                                                        x-on:blur-all.window="blur = $event.detail.enable;"
-                                                        class="flex gap-2 pt-4 lg:gap-4">
-                                                        <div class="flex-shrink-0 w-10 text-darkgreen">{{ $setting['value'] }}</div>
-                                                        <button type="button"
-                                                            x-on:click="toggle()"
-                                                            :class="blur ? 'blur-sm'  : ''"
-                                                            class="text-sm font-light text-left text-gray-500 cursor-pointer">{{ $script->$var }}</button>
+                                            <h2 class="text-xl font-bold text-darkgreen">{{ $script->title }}</h2>
+                        
+                                            <div class="mt-3">
+                                                <nav class="flex -mb-px space-x-4" aria-label="Tabs">
+                        
+                                                    <div class="flex text-sm font-medium text-indigo-600 whitespace-nowrap">
+                                                        Last Viewed
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-indigo-600 md:inline-block">
+                                                            {{ $script->viewed_at?->format('F d Y') }}
+                                                        </span>
                                                     </div>
-                                                    @endforeach
-                                                </div>
+                        
+                                                    <div
+                                                        class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
+                                                        Viewed:
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
+                                                            {{ $script->views }}
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
+                                                        Cards:
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
+                                                            {{ $script->flashcards_count ?? '0' }}
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        class="flex px-2 text-sm font-medium text-gray-600 border-l border-gray-300 whitespace-nowrap">
+                                                        QBanks:
+                                                        <span
+                                                            class="ml-1 hidden rounded-full py-0.5 px-2.5 text-xs font-medium text-gray-600 md:inline-block">
+                                                            {{ $script->qbanks_count ?? '0' }}
+                                                        </span>
+                                                    </div>
+                                                </nav>
                                             </div>
                                         </div>
-                                        <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
-                                            <div class="flex justify-between">
-                                                <button type="button" class="px-3 py-1.5 text-sm text-blue-500 bg-blue-100 rounded-md">Edit</button>
-                                                <button type="button" x-on:click="flip = !flip">
-                                                    <x-heroicon-s-switch-horizontal class="w-6 h-6 text-gray-400"/>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-slate-200 absolute inset-0 h-full w-full rounded-xl bg-white p-4 lg:text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
                                         <div>
-                                            <header class="text-left">
-                                                <div>
-                                                    <p class="text-orange-500">{{ $script->category->name ?? 'Uncategorized' }}</p>
-                                                    <h3 class="mt-2 text-xl font-semibold text-darkgreen">{{ $script->title }}</h3>
-                                                </div>
-                                            </header>
-                                            <div>   
-                                                @if(count($script->links))
-
-                                                <h3 class="mt-8">Links</h3>
-                                                <div class="p-2 mt-2 bg-gray-100">
-                                                    @foreach($script->links as $link)
-                                                    <a href="{{ $link->url }}" target="_blank" class="font-sans text-sm">{{ $link->url }}</a>
-                                                    @endforeach
-                                                </div>
-                                                @endif
-
-                                                @if(count($script->images))
-                                                <h3 class="mt-8">Images</h3>
-                                                <div class="mt-2">
-                                                    @foreach($script->images as $image)
-                                                    <img src="{{ $image->url }}" class="max-h-[12rem] overflow-auto" loading="lazy" alt="">
-                                                    @endforeach
-                                                </div>
-                                                @endif
+                                            <div class="flex items-center justify-between gap-3 lg:justify-start">
+                        
+                                                {{ $scripts->links('includes.pagination.custom-paginator') }}
                                             </div>
-                                        </div>
-                                        <div class="absolute bottom-0 left-0 right-0 px-4 py-4 bg-white">
-                                            <div class="flex justify-between">
-                                                <button type="button" class="px-3 py-1.5 text-sm text-blue-500 bg-blue-100 rounded-md">Edit</button>
-                                                <button type="button" x-on:click="flip = !flip">
-                                                    <x-heroicon-s-switch-horizontal class="w-6 h-6 text-gray-400"/>
-                                                </button>
-                                            </div>
+                            
+                                            <div class="mt-2 text-xs">Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</div>
                                         </div>
                                     </div>
-                                    
-                                    
+                                    @livewire('scripts.script-document', ['id' => $script['id']], key('document-' . $script->id))
                                 </div>
+                                @livewire('scripts.script-card', ['id' => $script['id']], key('card-' . $script->id))
                             </div>
+                        @endforeach
+                    </div>
+
+                    <div class="items-center justify-between block mt-8 lg:flex">
+                        @foreach($scripts as $script)
+                        <div class="hidden gap-8 p-4 bg-white rounded-md lg:flex">
+                            <div>
+                                <strong class="font-semibold text-gray-900">{{ $script->views }}</strong>
+                                <span class="ml-2 text-xs text-gray-700">Views</span>
+                            </div>
+                            <div>
+                                <strong class="font-semibold text-gray-900">{{ $script->viewed_at ? $script->viewed_at->format('M d, Y') : date('M d, Y') }}</strong>
+                                <span class="ml-2 text-xs text-gray-700">Last Viewed</span>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="flex items-center justify-between gap-3 lg:justify-start">
+                            <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
+
+                            {{ $scripts->links('includes.pagination.custom-paginator') }}
                         </div>
                     </div>
-                    @endforeach
+
+
                 </div>
+            </section>
+        @endif
 
-                <!-- 
-                    Slick Slider
-
-                <div class="flex justify-center"> 
-                    <button id="prevArrow" type="button" class="p-2 bg-white border rounded-full">
-                        <x-heroicon-s-arrow-left class="w-6 h-6"/>
-                    </button>
-                    <button id="nextArrow" type="button" class="p-2 bg-white border rounded-full">
-                        <x-heroicon-s-arrow-right class="w-6 h-6"/>
-                    </button>
-                </div>
-                 -->
-
-                 <div class="flex justify-between mt-2">
-                    <span>Page {{ $scripts->currentPage() }} of {{ $scripts->lastPage() }}</span>
-
-
-                    {{ $scripts->links('includes.pagination.custom-paginator') }}
-                 </div>
-
-                 
-            </div>
-        </section>
-        @else
-        <section class="py-16 bg-gray-200">
-            <div class="text-center">
-                <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                </svg>
-                <h3 class="mt-2 text-sm font-semibold text-gray-900">No scripts</h3>
-                <p class="mt-1 text-sm text-gray-500">Get started by creating a new scripts.</p>
-                <div class="mt-6">
-                  <button x-data wire:click="$emit('createScript')" type="button" class="inline-flex items-center px-3 py-2 text-sm text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+        @if( $user_scripts_count <= 0 )
+            <section class="py-16 bg-gray-200">
+                <div class="text-center">
+                    <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" aria-hidden="true">
+                        <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                     </svg>
-                    Create Script
-                  </button>
-                  <button x-data x-on:click="$dispatch('openmodal-import')" type="button" class="inline-flex items-center px-3 py-2 ml-6 text-sm text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-ml-0.5 mr-1.5 h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
-                      </svg>
-                      
-                    Import  Scripts
-                  </button>
-                </div>
-              </div>
-              
-        </section>
+                    <h3 class="mt-2 text-sm font-semibold text-gray-900">No scripts</h3>
+                    <p class="mt-1 text-sm text-gray-500">Get started by creating a new scripts.</p>
+                    <div class="mt-6">
+                        <button x-data wire:click="$emit('createScript')" type="button"
+                            class="inline-flex btn-primary">
+                            <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path
+                                    d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                            </svg>
+                            Create Script
+                        </button>
+                        <button x-data="{ scripts: {{ $user_scripts_count }} }"
+                            x-init=""
+                            x-on:click="$dispatch('openmodal-import')" type="button"
+                            class="inline-flex ml-4 btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="-ml-0.5 mr-1.5 h-5 w-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                            </svg>
 
-        <x-modal-sm ref="import">
-            @livewire('scripts.import-scripts')
-        </x-modal-sm>
+                            Import Scripts
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <x-modal-xl ref="import">
+                @livewire('scripts.import-scripts')
+            </x-modal-xl>
         @endif
     </div>
-    
-    
+
+
 </div>
-
-@push('scripts')
-
-@endpush
-
 

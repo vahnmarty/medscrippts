@@ -14,6 +14,8 @@ use Filament\Forms\Concerns\InteractsWithForms;
 class ImportScripts extends Component implements HasForms
 {
     use InteractsWithForms;
+
+    protected $listeners = [ 'importScripts' => 'import'];
     
     public function render()
     {
@@ -25,6 +27,8 @@ class ImportScripts extends Component implements HasForms
         $this->form->fill([
             'categories' => Category::get()->pluck('id')->toArray()
         ]);
+
+        //$this->import();
     }
 
     protected function getFormSchema()
@@ -42,12 +46,12 @@ class ImportScripts extends Component implements HasForms
         $data = $this->form->getState();
         $selected = $data['categories'];
 
-        $categories = Category::whereIn('id', $selected)->with('scripts')->get();
+        $categories = Category::whereIn('id', $selected)->with('masterScripts')->get();
 
         # Import Scripts
         foreach($categories as $category)
         {
-            foreach($category->scripts as $script)
+            foreach($category->masterScripts as $script)
             {
                 $clone = $script->replicate(); 
                 $clone->user_id = auth()->id();

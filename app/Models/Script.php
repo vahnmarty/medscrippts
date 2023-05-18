@@ -12,6 +12,10 @@ class Script extends Model
 
     protected $guarded  = [];
 
+    protected $casts = [
+        'viewed_at' => 'datetime'
+    ];
+
     public function links(): MorphMany
     {
         return $this->morphMany(Link::class, 'linkable');
@@ -27,6 +31,16 @@ class Script extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function flashcards()
+    {
+        return $this->hasMany(FlashCard::class);
+    }
+
+    public function qbanks()
+    {
+        return $this->hasMany(QuestionBank::class);
+    }
+
     public function getNotes()
     {
         $string = '';
@@ -36,5 +50,12 @@ class Script extends Model
         $string.= ". pathophysiology: {$this->pathophysiology}; epidemiology: {$this->epidemiology}; signs and symptoms: {$this->signs}; diagnosis: {$this->diagnosis}; treatments: {$this->treatments}.";
 
         return $string;
+    }
+
+    public function getLinksString()
+    {
+        $array = $this->links()->pluck('url')->toArray();
+
+        return implode(', ', $array);
     }
 }

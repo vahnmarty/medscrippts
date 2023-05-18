@@ -16,6 +16,16 @@ class Category extends Model
         return $this->hasMany(Script::class);
     }
 
+    public function masterScripts()
+    {
+        return $this->hasMany(Script::class)->whereNull('user_id');
+    }
+
+    public function userScripts()
+    {
+        return $this->hasMany(Script::class)->where('user_id', auth()->id());
+    }
+
     public function questions()
     {
         return $this->hasMany(QuestionBank::class);

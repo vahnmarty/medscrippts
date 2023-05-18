@@ -21,7 +21,7 @@
         class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"></div>
 
     <div class="fixed inset-0 z-10 overflow-y-auto">
-        <div class="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
+        <div class="flex items-center justify-center w-full min-h-full p-4 text-center lg:items-center sm:items-center sm:p-0">
 
             <div x-show="isOpen" x-transition:enter="ease-out duration-300"
                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -30,7 +30,7 @@
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 x-on:click.away="isOpen = false"
-                {{ $attributes->merge(['class' => 'relative px-8 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-3xl sm:p-6']) }}>
+                {{ $attributes->merge(['class' => 'flex-1 relative px-8 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-3xl sm:p-6']) }}>
 
                 <div class="absolute right-5">
                     <button x-on:click="isOpen = false" type="button">
@@ -43,7 +43,7 @@
                     </button>
                 </div>
 
-                <div class="px-12">
+                <div class="px-2 lg:px-12">
                     {{ $slot }}
                 </div>
                 

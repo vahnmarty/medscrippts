@@ -29,6 +29,8 @@ class FlashCardRecords extends Component implements HasTable
     public function mount()
     {
         $this->max = 20;
+
+        $this->flash_cards = FlashCardRecord::where('user_id', Auth::id())->get();
     }
 
     protected function getTableQuery() 

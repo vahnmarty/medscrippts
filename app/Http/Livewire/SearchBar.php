@@ -24,14 +24,23 @@ class SearchBar extends Component
 
     public function search()
     {
-        $this->lists = Script::where('user_id', Auth::id())->orderBy('title')->get()->pluck('title')->toArray();
+        $this->lists = Script::where('user_id', Auth::id())
+            ->orderBy('title')
+            ->get()
+            ->pluck('title', 'id')
+            ->toArray();
         
     }
 
-    public function select($keyword)
+    public function select($id)
     {
-        $script = Script::where('title', $keyword)->first();
+        $script = Script::find($id);
 
-        $this->emit('setScript', $script?->id);
+        if(request()->is('scripts*')){
+            $this->emit('setScript', $script?->id);
+        }else{
+            return redirect('scripts?script_id=' . $script->id );
+        }
+        
     }
 }

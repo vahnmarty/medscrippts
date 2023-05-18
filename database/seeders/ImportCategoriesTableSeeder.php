@@ -57,7 +57,7 @@ class ImportCategoriesTableSeeder extends Seeder
                 $fileContents = file_get_contents($image_url);
                 $fileName = basename($image_url);
 
-                Storage::disk('public')->put('categories/'. $fileName, $fileContents);
+                Storage::disk('public')->put('categories/'. $fileName . '.jpg', $fileContents);
 
                 $category->image = 'categories/'. $fileName;
                 $category->save();

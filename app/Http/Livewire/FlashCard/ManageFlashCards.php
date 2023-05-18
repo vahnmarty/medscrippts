@@ -4,8 +4,12 @@ namespace App\Http\Livewire\FlashCard;
 
 use Auth;
 use Livewire\Component;
+use App\Models\Category;
 use App\Models\FlashCard;
+use App\Models\FlashCardRecord;
 use Filament\Tables\Actions\Action;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
@@ -13,11 +17,21 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
+use App\Http\Livewire\Traits\AgentLayoutTrait;
+use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 
-class ManageFlashCards extends Component implements HasTable
+class ManageFlashCards extends Component  implements HasForms
 {
-    use InteractsWithTable;
+    use InteractsWithForms;
+
+    public $flash_cards = [];
+
+    public $categories = [], $max = 20;
+
+    public $widget_decks = 0, $widget_generated = 0, $widget_reviewed = 0;
+
+    public $days = [], $line = [];
     
     public function render()
     {
@@ -26,54 +40,67 @@ class ManageFlashCards extends Component implements HasTable
 
     public function mount()
     {
+        $this->flash_cards = FlashCardRecord::withCount('items')->where('user_id', auth()->id())->get();
+
+        $this->getWidgets();
+
+        $this->getChartInsight();
+    }
+
+    public function getWidgets()
+    {
+        $this->widget_decks = count($this->flash_cards);
+        $this->widget_generated = FlashCard::where('user_id', auth()->id())->count();
+        $this->widget_reviewed = FlashCardRecord::where('user_id', auth()->id())->sum('reviewed');
+    }
+
+    public function getChartInsight()
+    {
+        $today = date('Y-m-d');
+
+        $data = [];
+        $days = [];
         
+        // Loop through the last 7 days
+        for ($i = 6; $i >= 0; $i--) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $data[] = FlashCardRecord::where('user_id', auth()->id())->whereDate('created_at', $date)->count();
+            $days[] = date('D`d', strtotime("-$i days"));
+
+
+        }
+
+
+        $this->days = $days;
+        $this->data = $data;
+
     }
 
-    protected function getTableQuery() 
-    {
-        return FlashCard::where('user_id', Auth::id());
-    } 
-
-    protected function getTableHeaderActions()
+    public function getFormSchema()
     {
         return [
-            CreateAction::make()
-                ->form([
-                    TextInput::make('max')->numeric()->required()
-                ])
-                ->action(function(array $data){
-                    dd($data);
-                    
-                })
-            ];
-    }
-
-    protected function getTableColumns(): array 
-    {
-        return [
-            TextColumn::make('created_at')->label('Date Created')->dateTime('m/d/Y'),
-            TextColumn::make('script.title'),
-            TextColumn::make('question')
-                ->label('Content')
-                ->description(fn (FlashCard $record): string => $record->answer)->wrap()
+            Select::make('categories')
+                ->required()
+                ->multiple()
+                ->options(Category::has('flashcards')->get()->pluck('name', 'id')),
+            TextInput::make('max')
+                ->maxValue(30)
+                ->minValue(5)
+                ->numeric()
+                ->required()
         ];
     }
 
-    protected function getTableActions()
+    public function save()
     {
-        return [
-            ActionGroup::make([
-                EditAction::make()
-                    ->button(),
-                DeleteAction::make()
-                    ->button(),
-            ])
-           
-            // Action::make('retake')
-            //      ->url(fn (FlashCard $record): string => route('flashcard.play', $record->id))
-            //      ->color('primary')
-            //     ->button()
-        ];
+        $data = $this->form->getState();
+        
+        $record = FlashCardRecord::create(['user_id' => Auth::id()]);
+        $record->categories()->attach($data['categories']);
+        $ids = FlashCard::whereIn('category_id', $data['categories'])->inRandomOrder()->limit($data['max'])->pluck('id')->toArray();
+        $record->items()->attach($ids);
+
+        return redirect()->route('flashcard.play', $record->id);
     }
     
 }

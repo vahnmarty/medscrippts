@@ -6,11 +6,17 @@
         <section>
             
             <div class="flex items-center justify-end gap-6">
-                @if(Auth::user()->subscribed('default'))
+                @if(Auth::user()->hasSubscribed())
                 <div>
-                    <p class="px-3 py-1 text-xs text-indigo-600 rounded-full bg-indigo-600/10">
-                        Standard
+                    @if(Auth::user()->subscribed_lifetime)
+                    <p class="flex px-3 py-1 text-xs text-yellow-900 bg-yellow-400 rounded-full">
+                        <x-heroicon-s-lightning-bolt class="w-4 h-4 mr-2 text-yellow-900"/> Lifetime Access
                     </p>
+                    @else
+                    <p class="px-3 py-1 text-xs text-indigo-600 rounded-full bg-indigo-600/10">
+                        {{ Auth()->user()->subscription()?->name ?? 'Standard Plan'}}
+                    </p>
+                    @endif
                 </div>
                 @endif
                 <x-dropdown>
@@ -19,7 +25,7 @@
                             <x-heroicon-s-bell class="w-5 h-5 mt-1 text-darkgreen"/>
                         </button>
                     </x-slot>
-                    <div class="p-8 w-96">
+                    <div class="p-8 w-72 lg:w-96">
                         <h3 class="font-bold text-darkgreen">Notifications</h3>
 
                         <p class="mt-4 text-sm font-normal text-gray-600">You have no new notifications.</p>
@@ -40,6 +46,16 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile Settings') }}
                             </x-dropdown-link>
+
+                            <!-- Billing -->
+                            <x-dropdown-link href="{{ url('billing-portal') }}">
+                                {{ __('Billing') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="https://docs.medscrippts.com" target="_blank">
+                                {{ __('Documentation') }}
+                            </x-dropdown-link>
+
                             @if(null)
                              <!-- Team Management -->
                              <div class="block px-4 py-2 text-xs text-gray-400">

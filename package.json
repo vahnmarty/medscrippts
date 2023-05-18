@@ -17,6 +17,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@editorjs/editorjs": "^2.26.5",
         "@splidejs/splide": "^4.1.4",
         "swiper": "^9.1.1"
     }

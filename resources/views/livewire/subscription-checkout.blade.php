@@ -1,7 +1,17 @@
 <div class="min-h-screen px-6 py-16 bg-gray-100">
     <div class="max-w-4xl mx-auto">
-        <div class="text-center">
+        <div class="flex justify-between text-center">
+            <div></div>
             <h1 class="text-3xl font-bold text-primary">Subscription</h1>
+            <div class="self-end">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 underline group hover:bg-gray-200">
+                        <x-heroicon-s-logout  class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500"/>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
         </div>
         <section class="mt-16">
             <div class="grid grid-cols-1 gap-3 mx-auto mt-10 isolate lg:mx-0 sm:grid-cols-2 lg:gap-8">

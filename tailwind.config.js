@@ -14,7 +14,8 @@ module.exports = {
         'line-through',
         'blur-sm',
         'bg-red',
-        'bg-green'
+        'bg-green',
+        'bg-primary'
     ],
 
     theme: {
@@ -37,9 +38,21 @@ module.exports = {
             indigo: colors.indigo,
             yellow: colors.yellow,
             danger: colors.rose,
-            primary: colors.emerald,
+            primary: {
+                50: '#2F5662',
+            100: '#2F5662',
+            200: '#2F5662',
+            300: '#2F5662',
+            400: '#2F5662',
+            500: '#2F5662',
+            600: '#2F5662',
+            700: '#2F5662',
+            800: '#2F5662',
+            900: '#2F5662',
+            },
             success: colors.green,
             warning: colors.yellow,
+            pink: colors.pink,
             darkgreen: '#2F5662'
         }
     },

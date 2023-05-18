@@ -22,7 +22,7 @@ class PlayFlashCard extends Component
     public function mount($id)
     {
         $this->flash_card_record_id = $id;
-        $flashCard = FlashCardRecord::with('items')->findOrFail($id);
+        $flashCard = FlashCardRecord::with('items.script.category')->findOrFail($id);
 
         $this->results = $flashCard->items;
     }

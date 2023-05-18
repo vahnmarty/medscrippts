@@ -27,7 +27,7 @@ class SubscriptionCheckout extends Component
 
     public function mount()
     {
-        if(Auth::user()->subscribed()){
+        if(Auth::user()->hasSubscribed()){
             return redirect('billing-portal');
         }   
     }
