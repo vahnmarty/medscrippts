@@ -25,7 +25,7 @@ class ScriptResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
-                Forms\Components\Select::make('category_id')->options(Category::get()->pluck('name', 'id'))->required(),
+                Forms\Components\Select::make('category_id')->label('Category')->options(Category::get()->pluck('name', 'id'))->required(),
                 Forms\Components\Textarea::make('pathophysiology')->required()->columnSpan('full')->rows(3),
                 Forms\Components\Textarea::make('epidemiology')->required()->columnSpan('full')->rows(3),
                 Forms\Components\Textarea::make('signs')->required()->columnSpan('full')->rows(3),

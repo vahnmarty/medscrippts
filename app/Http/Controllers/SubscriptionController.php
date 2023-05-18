@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
         if(Auth::user()->subscribed()){
             return redirect('billing-portal');
         }
-        
+
         $plans = Plan::active()->fromEnv()->get();
 
         return view('subscription.start', compact('plans', 'request'));
@@ -61,7 +61,7 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('subscription.intent', [
             'intent' => Auth::user()->createSetupIntent()
@@ -85,5 +85,23 @@ class SubscriptionController extends Controller
             'success' => true,
             'message' => 'Successfully subscribed'
         ], 200);
+    }
+
+    public function checkout(Request $request, $stripePriceId)
+    {
+        $plan = Plan::where('stripe_plan', $stripePriceId)->firstOrFail();
+
+        if($plan->per){
+            return $request->user()
+                ->newSubscription('default', $plan->stripe_plan)
+                ->allowPromotionCodes()
+                ->checkout([
+                    'success_url' => route('home'),
+                    'cancel_url' => route('subscription.start', ['checkout' => 'cancelled']),
+                ]);
+            
+        }
+
+        return $request->user()->checkout($stripePriceId);
     }
 }

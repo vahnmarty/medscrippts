@@ -2,8 +2,17 @@
 
     <div class="min-h-screen py-16 bg-gray-100">
         <div class="max-w-2xl mx-auto">
-            <div class="text-center">
+            <div class="flex justify-between">
                 <h1 class="text-3xl font-bold text-primary">Select Plan</h1>
+                <div class="self-end">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 underline group hover:bg-gray-200">
+                            <x-heroicon-s-logout  class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500"/>
+                            <span>Logout</span>
+                        </button>
+                    </form>
+                </div>
             </div>
 
             <div>
