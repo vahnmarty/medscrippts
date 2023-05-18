@@ -73,8 +73,18 @@ class HomeScripts extends Component
 
         $this->user_scripts_count = Script::where('user_id', auth()->id())->count();
 
+        if($this->user_scripts_count <=0)
+        {
+            return redirect('dashboard');
+        }
+
         $this->settings = $this->getSettings();
         $this->categories = $this->getCategories();
+    }
+
+    public function import()
+    {
+        //$this->dispatchBrowserEvent('openmodal-import');
     }
 
     public function getScripts()

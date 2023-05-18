@@ -13,7 +13,14 @@ class DashboardController extends Controller
     {
         if(Auth::user()->hasSubscribed())
         {
-            return redirect('scripts');
+            $scripts = Script::where('user_id', auth()->id())->count();
+
+            if($scripts){
+                return redirect('scripts');
+            }
+
+            return redirect('scripts/import');
+            
         }else{
             return redirect('subscription');
         }

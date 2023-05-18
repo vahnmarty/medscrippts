@@ -14,6 +14,8 @@ use Filament\Forms\Concerns\InteractsWithForms;
 class ImportScripts extends Component implements HasForms
 {
     use InteractsWithForms;
+
+    protected $listeners = [ 'importScripts' => 'import'];
     
     public function render()
     {
@@ -25,6 +27,8 @@ class ImportScripts extends Component implements HasForms
         $this->form->fill([
             'categories' => Category::get()->pluck('id')->toArray()
         ]);
+
+        //$this->import();
     }
 
     protected function getFormSchema()

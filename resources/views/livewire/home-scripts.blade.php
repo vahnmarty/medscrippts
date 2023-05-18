@@ -1,5 +1,4 @@
 <div>
-
     <x-modal-lg ref="categories">
         <div>
             <div>
@@ -45,9 +44,7 @@
 
     @endif
 
-    <div class="px-2 py-6 bg-gray-100 lg:py-12 lg:px-16">
-
-        
+    <div class="px-2 py-6 bg-gray-100 lg:py-12 lg:px-16">        
 
         @if (count($scripts))
             <section>
@@ -160,7 +157,9 @@
                             </svg>
                             Create Script
                         </button>
-                        <button x-data x-on:click="$dispatch('openmodal-import')" type="button"
+                        <button x-data="{ scripts: {{ $user_scripts_count }} }"
+                            x-init=""
+                            x-on:click="$dispatch('openmodal-import')" type="button"
                             class="inline-flex ml-4 btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="-ml-0.5 mr-1.5 h-5 w-5">
@@ -175,9 +174,9 @@
 
             </section>
 
-            <x-modal-sm ref="import">
+            <x-modal-xl ref="import">
                 @livewire('scripts.import-scripts')
-            </x-modal-sm>
+            </x-modal-xl>
         @endif
     </div>
 

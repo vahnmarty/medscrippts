@@ -29,6 +29,7 @@ use App\Http\Livewire\Courses\CoursePlayer;
 use App\Http\Livewire\Courses\CreateCourse;
 use App\Http\Livewire\SubscriptionCheckout;
 use App\Http\Livewire\Courses\ManageCourses;
+use App\Http\Livewire\Scripts\ImportScripts;
 use App\Http\Controllers\DashboardController;
 use App\Http\Livewire\Courses\CourseContents;
 use App\Http\Livewire\Pathway\ManagePathways;
@@ -94,6 +95,7 @@ Route::group(['middleware' => ['auth']], function(){
 Route::group(['middleware' => ['auth', 'subscribed']], function(){
 
     Route::get('scripts', HomeScripts::class)->name('home');
+    Route::get('scripts/import', ImportScripts::class)->name('scripts.import');
     Route::get('scripts/web', WebScripts::class)->name('scripts.web');
     Route::get('scripts/create', CrudScript::class);
     Route::get('/category/{id}/{slug?}', ViewCategory::class)->name('category.show');
