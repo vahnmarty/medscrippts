@@ -102,6 +102,8 @@ class SubscriptionController extends Controller
             
         }
 
-        return $request->user()->checkout($stripePriceId);
+        return $request->user()
+            ->allowPromotionCodes()
+            ->checkout($stripePriceId);
     }
 }
