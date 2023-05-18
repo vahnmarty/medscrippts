@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ScriptResource\Pages;
-use App\Filament\Resources\ScriptResource\RelationManagers;
-use App\Models\Script;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Script;
+use App\Models\Category;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ScriptResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ScriptResource\RelationManagers;
 
 class ScriptResource extends Resource
 {
@@ -24,6 +25,7 @@ class ScriptResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
+                Forms\Components\Select::make('category_id')->options(Category::get()->pluck('name', 'id'))->required(),
                 Forms\Components\Textarea::make('pathophysiology')->required()->columnSpan('full')->rows(3),
                 Forms\Components\Textarea::make('epidemiology')->required()->columnSpan('full')->rows(3),
                 Forms\Components\Textarea::make('signs')->required()->columnSpan('full')->rows(3),
