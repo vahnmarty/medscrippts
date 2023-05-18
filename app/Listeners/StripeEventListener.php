@@ -24,20 +24,17 @@ class StripeEventListener
     public function handle(WebhookReceived $event): void
     {
         if ($event->payload['type'] === 'checkout.session.completed') {
+
+            Log::info($event->payload['data']);
             
             try {
                 $data = $event->payload['data'];
                 $customer = $data['object']['customer'];
 
-                Log::info('Customer: ' . $customer);
-
                 $user = User::where('stripe_id', $customer)->first();
-
-                Log::info('User: ' . $user->id);
-
-                $user->newSubscription('default', 'price_monthly');
-
-                Log::info('Subscription! default');
+                $user->subscribed_lifetime = true;
+                $user->stripe_webhook = json_encode($data);
+                $user->save();
 
             
             } catch (\Throwable $th) {

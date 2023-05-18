@@ -11,8 +11,8 @@ class SubscriptionController extends Controller
 {
     public function start(Request $request)
     {
-        if(Auth::user()->subscribed()){
-            return redirect('billing-portal');
+        if(Auth::user()->hasSubscribed()){
+            return redirect()->route('home');
         }
 
         $plans = Plan::active()->fromEnv()->get();

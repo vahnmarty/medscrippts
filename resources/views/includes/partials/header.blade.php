@@ -6,11 +6,17 @@
         <section>
             
             <div class="flex items-center justify-end gap-6">
-                @if(Auth::user()->subscribed())
+                @if(Auth::user()->hasSubscribed())
                 <div>
-                    <p class="px-3 py-1 text-xs text-indigo-600 rounded-full bg-indigo-600/10">
-                        {{ Auth()->user()->subscription()->name }}
+                    @if(Auth::user()->subscribed_lifetime)
+                    <p class="flex px-3 py-1 text-xs text-yellow-900 bg-yellow-400 rounded-full">
+                        <x-heroicon-s-lightning-bolt class="w-4 h-4 mr-2 text-yellow-900"/> Lifetime Access
                     </p>
+                    @else
+                    <p class="px-3 py-1 text-xs text-indigo-600 rounded-full bg-indigo-600/10">
+                        {{ Auth()->user()->subscription()?->name ?? 'Standard Plan'}}
+                    </p>
+                    @endif
                 </div>
                 @endif
                 <x-dropdown>

@@ -110,4 +110,9 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasRole('admin');
     }
 
+    public function hasSubscribed()
+    {
+        return $this->subscribed('default') || $this->subscribed_lifetime;
+    }
+
 }
